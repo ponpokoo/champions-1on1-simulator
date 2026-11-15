@@ -78,7 +78,7 @@
 
 ## 動作要件
 
-- エンジン： Cコンパイラ（gcc想定）と libm のみ。Linux / macOS。
+- エンジン： Cコンパイラ（gcc想定）と libm のみ。Linux / macOS / Windows（MinGW）で動作する。Windows では MinGW gcc でのビルドと、検証マトリクスの MD5 が Linux と一致することまで確認済み。
 - 学習パイプライン： Python 3 + NumPy + PyTorch（GPU推奨。GPUがない環境では Colab / Modal の利用を想定）。
 
 ## クイックスタート
