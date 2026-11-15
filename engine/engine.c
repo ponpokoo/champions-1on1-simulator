@@ -13,7 +13,7 @@
 //   moves: BP BD EQ SCL SB MS AGI CP ID PRO PU REST SF ST SUB TRK PN
 //          AA SP PC SE BUL RND BSW PSH RS IH ZH SN RT IW PSY FC MM TB HA
 //          IP TP BSL SLB SWG FAC
-//   policy: mirror noise fast stall generic obsdemo obsh2 learned obsdemo2 obsh3; mega: 0/1
+//   policy: mirror noise fast stall generic obsdemo obsh2 learned obsdemo2 obsh3 learned2; mega: 0/1
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -209,8 +209,8 @@ static int move_from_code(const char *s) {
 }
 
 // ---------- Battler ----------
-enum { POL_MIRROR, POL_NOISE, POL_FAST, POL_STALL, POL_GENERIC, POL_OBSDEMO, POL_OBSH2, POL_LEARNED, POL_OBSDEMO2, POL_OBSH3 };
-static int is_v2_policy(int policy) { return policy==POL_OBSDEMO2 || policy==POL_OBSH3; }
+enum { POL_MIRROR, POL_NOISE, POL_FAST, POL_STALL, POL_GENERIC, POL_OBSDEMO, POL_OBSH2, POL_LEARNED, POL_OBSDEMO2, POL_OBSH3, POL_LEARNED2 };
+static int is_v2_policy(int policy) { return policy==POL_OBSDEMO2 || policy==POL_OBSH3 || policy==POL_LEARNED2; }
 static int is_observable_policy(int policy) { return policy==POL_OBSDEMO || policy==POL_OBSH2 || policy==POL_LEARNED || is_v2_policy(policy); }
 enum { AB_NONE, AB_CB, AB_LM };   // abilities: none / Clear Body / Light Metal (Mega = Tough Claws via the mega flag)
 enum { ITEM_NONE, ITEM_HELMET, ITEM_STONE,
@@ -1024,6 +1024,8 @@ static int obsdemo2(const Observation2 *o,const ActionMask *mask) {
 static int obsh3(const Observation2 *o,const ActionMask *mask);
 typedef int (*ObservablePolicy2)(const Observation2 *,const ActionMask *);
 static ObservablePolicy2 observable_policy2=obsdemo2;
+static int learned2(const Observation2 *o,const ActionMask *mask);
+static ObservablePolicy2 learned2_policy=learned2;
 static void obs2_attach(Mon *a,Mon *b,int profile) {
     memset(&OBS_STORAGE,0,sizeof(OBS_STORAGE)); OBS=&OBS_STORAGE;
     OBS->seat[0]=a; OBS->seat[1]=b; OBS->profile=profile; OBS->version=2; OBS->turn=1;
@@ -2092,6 +2094,7 @@ static int obsh3(const Observation2 *o,const ActionMask *mask) {
 }
 
 #include "stage3/policy.h"
+#include "campaign3/policy.h"
 
 // ---------- Policies (ported from mirror_sim5.py choose()) ----------
 static int choose_move(Mon *me, Mon *foe) {
@@ -2171,10 +2174,10 @@ static int battle(Mon *A, Mon *B, Rng *r, int *turns_out) {
     int enabled=observable || (OBS_FORCE>=0 ? OBS_FORCE : getenv("ENGINE_OBSERVER")!=NULL);
     OBS=NULL;
     if(enabled && SEQ_MODE) { fprintf(stderr,"observer/obsdemo requires simultaneous selection; ENGINE_SEQ is unsupported\n"); exit(2); }
-    if(version2 && (!obs2_vocabulary(A,B) ||
+    if((version2 || obs2_vocabulary(A,B)) && (
        (is_observable_policy(A->policy) && !is_v2_policy(A->policy)) ||
        (is_observable_policy(B->policy) && !is_v2_policy(B->policy)))) {
-        fprintf(stderr,"MGO2 requires a 68-move-profile battle; MGO1/g12 and v2 pilots cannot mix\n"); exit(2);
+        fprintf(stderr,"MGO1/g12 requires original 17-move vocabulary and cannot mix with MGO2/v2 pilots\n"); exit(2);
     }
     if(enabled) {
         int profile=OBS_PROFILE ? OBS_PROFILE : (getenv("ENGINE_OBS_COMPAT") ? OBS_COMPAT : OBS_REGULAR);
@@ -2251,7 +2254,7 @@ static int battle(Mon *A, Mon *B, Rng *r, int *turns_out) {
         int choice[2];
         for (int i = 0; i < 2; i++) {
             int policy=mons[i]->policy;
-            if(is_v2_policy(policy)) choice[i]=obs_checked_action((policy==POL_OBSH3?obsh3:observable_policy2)(&frozen2[i],&masks[i]),&masks[i]);
+            if(is_v2_policy(policy)) choice[i]=obs_checked_action((policy==POL_LEARNED2?learned2_policy:policy==POL_OBSH3?obsh3:observable_policy2)(&frozen2[i],&masks[i]),&masks[i]);
             else if(is_observable_policy(policy)) choice[i]=obs_checked_action((policy==POL_LEARNED?learned_policy:policy==POL_OBSH2?obsh2:observable_policy)(&frozen[i],&masks[i]),&masks[i]);
             else choice[i]=choose_move(mons[i],mons[1-i]);
         }
@@ -2493,6 +2496,7 @@ static int parse_policy(const char *s) {
     if (!strcmp(s, "learned")) return POL_LEARNED;
     if (!strcmp(s, "obsdemo2")) return POL_OBSDEMO2;
     if (!strcmp(s, "obsh3")) return POL_OBSH3;
+    if (!strcmp(s, "learned2")) return POL_LEARNED2;
     return POL_MIRROR;
 }
 static int parse_item(const char *s) {
@@ -2604,6 +2608,7 @@ static const char *SPEC_ORIG    = "187,165,211,112,142,130|ID,BP,EQ,REST|mirror|
 int main(int argc, char **argv) {
     if (argc == 2 && !strcmp(argv[1], "policy-version")) {
         printf("schema=%s encoder=%s weights_sha256=%s\n",LEARNED_SCHEMA,LEARNED_ENCODER,LEARNED_SHA256);
+        printf("policy=learned2 schema=%s encoder=%s weights_sha256=%s\n",LEARNED2_SCHEMA,LEARNED2_ENCODER,LEARNED2_SHA256);
         return 0;
     }
     if (argc >= 2 && !strcmp(argv[1], "trace") && argc == 5) {
