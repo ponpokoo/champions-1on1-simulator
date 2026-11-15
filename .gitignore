@@ -1,0 +1,7 @@
+engine/engine
+*.o
+__pycache__/
+*.pyc
+*.log
+*.mgt
+*.mgt.gz

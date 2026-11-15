@@ -1,0 +1,5917 @@
+{
+ "meta": {
+  "population": "run2 finals: 168 finalists, round-robin x300, learned policy (g12) both sides",
+  "matrix_md5_convention": "scores are W/(W+L+D); mirror excluded from averages",
+  "weights_sha256": "858500f293781166afee3fbb3b30eb012676b7c537c1f00ff47618fa462f6928"
+ },
+ "data": {
+  "meta_info": {
+   "source": "run2 finals (learned pilot g12, both sides), 168 finalists, RR x300",
+   "beginner_pool": "24 generated simple builds (attack-only, template spreads), each finalist x200 games, seed 20261901, score = W/(W+L+D)",
+   "groups": {
+    "beginner": {
+     "label": "初心者",
+     "size": 24,
+     "def": "生成した簡易型24種（攻撃技のみ・テンプレ配分・通常フォルム）"
+    },
+    "meta": {
+     "label": "メタ",
+     "size": 55,
+     "def": "最終候補のうち、同じ技構成のファミリーが4型以上いる多数派（上級者を除く）"
+    },
+    "original": {
+     "label": "オリジナル",
+     "size": 73,
+     "def": "最終候補のうち少数派の技構成の型（メタ・上級者を除く）"
+    },
+    "advanced": {
+     "label": "上級者",
+     "size": 40,
+     "def": "総当たり平均の上位20型＋1位の型に勝率60%以上で勝つ対策型"
+    }
+   }
+  },
+  "builds": [
+   {
+    "idx": 0,
+    "rank": 33,
+    "rr_avg": 0.598,
+    "stats": [
+     187,
+     165,
+     194,
+     144,
+     120,
+     130
+    ],
+    "moves": [
+     "BD",
+     "SB",
+     "REST",
+     "TRK"
+    ],
+    "moves_jp": [
+     "じならし",
+     "シャドーボール",
+     "ねむる",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "advanced",
+    "rate": {
+     "beginner": 0.8965,
+     "meta": 0.4969,
+     "original": 0.6152,
+     "advanced": 0.7082
+    }
+   },
+   {
+    "idx": 1,
+    "rank": 34,
+    "rr_avg": 0.5913,
+    "stats": [
+     187,
+     165,
+     190,
+     144,
+     122,
+     132
+    ],
+    "moves": [
+     "BD",
+     "SB",
+     "REST",
+     "TRK"
+    ],
+    "moves_jp": [
+     "じならし",
+     "シャドーボール",
+     "ねむる",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "advanced",
+    "rate": {
+     "beginner": 0.8612,
+     "meta": 0.483,
+     "original": 0.6189,
+     "advanced": 0.6924
+    }
+   },
+   {
+    "idx": 2,
+    "rank": 57,
+    "rr_avg": 0.5604,
+    "stats": [
+     187,
+     165,
+     190,
+     144,
+     120,
+     134
+    ],
+    "moves": [
+     "BD",
+     "SB",
+     "REST",
+     "TRK"
+    ],
+    "moves_jp": [
+     "じならし",
+     "シャドーボール",
+     "ねむる",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "advanced",
+    "rate": {
+     "beginner": 0.8956,
+     "meta": 0.4453,
+     "original": 0.5898,
+     "advanced": 0.6678
+    }
+   },
+   {
+    "idx": 3,
+    "rank": 29,
+    "rr_avg": 0.6044,
+    "stats": [
+     187,
+     165,
+     188,
+     144,
+     124,
+     132
+    ],
+    "moves": [
+     "BD",
+     "SB",
+     "REST",
+     "TRK"
+    ],
+    "moves_jp": [
+     "じならし",
+     "シャドーボール",
+     "ねむる",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "advanced",
+    "rate": {
+     "beginner": 0.8706,
+     "meta": 0.5027,
+     "original": 0.6282,
+     "advanced": 0.7033
+    }
+   },
+   {
+    "idx": 4,
+    "rank": 42,
+    "rr_avg": 0.5737,
+    "stats": [
+     185,
+     165,
+     190,
+     144,
+     124,
+     132
+    ],
+    "moves": [
+     "BD",
+     "SB",
+     "REST",
+     "TRK"
+    ],
+    "moves_jp": [
+     "じならし",
+     "シャドーボール",
+     "ねむる",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "advanced",
+    "rate": {
+     "beginner": 0.8481,
+     "meta": 0.4521,
+     "original": 0.5989,
+     "advanced": 0.6981
+    }
+   },
+   {
+    "idx": 5,
+    "rank": 26,
+    "rr_avg": 0.6154,
+    "stats": [
+     187,
+     165,
+     192,
+     144,
+     122,
+     130
+    ],
+    "moves": [
+     "BD",
+     "SB",
+     "REST",
+     "TRK"
+    ],
+    "moves_jp": [
+     "じならし",
+     "シャドーボール",
+     "ねむる",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "advanced",
+    "rate": {
+     "beginner": 0.8996,
+     "meta": 0.5094,
+     "original": 0.6337,
+     "advanced": 0.7308
+    }
+   },
+   {
+    "idx": 6,
+    "rank": 71,
+    "rr_avg": 0.5335,
+    "stats": [
+     187,
+     165,
+     190,
+     141,
+     124,
+     132
+    ],
+    "moves": [
+     "BD",
+     "SB",
+     "REST",
+     "TRK"
+    ],
+    "moves_jp": [
+     "じならし",
+     "シャドーボール",
+     "ねむる",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.8706,
+     "meta": 0.4278,
+     "original": 0.5541,
+     "advanced": 0.6388
+    }
+   },
+   {
+    "idx": 7,
+    "rank": 24,
+    "rr_avg": 0.6224,
+    "stats": [
+     187,
+     148,
+     190,
+     144,
+     138,
+     130
+    ],
+    "moves": [
+     "BD",
+     "SB",
+     "REST",
+     "TRK"
+    ],
+    "moves_jp": [
+     "じならし",
+     "シャドーボール",
+     "ねむる",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.8844,
+     "meta": 0.5448,
+     "original": 0.6102,
+     "advanced": 0.7496
+    }
+   },
+   {
+    "idx": 8,
+    "rank": 82,
+    "rr_avg": 0.4864,
+    "stats": [
+     186,
+     165,
+     198,
+     125,
+     119,
+     152
+    ],
+    "moves": [
+     "BD",
+     "EQ",
+     "SB",
+     "AGI"
+    ],
+    "moves_jp": [
+     "じならし",
+     "じしん",
+     "シャドーボール",
+     "こうそくいどう"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.8838,
+     "meta": 0.5811,
+     "original": 0.5408,
+     "advanced": 0.2592
+    }
+   },
+   {
+    "idx": 9,
+    "rank": 32,
+    "rr_avg": 0.5985,
+    "stats": [
+     185,
+     165,
+     192,
+     144,
+     124,
+     130
+    ],
+    "moves": [
+     "BD",
+     "SB",
+     "REST",
+     "TRK"
+    ],
+    "moves_jp": [
+     "じならし",
+     "シャドーボール",
+     "ねむる",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "advanced",
+    "rate": {
+     "beginner": 0.8844,
+     "meta": 0.4835,
+     "original": 0.6158,
+     "advanced": 0.7281
+    }
+   },
+   {
+    "idx": 10,
+    "rank": 23,
+    "rr_avg": 0.6245,
+    "stats": [
+     187,
+     165,
+     190,
+     144,
+     124,
+     130
+    ],
+    "moves": [
+     "BD",
+     "SB",
+     "REST",
+     "TRK"
+    ],
+    "moves_jp": [
+     "じならし",
+     "シャドーボール",
+     "ねむる",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "advanced",
+    "rate": {
+     "beginner": 0.8762,
+     "meta": 0.5228,
+     "original": 0.6363,
+     "advanced": 0.7458
+    }
+   },
+   {
+    "idx": 11,
+    "rank": 72,
+    "rr_avg": 0.5309,
+    "stats": [
+     183,
+     165,
+     190,
+     144,
+     124,
+     134
+    ],
+    "moves": [
+     "BD",
+     "SB",
+     "REST",
+     "TRK"
+    ],
+    "moves_jp": [
+     "じならし",
+     "シャドーボール",
+     "ねむる",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "advanced",
+    "rate": {
+     "beginner": 0.861,
+     "meta": 0.399,
+     "original": 0.5601,
+     "advanced": 0.6621
+    }
+   },
+   {
+    "idx": 12,
+    "rank": 60,
+    "rr_avg": 0.5471,
+    "stats": [
+     186,
+     165,
+     198,
+     125,
+     119,
+     152
+    ],
+    "moves": [
+     "BD",
+     "EQ",
+     "SB",
+     "SF"
+    ],
+    "moves_jp": [
+     "じならし",
+     "じしん",
+     "シャドーボール",
+     "こわいかお"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "advanced",
+    "rate": {
+     "beginner": 0.8746,
+     "meta": 0.582,
+     "original": 0.5308,
+     "advanced": 0.5286
+    }
+   },
+   {
+    "idx": 13,
+    "rank": 36,
+    "rr_avg": 0.5876,
+    "stats": [
+     187,
+     165,
+     186,
+     144,
+     124,
+     134
+    ],
+    "moves": [
+     "BD",
+     "SB",
+     "REST",
+     "TRK"
+    ],
+    "moves_jp": [
+     "じならし",
+     "シャドーボール",
+     "ねむる",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "advanced",
+    "rate": {
+     "beginner": 0.855,
+     "meta": 0.4822,
+     "original": 0.6202,
+     "advanced": 0.6753
+    }
+   },
+   {
+    "idx": 14,
+    "rank": 56,
+    "rr_avg": 0.5619,
+    "stats": [
+     183,
+     165,
+     194,
+     144,
+     124,
+     130
+    ],
+    "moves": [
+     "BD",
+     "SB",
+     "REST",
+     "TRK"
+    ],
+    "moves_jp": [
+     "じならし",
+     "シャドーボール",
+     "ねむる",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "advanced",
+    "rate": {
+     "beginner": 0.8702,
+     "meta": 0.4367,
+     "original": 0.5785,
+     "advanced": 0.7074
+    }
+   },
+   {
+    "idx": 15,
+    "rank": 83,
+    "rr_avg": 0.4697,
+    "stats": [
+     186,
+     165,
+     198,
+     125,
+     119,
+     152
+    ],
+    "moves": [
+     "BD",
+     "EQ",
+     "SB",
+     "REST"
+    ],
+    "moves_jp": [
+     "じならし",
+     "じしん",
+     "シャドーボール",
+     "ねむる"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.8792,
+     "meta": 0.567,
+     "original": 0.5283,
+     "advanced": 0.2317
+    }
+   },
+   {
+    "idx": 16,
+    "rank": 103,
+    "rr_avg": 0.4471,
+    "stats": [
+     186,
+     148,
+     198,
+     125,
+     133,
+     152
+    ],
+    "moves": [
+     "BD",
+     "SB",
+     "SF",
+     "TRK"
+    ],
+    "moves_jp": [
+     "じならし",
+     "シャドーボール",
+     "こわいかお",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.8508,
+     "meta": 0.5329,
+     "original": 0.4935,
+     "advanced": 0.2457
+    }
+   },
+   {
+    "idx": 17,
+    "rank": 58,
+    "rr_avg": 0.5533,
+    "stats": [
+     187,
+     167,
+     190,
+     141,
+     124,
+     130
+    ],
+    "moves": [
+     "BD",
+     "SB",
+     "REST",
+     "TRK"
+    ],
+    "moves_jp": [
+     "じならし",
+     "シャドーボール",
+     "ねむる",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.8673,
+     "meta": 0.4573,
+     "original": 0.5591,
+     "advanced": 0.6721
+    }
+   },
+   {
+    "idx": 18,
+    "rank": 1,
+    "rr_avg": 0.7761,
+    "stats": [
+     187,
+     165,
+     158,
+     132,
+     140,
+     155
+    ],
+    "moves": [
+     "BD",
+     "EQ",
+     "SB",
+     "SUB"
+    ],
+    "moves_jp": [
+     "じならし",
+     "じしん",
+     "シャドーボール",
+     "みがわり"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "advanced",
+    "rate": {
+     "beginner": 0.6637,
+     "meta": 0.8841,
+     "original": 0.8901,
+     "advanced": 0.4106
+    }
+   },
+   {
+    "idx": 19,
+    "rank": 35,
+    "rr_avg": 0.5912,
+    "stats": [
+     186,
+     165,
+     198,
+     112,
+     133,
+     152
+    ],
+    "moves": [
+     "BD",
+     "EQ",
+     "SB",
+     "AGI"
+    ],
+    "moves_jp": [
+     "じならし",
+     "じしん",
+     "シャドーボール",
+     "こうそくいどう"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.8812,
+     "meta": 0.7101,
+     "original": 0.6469,
+     "advanced": 0.3291
+    }
+   },
+   {
+    "idx": 20,
+    "rank": 27,
+    "rr_avg": 0.6136,
+    "stats": [
+     186,
+     181,
+     180,
+     125,
+     119,
+     152
+    ],
+    "moves": [
+     "BD",
+     "EQ",
+     "SB",
+     "SF"
+    ],
+    "moves_jp": [
+     "じならし",
+     "じしん",
+     "シャドーボール",
+     "こわいかお"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "advanced",
+    "rate": {
+     "beginner": 0.8562,
+     "meta": 0.6368,
+     "original": 0.6653,
+     "advanced": 0.4838
+    }
+   },
+   {
+    "idx": 21,
+    "rank": 49,
+    "rr_avg": 0.5717,
+    "stats": [
+     186,
+     165,
+     198,
+     112,
+     133,
+     152
+    ],
+    "moves": [
+     "BD",
+     "EQ",
+     "SB",
+     "PRO"
+    ],
+    "moves_jp": [
+     "じならし",
+     "じしん",
+     "シャドーボール",
+     "まもる"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.8683,
+     "meta": 0.6988,
+     "original": 0.6349,
+     "advanced": 0.2848
+    }
+   },
+   {
+    "idx": 22,
+    "rank": 18,
+    "rr_avg": 0.6457,
+    "stats": [
+     187,
+     165,
+     188,
+     144,
+     126,
+     130
+    ],
+    "moves": [
+     "BD",
+     "SB",
+     "REST",
+     "TRK"
+    ],
+    "moves_jp": [
+     "じならし",
+     "シャドーボール",
+     "ねむる",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "advanced",
+    "rate": {
+     "beginner": 0.87,
+     "meta": 0.5591,
+     "original": 0.6584,
+     "advanced": 0.7444
+    }
+   },
+   {
+    "idx": 23,
+    "rank": 6,
+    "rr_avg": 0.7113,
+    "stats": [
+     187,
+     181,
+     184,
+     125,
+     122,
+     144
+    ],
+    "moves": [
+     "BD",
+     "EQ",
+     "SB",
+     "MS"
+    ],
+    "moves_jp": [
+     "じならし",
+     "じしん",
+     "シャドーボール",
+     "どろかけ"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "advanced",
+    "rate": {
+     "beginner": 0.8817,
+     "meta": 0.6804,
+     "original": 0.7746,
+     "advanced": 0.6362
+    }
+   },
+   {
+    "idx": 24,
+    "rank": 59,
+    "rr_avg": 0.5508,
+    "stats": [
+     187,
+     151,
+     190,
+     140,
+     138,
+     130
+    ],
+    "moves": [
+     "BD",
+     "SB",
+     "REST",
+     "TRK"
+    ],
+    "moves_jp": [
+     "じならし",
+     "シャドーボール",
+     "ねむる",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.8688,
+     "meta": 0.4638,
+     "original": 0.5472,
+     "advanced": 0.6749
+    }
+   },
+   {
+    "idx": 25,
+    "rank": 48,
+    "rr_avg": 0.5725,
+    "stats": [
+     186,
+     165,
+     198,
+     112,
+     133,
+     152
+    ],
+    "moves": [
+     "EQ",
+     "SCL",
+     "SB",
+     "SF"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドークロー",
+     "シャドーボール",
+     "こわいかお"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.8769,
+     "meta": 0.6918,
+     "original": 0.641,
+     "advanced": 0.2852
+    }
+   },
+   {
+    "idx": 26,
+    "rank": 75,
+    "rr_avg": 0.5111,
+    "stats": [
+     187,
+     148,
+     195,
+     137,
+     139,
+     130
+    ],
+    "moves": [
+     "BD",
+     "SB",
+     "PU",
+     "TRK"
+    ],
+    "moves_jp": [
+     "じならし",
+     "シャドーボール",
+     "サイコアップ",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.8827,
+     "meta": 0.4744,
+     "original": 0.5049,
+     "advanced": 0.5728
+    }
+   },
+   {
+    "idx": 27,
+    "rank": 43,
+    "rr_avg": 0.5734,
+    "stats": [
+     186,
+     165,
+     198,
+     112,
+     133,
+     152
+    ],
+    "moves": [
+     "EQ",
+     "SB",
+     "PRO",
+     "SF"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドーボール",
+     "まもる",
+     "こわいかお"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.8479,
+     "meta": 0.693,
+     "original": 0.6442,
+     "advanced": 0.2817
+    }
+   },
+   {
+    "idx": 28,
+    "rank": 17,
+    "rr_avg": 0.6607,
+    "stats": [
+     186,
+     165,
+     198,
+     112,
+     133,
+     152
+    ],
+    "moves": [
+     "BD",
+     "EQ",
+     "SB",
+     "SF"
+    ],
+    "moves_jp": [
+     "じならし",
+     "じしん",
+     "シャドーボール",
+     "こわいかお"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "advanced",
+    "rate": {
+     "beginner": 0.8744,
+     "meta": 0.7253,
+     "original": 0.6548,
+     "advanced": 0.5806
+    }
+   },
+   {
+    "idx": 29,
+    "rank": 156,
+    "rr_avg": 0.3832,
+    "stats": [
+     186,
+     165,
+     198,
+     125,
+     119,
+     152
+    ],
+    "moves": [
+     "BD",
+     "SB",
+     "SF",
+     "TRK"
+    ],
+    "moves_jp": [
+     "じならし",
+     "シャドーボール",
+     "こわいかお",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.8298,
+     "meta": 0.4382,
+     "original": 0.4393,
+     "advanced": 0.2066
+    }
+   },
+   {
+    "idx": 30,
+    "rank": 52,
+    "rr_avg": 0.5707,
+    "stats": [
+     186,
+     165,
+     198,
+     112,
+     133,
+     152
+    ],
+    "moves": [
+     "EQ",
+     "SB",
+     "REST",
+     "TRK"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドーボール",
+     "ねむる",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.8485,
+     "meta": 0.6883,
+     "original": 0.6382,
+     "advanced": 0.2877
+    }
+   },
+   {
+    "idx": 31,
+    "rank": 41,
+    "rr_avg": 0.5741,
+    "stats": [
+     186,
+     165,
+     198,
+     112,
+     133,
+     152
+    ],
+    "moves": [
+     "EQ",
+     "SB",
+     "AGI",
+     "PU"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドーボール",
+     "こうそくいどう",
+     "サイコアップ"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.851,
+     "meta": 0.6899,
+     "original": 0.6438,
+     "advanced": 0.2894
+    }
+   },
+   {
+    "idx": 32,
+    "rank": 11,
+    "rr_avg": 0.6934,
+    "stats": [
+     186,
+     165,
+     180,
+     125,
+     131,
+     154
+    ],
+    "moves": [
+     "BD",
+     "EQ",
+     "SB",
+     "REST"
+    ],
+    "moves_jp": [
+     "じならし",
+     "じしん",
+     "シャドーボール",
+     "ねむる"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "advanced",
+    "rate": {
+     "beginner": 0.7569,
+     "meta": 0.7695,
+     "original": 0.8122,
+     "advanced": 0.3639
+    }
+   },
+   {
+    "idx": 33,
+    "rank": 78,
+    "rr_avg": 0.4962,
+    "stats": [
+     187,
+     169,
+     190,
+     139,
+     124,
+     130
+    ],
+    "moves": [
+     "BD",
+     "SB",
+     "REST",
+     "TRK"
+    ],
+    "moves_jp": [
+     "じならし",
+     "シャドーボール",
+     "ねむる",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.8573,
+     "meta": 0.3975,
+     "original": 0.4961,
+     "advanced": 0.6297
+    }
+   },
+   {
+    "idx": 34,
+    "rank": 37,
+    "rr_avg": 0.5854,
+    "stats": [
+     187,
+     165,
+     202,
+     125,
+     122,
+     144
+    ],
+    "moves": [
+     "BD",
+     "EQ",
+     "SB",
+     "MS"
+    ],
+    "moves_jp": [
+     "じならし",
+     "じしん",
+     "シャドーボール",
+     "どろかけ"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "advanced",
+    "rate": {
+     "beginner": 0.8631,
+     "meta": 0.5971,
+     "original": 0.5564,
+     "advanced": 0.6234
+    }
+   },
+   {
+    "idx": 35,
+    "rank": 91,
+    "rr_avg": 0.462,
+    "stats": [
+     186,
+     165,
+     198,
+     125,
+     119,
+     152
+    ],
+    "moves": [
+     "BD",
+     "EQ",
+     "SB",
+     "PRO"
+    ],
+    "moves_jp": [
+     "じならし",
+     "じしん",
+     "シャドーボール",
+     "まもる"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.8788,
+     "meta": 0.5582,
+     "original": 0.53,
+     "advanced": 0.2081
+    }
+   },
+   {
+    "idx": 36,
+    "rank": 77,
+    "rr_avg": 0.5069,
+    "stats": [
+     186,
+     181,
+     180,
+     125,
+     119,
+     152
+    ],
+    "moves": [
+     "BD",
+     "EQ",
+     "SB",
+     "REST"
+    ],
+    "moves_jp": [
+     "じならし",
+     "じしん",
+     "シャドーボール",
+     "ねむる"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "advanced",
+    "rate": {
+     "beginner": 0.8542,
+     "meta": 0.5928,
+     "original": 0.5721,
+     "advanced": 0.2638
+    }
+   },
+   {
+    "idx": 37,
+    "rank": 40,
+    "rr_avg": 0.5749,
+    "stats": [
+     186,
+     165,
+     198,
+     112,
+     133,
+     152
+    ],
+    "moves": [
+     "EQ",
+     "SB",
+     "AGI",
+     "TRK"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドーボール",
+     "こうそくいどう",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.8535,
+     "meta": 0.695,
+     "original": 0.6419,
+     "advanced": 0.289
+    }
+   },
+   {
+    "idx": 38,
+    "rank": 102,
+    "rr_avg": 0.4501,
+    "stats": [
+     186,
+     165,
+     198,
+     125,
+     119,
+     152
+    ],
+    "moves": [
+     "EQ",
+     "SB",
+     "CP",
+     "ID"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドーボール",
+     "コスモパワー",
+     "てっぺき"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.9573,
+     "meta": 0.5429,
+     "original": 0.5198,
+     "advanced": 0.1972
+    }
+   },
+   {
+    "idx": 39,
+    "rank": 39,
+    "rr_avg": 0.5755,
+    "stats": [
+     186,
+     165,
+     198,
+     112,
+     133,
+     152
+    ],
+    "moves": [
+     "EQ",
+     "SB",
+     "AGI",
+     "ST"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドーボール",
+     "こうそくいどう",
+     "ねごと"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.8483,
+     "meta": 0.6962,
+     "original": 0.6444,
+     "advanced": 0.2854
+    }
+   },
+   {
+    "idx": 40,
+    "rank": 98,
+    "rr_avg": 0.4598,
+    "stats": [
+     186,
+     165,
+     198,
+     125,
+     119,
+     152
+    ],
+    "moves": [
+     "EQ",
+     "SCL",
+     "SB",
+     "SF"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドークロー",
+     "シャドーボール",
+     "こわいかお"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.8779,
+     "meta": 0.5544,
+     "original": 0.5255,
+     "advanced": 0.2115
+    }
+   },
+   {
+    "idx": 41,
+    "rank": 46,
+    "rr_avg": 0.5729,
+    "stats": [
+     186,
+     165,
+     198,
+     112,
+     133,
+     152
+    ],
+    "moves": [
+     "EQ",
+     "SCL",
+     "SB",
+     "TRK"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドークロー",
+     "シャドーボール",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.8756,
+     "meta": 0.694,
+     "original": 0.6379,
+     "advanced": 0.2907
+    }
+   },
+   {
+    "idx": 42,
+    "rank": 45,
+    "rr_avg": 0.5734,
+    "stats": [
+     186,
+     165,
+     198,
+     112,
+     133,
+     152
+    ],
+    "moves": [
+     "EQ",
+     "SB",
+     "PU",
+     "SF"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドーボール",
+     "サイコアップ",
+     "こわいかお"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.8794,
+     "meta": 0.6902,
+     "original": 0.6411,
+     "advanced": 0.2908
+    }
+   },
+   {
+    "idx": 43,
+    "rank": 38,
+    "rr_avg": 0.5834,
+    "stats": [
+     186,
+     165,
+     198,
+     112,
+     133,
+     152
+    ],
+    "moves": [
+     "BD",
+     "EQ",
+     "SB",
+     "REST"
+    ],
+    "moves_jp": [
+     "じならし",
+     "じしん",
+     "シャドーボール",
+     "ねむる"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.8812,
+     "meta": 0.7022,
+     "original": 0.6476,
+     "advanced": 0.3059
+    }
+   },
+   {
+    "idx": 44,
+    "rank": 51,
+    "rr_avg": 0.571,
+    "stats": [
+     186,
+     165,
+     198,
+     112,
+     133,
+     152
+    ],
+    "moves": [
+     "EQ",
+     "SB",
+     "ST",
+     "SUB"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドーボール",
+     "ねごと",
+     "みがわり"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.8371,
+     "meta": 0.6921,
+     "original": 0.637,
+     "advanced": 0.2858
+    }
+   },
+   {
+    "idx": 45,
+    "rank": 85,
+    "rr_avg": 0.4652,
+    "stats": [
+     186,
+     165,
+     198,
+     125,
+     119,
+     152
+    ],
+    "moves": [
+     "EQ",
+     "SB",
+     "PU",
+     "REST"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドーボール",
+     "サイコアップ",
+     "ねむる"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.8756,
+     "meta": 0.5612,
+     "original": 0.5298,
+     "advanced": 0.217
+    }
+   },
+   {
+    "idx": 46,
+    "rank": 25,
+    "rr_avg": 0.6156,
+    "stats": [
+     187,
+     151,
+     190,
+     140,
+     138,
+     130
+    ],
+    "moves": [
+     "BD",
+     "SB",
+     "PU",
+     "SF"
+    ],
+    "moves_jp": [
+     "じならし",
+     "シャドーボール",
+     "サイコアップ",
+     "こわいかお"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.8769,
+     "meta": 0.5624,
+     "original": 0.6098,
+     "advanced": 0.6993
+    }
+   },
+   {
+    "idx": 47,
+    "rank": 88,
+    "rr_avg": 0.4627,
+    "stats": [
+     186,
+     165,
+     198,
+     125,
+     119,
+     152
+    ],
+    "moves": [
+     "EQ",
+     "SB",
+     "PRO",
+     "SF"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドーボール",
+     "まもる",
+     "こわいかお"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.8735,
+     "meta": 0.553,
+     "original": 0.5305,
+     "advanced": 0.2166
+    }
+   },
+   {
+    "idx": 48,
+    "rank": 2,
+    "rr_avg": 0.7691,
+    "stats": [
+     187,
+     165,
+     158,
+     132,
+     140,
+     155
+    ],
+    "moves": [
+     "EQ",
+     "SB",
+     "MS",
+     "ID"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドーボール",
+     "どろかけ",
+     "てっぺき"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "advanced",
+    "rate": {
+     "beginner": 0.644,
+     "meta": 0.881,
+     "original": 0.8849,
+     "advanced": 0.3945
+    }
+   },
+   {
+    "idx": 49,
+    "rank": 47,
+    "rr_avg": 0.5726,
+    "stats": [
+     186,
+     165,
+     198,
+     112,
+     133,
+     152
+    ],
+    "moves": [
+     "EQ",
+     "SB",
+     "PU",
+     "REST"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドーボール",
+     "サイコアップ",
+     "ねむる"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.8531,
+     "meta": 0.6861,
+     "original": 0.6406,
+     "advanced": 0.294
+    }
+   },
+   {
+    "idx": 50,
+    "rank": 97,
+    "rr_avg": 0.4612,
+    "stats": [
+     186,
+     165,
+     198,
+     125,
+     119,
+     152
+    ],
+    "moves": [
+     "EQ",
+     "SB",
+     "MS",
+     "SUB"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドーボール",
+     "どろかけ",
+     "みがわり"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.8792,
+     "meta": 0.5499,
+     "original": 0.5288,
+     "advanced": 0.2178
+    }
+   },
+   {
+    "idx": 51,
+    "rank": 13,
+    "rr_avg": 0.6884,
+    "stats": [
+     187,
+     165,
+     184,
+     125,
+     134,
+     146
+    ],
+    "moves": [
+     "BD",
+     "EQ",
+     "SB",
+     "MS"
+    ],
+    "moves_jp": [
+     "じならし",
+     "じしん",
+     "シャドーボール",
+     "どろかけ"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "advanced",
+    "rate": {
+     "beginner": 0.8096,
+     "meta": 0.7527,
+     "original": 0.6568,
+     "advanced": 0.6568
+    }
+   },
+   {
+    "idx": 52,
+    "rank": 8,
+    "rr_avg": 0.7059,
+    "stats": [
+     186,
+     165,
+     178,
+     125,
+     133,
+     154
+    ],
+    "moves": [
+     "EQ",
+     "SB",
+     "PRO",
+     "SF"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドーボール",
+     "まもる",
+     "こわいかお"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "advanced",
+    "rate": {
+     "beginner": 0.7508,
+     "meta": 0.7956,
+     "original": 0.8286,
+     "advanced": 0.3498
+    }
+   },
+   {
+    "idx": 53,
+    "rank": 31,
+    "rr_avg": 0.6012,
+    "stats": [
+     185,
+     165,
+     158,
+     134,
+     144,
+     150
+    ],
+    "moves": [
+     "BD",
+     "SB",
+     "AGI",
+     "ST"
+    ],
+    "moves_jp": [
+     "じならし",
+     "シャドーボール",
+     "こうそくいどう",
+     "ねごと"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.5275,
+     "meta": 0.7235,
+     "original": 0.6552,
+     "advanced": 0.3358
+    }
+   },
+   {
+    "idx": 54,
+    "rank": 10,
+    "rr_avg": 0.7035,
+    "stats": [
+     184,
+     165,
+     180,
+     125,
+     133,
+     154
+    ],
+    "moves": [
+     "BD",
+     "EQ",
+     "SB",
+     "AGI"
+    ],
+    "moves_jp": [
+     "じならし",
+     "じしん",
+     "シャドーボール",
+     "こうそくいどう"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "advanced",
+    "rate": {
+     "beginner": 0.745,
+     "meta": 0.7804,
+     "original": 0.8265,
+     "advanced": 0.3649
+    }
+   },
+   {
+    "idx": 55,
+    "rank": 14,
+    "rr_avg": 0.685,
+    "stats": [
+     187,
+     172,
+     202,
+     125,
+     120,
+     139
+    ],
+    "moves": [
+     "BD",
+     "EQ",
+     "SB",
+     "MS"
+    ],
+    "moves_jp": [
+     "じならし",
+     "じしん",
+     "シャドーボール",
+     "どろかけ"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "advanced",
+    "rate": {
+     "beginner": 0.8925,
+     "meta": 0.6557,
+     "original": 0.7146,
+     "advanced": 0.671
+    }
+   },
+   {
+    "idx": 56,
+    "rank": 50,
+    "rr_avg": 0.5714,
+    "stats": [
+     186,
+     165,
+     198,
+     112,
+     133,
+     152
+    ],
+    "moves": [
+     "EQ",
+     "SB",
+     "MS",
+     "SUB"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドーボール",
+     "どろかけ",
+     "みがわり"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.8529,
+     "meta": 0.6931,
+     "original": 0.6385,
+     "advanced": 0.2833
+    }
+   },
+   {
+    "idx": 57,
+    "rank": 99,
+    "rr_avg": 0.4596,
+    "stats": [
+     186,
+     165,
+     198,
+     125,
+     119,
+     152
+    ],
+    "moves": [
+     "EQ",
+     "SB",
+     "PU",
+     "SF"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドーボール",
+     "サイコアップ",
+     "こわいかお"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.8725,
+     "meta": 0.5514,
+     "original": 0.5245,
+     "advanced": 0.2166
+    }
+   },
+   {
+    "idx": 58,
+    "rank": 22,
+    "rr_avg": 0.6398,
+    "stats": [
+     187,
+     148,
+     180,
+     125,
+     144,
+     154
+    ],
+    "moves": [
+     "SB",
+     "MS",
+     "ID",
+     "TRK"
+    ],
+    "moves_jp": [
+     "シャドーボール",
+     "どろかけ",
+     "てっぺき",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.6727,
+     "meta": 0.6827,
+     "original": 0.7505,
+     "advanced": 0.3802
+    }
+   },
+   {
+    "idx": 59,
+    "rank": 53,
+    "rr_avg": 0.5706,
+    "stats": [
+     186,
+     165,
+     198,
+     112,
+     133,
+     152
+    ],
+    "moves": [
+     "EQ",
+     "SB",
+     "MS",
+     "TRK"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドーボール",
+     "どろかけ",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.8435,
+     "meta": 0.6928,
+     "original": 0.6421,
+     "advanced": 0.2738
+    }
+   },
+   {
+    "idx": 60,
+    "rank": 168,
+    "rr_avg": 0.3127,
+    "stats": [
+     187,
+     165,
+     209,
+     131,
+     124,
+     130
+    ],
+    "moves": [
+     "BD",
+     "SB",
+     "REST",
+     "TRK"
+    ],
+    "moves_jp": [
+     "じならし",
+     "シャドーボール",
+     "ねむる",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.7952,
+     "meta": 0.222,
+     "original": 0.3252,
+     "advanced": 0.4122
+    }
+   },
+   {
+    "idx": 61,
+    "rank": 94,
+    "rr_avg": 0.4617,
+    "stats": [
+     186,
+     165,
+     198,
+     125,
+     119,
+     152
+    ],
+    "moves": [
+     "EQ",
+     "SB",
+     "AGI",
+     "PU"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドーボール",
+     "こうそくいどう",
+     "サイコアップ"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.8742,
+     "meta": 0.5538,
+     "original": 0.5286,
+     "advanced": 0.2145
+    }
+   },
+   {
+    "idx": 62,
+    "rank": 148,
+    "rr_avg": 0.3905,
+    "stats": [
+     186,
+     148,
+     176,
+     149,
+     133,
+     145
+    ],
+    "moves": [
+     "SB",
+     "ID",
+     "PU",
+     "TRK"
+    ],
+    "moves_jp": [
+     "シャドーボール",
+     "てっぺき",
+     "サイコアップ",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.7675,
+     "meta": 0.4591,
+     "original": 0.3797,
+     "advanced": 0.3175
+    }
+   },
+   {
+    "idx": 63,
+    "rank": 28,
+    "rr_avg": 0.6058,
+    "stats": [
+     185,
+     165,
+     158,
+     134,
+     144,
+     150
+    ],
+    "moves": [
+     "BD",
+     "SB",
+     "MS",
+     "AGI"
+    ],
+    "moves_jp": [
+     "じならし",
+     "シャドーボール",
+     "どろかけ",
+     "こうそくいどう"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.5423,
+     "meta": 0.7392,
+     "original": 0.6571,
+     "advanced": 0.3299
+    }
+   },
+   {
+    "idx": 64,
+    "rank": 96,
+    "rr_avg": 0.4614,
+    "stats": [
+     186,
+     165,
+     198,
+     125,
+     119,
+     152
+    ],
+    "moves": [
+     "EQ",
+     "SCL",
+     "SB",
+     "TRK"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドークロー",
+     "シャドーボール",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.8756,
+     "meta": 0.5575,
+     "original": 0.5285,
+     "advanced": 0.2093
+    }
+   },
+   {
+    "idx": 65,
+    "rank": 135,
+    "rr_avg": 0.3975,
+    "stats": [
+     182,
+     148,
+     176,
+     149,
+     137,
+     145
+    ],
+    "moves": [
+     "SB",
+     "ID",
+     "PU",
+     "TRK"
+    ],
+    "moves_jp": [
+     "シャドーボール",
+     "てっぺき",
+     "サイコアップ",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.7485,
+     "meta": 0.4577,
+     "original": 0.3851,
+     "advanced": 0.339
+    }
+   },
+   {
+    "idx": 66,
+    "rank": 9,
+    "rr_avg": 0.7045,
+    "stats": [
+     186,
+     165,
+     178,
+     125,
+     133,
+     154
+    ],
+    "moves": [
+     "EQ",
+     "SB",
+     "AGI",
+     "PU"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドーボール",
+     "こうそくいどう",
+     "サイコアップ"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "advanced",
+    "rate": {
+     "beginner": 0.7508,
+     "meta": 0.7912,
+     "original": 0.8285,
+     "advanced": 0.35
+    }
+   },
+   {
+    "idx": 67,
+    "rank": 3,
+    "rr_avg": 0.7378,
+    "stats": [
+     187,
+     165,
+     202,
+     112,
+     136,
+     144
+    ],
+    "moves": [
+     "BD",
+     "EQ",
+     "SB",
+     "MS"
+    ],
+    "moves_jp": [
+     "じならし",
+     "じしん",
+     "シャドーボール",
+     "どろかけ"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "advanced",
+    "rate": {
+     "beginner": 0.8762,
+     "meta": 0.7873,
+     "original": 0.6713,
+     "advanced": 0.7926
+    }
+   },
+   {
+    "idx": 68,
+    "rank": 54,
+    "rr_avg": 0.5697,
+    "stats": [
+     186,
+     165,
+     198,
+     112,
+     133,
+     152
+    ],
+    "moves": [
+     "EQ",
+     "SCL",
+     "SB",
+     "AGI"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドークロー",
+     "シャドーボール",
+     "こうそくいどう"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.8754,
+     "meta": 0.6946,
+     "original": 0.635,
+     "advanced": 0.2805
+    }
+   },
+   {
+    "idx": 69,
+    "rank": 44,
+    "rr_avg": 0.5734,
+    "stats": [
+     186,
+     165,
+     198,
+     112,
+     133,
+     152
+    ],
+    "moves": [
+     "EQ",
+     "SCL",
+     "SB",
+     "REST"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドークロー",
+     "シャドーボール",
+     "ねむる"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.8758,
+     "meta": 0.6932,
+     "original": 0.6416,
+     "advanced": 0.2862
+    }
+   },
+   {
+    "idx": 70,
+    "rank": 93,
+    "rr_avg": 0.4617,
+    "stats": [
+     186,
+     165,
+     198,
+     125,
+     119,
+     152
+    ],
+    "moves": [
+     "EQ",
+     "SB",
+     "REST",
+     "TRK"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドーボール",
+     "ねむる",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.8729,
+     "meta": 0.5587,
+     "original": 0.5268,
+     "advanced": 0.211
+    }
+   },
+   {
+    "idx": 71,
+    "rank": 100,
+    "rr_avg": 0.4595,
+    "stats": [
+     186,
+     165,
+     198,
+     125,
+     119,
+     152
+    ],
+    "moves": [
+     "EQ",
+     "SB",
+     "ST",
+     "SUB"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドーボール",
+     "ねごと",
+     "みがわり"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.8854,
+     "meta": 0.5534,
+     "original": 0.5252,
+     "advanced": 0.212
+    }
+   },
+   {
+    "idx": 72,
+    "rank": 95,
+    "rr_avg": 0.4615,
+    "stats": [
+     186,
+     165,
+     198,
+     125,
+     119,
+     152
+    ],
+    "moves": [
+     "EQ",
+     "SB",
+     "MS",
+     "TRK"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドーボール",
+     "どろかけ",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.8785,
+     "meta": 0.5556,
+     "original": 0.5312,
+     "advanced": 0.2067
+    }
+   },
+   {
+    "idx": 73,
+    "rank": 164,
+    "rr_avg": 0.3265,
+    "stats": [
+     186,
+     148,
+     189,
+     136,
+     137,
+     145
+    ],
+    "moves": [
+     "SB",
+     "ID",
+     "REST",
+     "ST"
+    ],
+    "moves_jp": [
+     "シャドーボール",
+     "てっぺき",
+     "ねむる",
+     "ねごと"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.8962,
+     "meta": 0.3854,
+     "original": 0.3287,
+     "advanced": 0.2427
+    }
+   },
+   {
+    "idx": 74,
+    "rank": 12,
+    "rr_avg": 0.6897,
+    "stats": [
+     186,
+     165,
+     180,
+     125,
+     131,
+     154
+    ],
+    "moves": [
+     "EQ",
+     "SCL",
+     "SB",
+     "TRK"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドークロー",
+     "シャドーボール",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "advanced",
+    "rate": {
+     "beginner": 0.759,
+     "meta": 0.7749,
+     "original": 0.8118,
+     "advanced": 0.3409
+    }
+   },
+   {
+    "idx": 75,
+    "rank": 123,
+    "rr_avg": 0.4059,
+    "stats": [
+     187,
+     148,
+     170,
+     139,
+     148,
+     145
+    ],
+    "moves": [
+     "BP",
+     "SB",
+     "ID",
+     "TRK"
+    ],
+    "moves_jp": [
+     "ボディプレス",
+     "シャドーボール",
+     "てっぺき",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.6921,
+     "meta": 0.4704,
+     "original": 0.4,
+     "advanced": 0.328
+    }
+   },
+   {
+    "idx": 76,
+    "rank": 15,
+    "rr_avg": 0.6808,
+    "stats": [
+     183,
+     148,
+     170,
+     125,
+     158,
+     154
+    ],
+    "moves": [
+     "SB",
+     "MS",
+     "ID",
+     "PU"
+    ],
+    "moves_jp": [
+     "シャドーボール",
+     "どろかけ",
+     "てっぺき",
+     "サイコアップ"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "advanced",
+    "rate": {
+     "beginner": 0.5112,
+     "meta": 0.73,
+     "original": 0.7881,
+     "advanced": 0.4107
+    }
+   },
+   {
+    "idx": 77,
+    "rank": 84,
+    "rr_avg": 0.4681,
+    "stats": [
+     186,
+     165,
+     198,
+     112,
+     133,
+     152
+    ],
+    "moves": [
+     "EQ",
+     "SB",
+     "CP",
+     "ID"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドーボール",
+     "コスモパワー",
+     "てっぺき"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.876,
+     "meta": 0.5553,
+     "original": 0.5231,
+     "advanced": 0.2494
+    }
+   },
+   {
+    "idx": 78,
+    "rank": 90,
+    "rr_avg": 0.4623,
+    "stats": [
+     186,
+     165,
+     198,
+     125,
+     119,
+     152
+    ],
+    "moves": [
+     "EQ",
+     "SCL",
+     "SB",
+     "AGI"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドークロー",
+     "シャドーボール",
+     "こうそくいどう"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.8775,
+     "meta": 0.5603,
+     "original": 0.5262,
+     "advanced": 0.2126
+    }
+   },
+   {
+    "idx": 79,
+    "rank": 74,
+    "rr_avg": 0.5117,
+    "stats": [
+     186,
+     181,
+     180,
+     125,
+     119,
+     152
+    ],
+    "moves": [
+     "BD",
+     "EQ",
+     "SB",
+     "AGI"
+    ],
+    "moves_jp": [
+     "じならし",
+     "じしん",
+     "シャドーボール",
+     "こうそくいどう"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "advanced",
+    "rate": {
+     "beginner": 0.8533,
+     "meta": 0.5925,
+     "original": 0.5817,
+     "advanced": 0.2667
+    }
+   },
+   {
+    "idx": 80,
+    "rank": 69,
+    "rr_avg": 0.5402,
+    "stats": [
+     183,
+     148,
+     172,
+     139,
+     148,
+     147
+    ],
+    "moves": [
+     "SB",
+     "ID",
+     "REST",
+     "ST"
+    ],
+    "moves_jp": [
+     "シャドーボール",
+     "てっぺき",
+     "ねむる",
+     "ねごと"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.685,
+     "meta": 0.7186,
+     "original": 0.5463,
+     "advanced": 0.2883
+    }
+   },
+   {
+    "idx": 81,
+    "rank": 118,
+    "rr_avg": 0.4089,
+    "stats": [
+     187,
+     148,
+     170,
+     139,
+     148,
+     145
+    ],
+    "moves": [
+     "SCL",
+     "SB",
+     "MS",
+     "ID"
+    ],
+    "moves_jp": [
+     "シャドークロー",
+     "シャドーボール",
+     "どろかけ",
+     "てっぺき"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.6865,
+     "meta": 0.4789,
+     "original": 0.3943,
+     "advanced": 0.3388
+    }
+   },
+   {
+    "idx": 82,
+    "rank": 5,
+    "rr_avg": 0.7216,
+    "stats": [
+     184,
+     165,
+     180,
+     125,
+     133,
+     154
+    ],
+    "moves": [
+     "BD",
+     "EQ",
+     "SB",
+     "SF"
+    ],
+    "moves_jp": [
+     "じならし",
+     "じしん",
+     "シャドーボール",
+     "こわいかお"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "advanced",
+    "rate": {
+     "beginner": 0.7373,
+     "meta": 0.7787,
+     "original": 0.8246,
+     "advanced": 0.4483
+    }
+   },
+   {
+    "idx": 83,
+    "rank": 132,
+    "rr_avg": 0.3997,
+    "stats": [
+     185,
+     148,
+     172,
+     139,
+     148,
+     145
+    ],
+    "moves": [
+     "SB",
+     "ID",
+     "REST",
+     "ST"
+    ],
+    "moves_jp": [
+     "シャドーボール",
+     "てっぺき",
+     "ねむる",
+     "ねごと"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.6987,
+     "meta": 0.4672,
+     "original": 0.3981,
+     "advanced": 0.3116
+    }
+   },
+   {
+    "idx": 84,
+    "rank": 149,
+    "rr_avg": 0.3892,
+    "stats": [
+     186,
+     148,
+     176,
+     149,
+     133,
+     145
+    ],
+    "moves": [
+     "SB",
+     "ID",
+     "ST",
+     "TRK"
+    ],
+    "moves_jp": [
+     "シャドーボール",
+     "てっぺき",
+     "ねごと",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.771,
+     "meta": 0.4516,
+     "original": 0.3829,
+     "advanced": 0.3166
+    }
+   },
+   {
+    "idx": 85,
+    "rank": 143,
+    "rr_avg": 0.3932,
+    "stats": [
+     183,
+     148,
+     172,
+     125,
+     148,
+     162
+    ],
+    "moves": [
+     "SB",
+     "AGI",
+     "ID",
+     "PU"
+    ],
+    "moves_jp": [
+     "シャドーボール",
+     "こうそくいどう",
+     "てっぺき",
+     "サイコアップ"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.539,
+     "meta": 0.2663,
+     "original": 0.449,
+     "advanced": 0.4673
+    }
+   },
+   {
+    "idx": 86,
+    "rank": 104,
+    "rr_avg": 0.4339,
+    "stats": [
+     187,
+     149,
+     209,
+     130,
+     138,
+     130
+    ],
+    "moves": [
+     "BD",
+     "SB",
+     "AGI",
+     "SF"
+    ],
+    "moves_jp": [
+     "じならし",
+     "シャドーボール",
+     "こうそくいどう",
+     "こわいかお"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.7973,
+     "meta": 0.3782,
+     "original": 0.4435,
+     "advanced": 0.4933
+    }
+   },
+   {
+    "idx": 87,
+    "rank": 120,
+    "rr_avg": 0.4078,
+    "stats": [
+     187,
+     148,
+     174,
+     125,
+     148,
+     156
+    ],
+    "moves": [
+     "SB",
+     "AGI",
+     "ID",
+     "PU"
+    ],
+    "moves_jp": [
+     "シャドーボール",
+     "こうそくいどう",
+     "てっぺき",
+     "サイコアップ"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.6133,
+     "meta": 0.2801,
+     "original": 0.4506,
+     "advanced": 0.5062
+    }
+   },
+   {
+    "idx": 88,
+    "rank": 89,
+    "rr_avg": 0.4623,
+    "stats": [
+     186,
+     165,
+     198,
+     125,
+     119,
+     152
+    ],
+    "moves": [
+     "EQ",
+     "SCL",
+     "SB",
+     "REST"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドークロー",
+     "シャドーボール",
+     "ねむる"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.8775,
+     "meta": 0.5548,
+     "original": 0.5311,
+     "advanced": 0.2114
+    }
+   },
+   {
+    "idx": 89,
+    "rank": 154,
+    "rr_avg": 0.3868,
+    "stats": [
+     186,
+     148,
+     176,
+     149,
+     133,
+     145
+    ],
+    "moves": [
+     "SB",
+     "ID",
+     "PU",
+     "ST"
+    ],
+    "moves_jp": [
+     "シャドーボール",
+     "てっぺき",
+     "サイコアップ",
+     "ねごと"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.7683,
+     "meta": 0.4541,
+     "original": 0.3784,
+     "advanced": 0.3095
+    }
+   },
+   {
+    "idx": 90,
+    "rank": 65,
+    "rr_avg": 0.5438,
+    "stats": [
+     187,
+     148,
+     172,
+     139,
+     144,
+     147
+    ],
+    "moves": [
+     "SB",
+     "ID",
+     "REST",
+     "ST"
+    ],
+    "moves_jp": [
+     "シャドーボール",
+     "てっぺき",
+     "ねむる",
+     "ねごと"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.7217,
+     "meta": 0.7258,
+     "original": 0.5456,
+     "advanced": 0.2948
+    }
+   },
+   {
+    "idx": 91,
+    "rank": 137,
+    "rr_avg": 0.3973,
+    "stats": [
+     182,
+     148,
+     176,
+     149,
+     137,
+     145
+    ],
+    "moves": [
+     "SCL",
+     "SB",
+     "ID",
+     "PU"
+    ],
+    "moves_jp": [
+     "シャドークロー",
+     "シャドーボール",
+     "てっぺき",
+     "サイコアップ"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.7377,
+     "meta": 0.4661,
+     "original": 0.3801,
+     "advanced": 0.3357
+    }
+   },
+   {
+    "idx": 92,
+    "rank": 125,
+    "rr_avg": 0.4038,
+    "stats": [
+     187,
+     148,
+     172,
+     139,
+     146,
+     145
+    ],
+    "moves": [
+     "SCL",
+     "SB",
+     "MS",
+     "ID"
+    ],
+    "moves_jp": [
+     "シャドークロー",
+     "シャドーボール",
+     "どろかけ",
+     "てっぺき"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.7131,
+     "meta": 0.4705,
+     "original": 0.3901,
+     "advanced": 0.3365
+    }
+   },
+   {
+    "idx": 93,
+    "rank": 145,
+    "rr_avg": 0.3916,
+    "stats": [
+     182,
+     148,
+     176,
+     149,
+     137,
+     145
+    ],
+    "moves": [
+     "BP",
+     "SB",
+     "ID",
+     "PU"
+    ],
+    "moves_jp": [
+     "ボディプレス",
+     "シャドーボール",
+     "てっぺき",
+     "サイコアップ"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.745,
+     "meta": 0.4542,
+     "original": 0.3781,
+     "advanced": 0.3296
+    }
+   },
+   {
+    "idx": 94,
+    "rank": 146,
+    "rr_avg": 0.3915,
+    "stats": [
+     186,
+     148,
+     176,
+     149,
+     133,
+     145
+    ],
+    "moves": [
+     "SB",
+     "ID",
+     "PRO",
+     "TRK"
+    ],
+    "moves_jp": [
+     "シャドーボール",
+     "てっぺき",
+     "まもる",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.7662,
+     "meta": 0.4607,
+     "original": 0.3814,
+     "advanced": 0.3144
+    }
+   },
+   {
+    "idx": 95,
+    "rank": 92,
+    "rr_avg": 0.462,
+    "stats": [
+     186,
+     165,
+     198,
+     125,
+     119,
+     152
+    ],
+    "moves": [
+     "EQ",
+     "SB",
+     "AGI",
+     "ST"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドーボール",
+     "こうそくいどう",
+     "ねごと"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.879,
+     "meta": 0.5582,
+     "original": 0.525,
+     "advanced": 0.2162
+    }
+   },
+   {
+    "idx": 96,
+    "rank": 110,
+    "rr_avg": 0.4141,
+    "stats": [
+     186,
+     148,
+     172,
+     149,
+     137,
+     145
+    ],
+    "moves": [
+     "SB",
+     "ID",
+     "PU",
+     "ST"
+    ],
+    "moves_jp": [
+     "シャドーボール",
+     "てっぺき",
+     "サイコアップ",
+     "ねごと"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.75,
+     "meta": 0.4861,
+     "original": 0.3934,
+     "advanced": 0.3521
+    }
+   },
+   {
+    "idx": 97,
+    "rank": 133,
+    "rr_avg": 0.3988,
+    "stats": [
+     182,
+     148,
+     176,
+     149,
+     137,
+     145
+    ],
+    "moves": [
+     "BD",
+     "SCL",
+     "SB",
+     "ID"
+    ],
+    "moves_jp": [
+     "じならし",
+     "シャドークロー",
+     "シャドーボール",
+     "てっぺき"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.7429,
+     "meta": 0.4636,
+     "original": 0.3843,
+     "advanced": 0.338
+    }
+   },
+   {
+    "idx": 98,
+    "rank": 21,
+    "rr_avg": 0.6411,
+    "stats": [
+     187,
+     148,
+     184,
+     125,
+     136,
+     158
+    ],
+    "moves": [
+     "SCL",
+     "SB",
+     "PRO",
+     "SF"
+    ],
+    "moves_jp": [
+     "シャドークロー",
+     "シャドーボール",
+     "まもる",
+     "こわいかお"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.7604,
+     "meta": 0.6773,
+     "original": 0.7531,
+     "advanced": 0.3897
+    }
+   },
+   {
+    "idx": 99,
+    "rank": 117,
+    "rr_avg": 0.4102,
+    "stats": [
+     186,
+     148,
+     172,
+     149,
+     137,
+     145
+    ],
+    "moves": [
+     "BD",
+     "SCL",
+     "SB",
+     "ID"
+    ],
+    "moves_jp": [
+     "じならし",
+     "シャドークロー",
+     "シャドーボール",
+     "てっぺき"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.754,
+     "meta": 0.4795,
+     "original": 0.3908,
+     "advanced": 0.3518
+    }
+   },
+   {
+    "idx": 100,
+    "rank": 20,
+    "rr_avg": 0.6411,
+    "stats": [
+     187,
+     165,
+     158,
+     132,
+     142,
+     152
+    ],
+    "moves": [
+     "BD",
+     "EQ",
+     "SB",
+     "SUB"
+    ],
+    "moves_jp": [
+     "じならし",
+     "じしん",
+     "シャドーボール",
+     "みがわり"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "advanced",
+    "rate": {
+     "beginner": 0.6517,
+     "meta": 0.805,
+     "original": 0.7216,
+     "advanced": 0.2591
+    }
+   },
+   {
+    "idx": 101,
+    "rank": 127,
+    "rr_avg": 0.4022,
+    "stats": [
+     182,
+     148,
+     176,
+     149,
+     137,
+     145
+    ],
+    "moves": [
+     "SCL",
+     "SB",
+     "ID",
+     "PRO"
+    ],
+    "moves_jp": [
+     "シャドークロー",
+     "シャドーボール",
+     "てっぺき",
+     "まもる"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.7379,
+     "meta": 0.4681,
+     "original": 0.3932,
+     "advanced": 0.3298
+    }
+   },
+   {
+    "idx": 102,
+    "rank": 128,
+    "rr_avg": 0.4019,
+    "stats": [
+     187,
+     148,
+     172,
+     125,
+     152,
+     154
+    ],
+    "moves": [
+     "SB",
+     "MS",
+     "ID",
+     "ST"
+    ],
+    "moves_jp": [
+     "シャドーボール",
+     "どろかけ",
+     "てっぺき",
+     "ねごと"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.575,
+     "meta": 0.3114,
+     "original": 0.47,
+     "advanced": 0.3998
+    }
+   },
+   {
+    "idx": 103,
+    "rank": 166,
+    "rr_avg": 0.324,
+    "stats": [
+     186,
+     148,
+     189,
+     136,
+     137,
+     145
+    ],
+    "moves": [
+     "SCL",
+     "SB",
+     "ID",
+     "ST"
+    ],
+    "moves_jp": [
+     "シャドークロー",
+     "シャドーボール",
+     "てっぺき",
+     "ねごと"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.8921,
+     "meta": 0.3807,
+     "original": 0.3216,
+     "advanced": 0.2502
+    }
+   },
+   {
+    "idx": 104,
+    "rank": 87,
+    "rr_avg": 0.465,
+    "stats": [
+     186,
+     165,
+     198,
+     125,
+     119,
+     152
+    ],
+    "moves": [
+     "EQ",
+     "SB",
+     "AGI",
+     "TRK"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドーボール",
+     "こうそくいどう",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.876,
+     "meta": 0.5618,
+     "original": 0.5307,
+     "advanced": 0.2136
+    }
+   },
+   {
+    "idx": 105,
+    "rank": 30,
+    "rr_avg": 0.6034,
+    "stats": [
+     184,
+     165,
+     180,
+     127,
+     133,
+     152
+    ],
+    "moves": [
+     "BD",
+     "EQ",
+     "SB",
+     "SF"
+    ],
+    "moves_jp": [
+     "じならし",
+     "じしん",
+     "シャドーボール",
+     "こわいかお"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.7402,
+     "meta": 0.6873,
+     "original": 0.6119,
+     "advanced": 0.4746
+    }
+   },
+   {
+    "idx": 106,
+    "rank": 106,
+    "rr_avg": 0.4201,
+    "stats": [
+     179,
+     148,
+     170,
+     125,
+     162,
+     154
+    ],
+    "moves": [
+     "SB",
+     "MS",
+     "ID",
+     "ST"
+    ],
+    "moves_jp": [
+     "シャドーボール",
+     "どろかけ",
+     "てっぺき",
+     "ねごと"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.471,
+     "meta": 0.3393,
+     "original": 0.4824,
+     "advanced": 0.4156
+    }
+   },
+   {
+    "idx": 107,
+    "rank": 142,
+    "rr_avg": 0.3938,
+    "stats": [
+     186,
+     148,
+     176,
+     149,
+     133,
+     145
+    ],
+    "moves": [
+     "SB",
+     "MS",
+     "ID",
+     "TRK"
+    ],
+    "moves_jp": [
+     "シャドーボール",
+     "どろかけ",
+     "てっぺき",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.7669,
+     "meta": 0.4631,
+     "original": 0.3831,
+     "advanced": 0.3198
+    }
+   },
+   {
+    "idx": 108,
+    "rank": 150,
+    "rr_avg": 0.3888,
+    "stats": [
+     186,
+     148,
+     176,
+     149,
+     133,
+     145
+    ],
+    "moves": [
+     "BD",
+     "SCL",
+     "SB",
+     "ID"
+    ],
+    "moves_jp": [
+     "じならし",
+     "シャドークロー",
+     "シャドーボール",
+     "てっぺき"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.7644,
+     "meta": 0.4539,
+     "original": 0.3792,
+     "advanced": 0.3185
+    }
+   },
+   {
+    "idx": 109,
+    "rank": 67,
+    "rr_avg": 0.5431,
+    "stats": [
+     183,
+     148,
+     172,
+     139,
+     148,
+     147
+    ],
+    "moves": [
+     "BD",
+     "SCL",
+     "SB",
+     "ID"
+    ],
+    "moves_jp": [
+     "じならし",
+     "シャドークロー",
+     "シャドーボール",
+     "てっぺき"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.6825,
+     "meta": 0.7209,
+     "original": 0.5463,
+     "advanced": 0.2973
+    }
+   },
+   {
+    "idx": 110,
+    "rank": 73,
+    "rr_avg": 0.5288,
+    "stats": [
+     184,
+     165,
+     180,
+     127,
+     133,
+     152
+    ],
+    "moves": [
+     "BD",
+     "EQ",
+     "SB",
+     "PRO"
+    ],
+    "moves_jp": [
+     "じならし",
+     "じしん",
+     "シャドーボール",
+     "まもる"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.7425,
+     "meta": 0.6625,
+     "original": 0.6177,
+     "advanced": 0.186
+    }
+   },
+   {
+    "idx": 111,
+    "rank": 158,
+    "rr_avg": 0.3746,
+    "stats": [
+     186,
+     148,
+     176,
+     149,
+     133,
+     145
+    ],
+    "moves": [
+     "EQ",
+     "SB",
+     "ID",
+     "ST"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドーボール",
+     "てっぺき",
+     "ねごと"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.7671,
+     "meta": 0.4387,
+     "original": 0.3608,
+     "advanced": 0.3112
+    }
+   },
+   {
+    "idx": 112,
+    "rank": 16,
+    "rr_avg": 0.6624,
+    "stats": [
+     187,
+     165,
+     158,
+     132,
+     140,
+     155
+    ],
+    "moves": [
+     "SB",
+     "MS",
+     "ID",
+     "TRK"
+    ],
+    "moves_jp": [
+     "シャドーボール",
+     "どろかけ",
+     "てっぺき",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "advanced",
+    "rate": {
+     "beginner": 0.5358,
+     "meta": 0.7259,
+     "original": 0.8041,
+     "advanced": 0.3077
+    }
+   },
+   {
+    "idx": 113,
+    "rank": 162,
+    "rr_avg": 0.3291,
+    "stats": [
+     182,
+     148,
+     189,
+     136,
+     141,
+     145
+    ],
+    "moves": [
+     "SB",
+     "ID",
+     "REST",
+     "ST"
+    ],
+    "moves_jp": [
+     "シャドーボール",
+     "てっぺき",
+     "ねむる",
+     "ねごと"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.8325,
+     "meta": 0.3915,
+     "original": 0.3289,
+     "advanced": 0.2449
+    }
+   },
+   {
+    "idx": 114,
+    "rank": 157,
+    "rr_avg": 0.3749,
+    "stats": [
+     186,
+     148,
+     176,
+     149,
+     133,
+     145
+    ],
+    "moves": [
+     "SCL",
+     "SB",
+     "ID",
+     "TRK"
+    ],
+    "moves_jp": [
+     "シャドークロー",
+     "シャドーボール",
+     "てっぺき",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.769,
+     "meta": 0.4364,
+     "original": 0.3606,
+     "advanced": 0.3161
+    }
+   },
+   {
+    "idx": 115,
+    "rank": 55,
+    "rr_avg": 0.5636,
+    "stats": [
+     183,
+     165,
+     162,
+     132,
+     144,
+     150
+    ],
+    "moves": [
+     "BD",
+     "SB",
+     "AGI",
+     "ST"
+    ],
+    "moves_jp": [
+     "じならし",
+     "シャドーボール",
+     "こうそくいどう",
+     "ねごと"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.5554,
+     "meta": 0.6818,
+     "original": 0.6272,
+     "advanced": 0.2865
+    }
+   },
+   {
+    "idx": 116,
+    "rank": 86,
+    "rr_avg": 0.465,
+    "stats": [
+     186,
+     181,
+     180,
+     125,
+     119,
+     152
+    ],
+    "moves": [
+     "EQ",
+     "SB",
+     "CP",
+     "ID"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドーボール",
+     "コスモパワー",
+     "てっぺき"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "advanced",
+    "rate": {
+     "beginner": 0.7875,
+     "meta": 0.5608,
+     "original": 0.5269,
+     "advanced": 0.2138
+    }
+   },
+   {
+    "idx": 117,
+    "rank": 111,
+    "rr_avg": 0.4137,
+    "stats": [
+     186,
+     148,
+     172,
+     149,
+     137,
+     145
+    ],
+    "moves": [
+     "SB",
+     "MS",
+     "ID",
+     "TRK"
+    ],
+    "moves_jp": [
+     "シャドーボール",
+     "どろかけ",
+     "てっぺき",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.7473,
+     "meta": 0.4838,
+     "original": 0.3956,
+     "advanced": 0.3522
+    }
+   },
+   {
+    "idx": 118,
+    "rank": 155,
+    "rr_avg": 0.3868,
+    "stats": [
+     186,
+     148,
+     176,
+     149,
+     133,
+     145
+    ],
+    "moves": [
+     "BP",
+     "SB",
+     "ID",
+     "PU"
+    ],
+    "moves_jp": [
+     "ボディプレス",
+     "シャドーボール",
+     "てっぺき",
+     "サイコアップ"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.7706,
+     "meta": 0.4503,
+     "original": 0.3769,
+     "advanced": 0.3173
+    }
+   },
+   {
+    "idx": 119,
+    "rank": 113,
+    "rr_avg": 0.413,
+    "stats": [
+     186,
+     148,
+     172,
+     149,
+     137,
+     145
+    ],
+    "moves": [
+     "SB",
+     "ID",
+     "PRO",
+     "TRK"
+    ],
+    "moves_jp": [
+     "シャドーボール",
+     "てっぺき",
+     "まもる",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.7435,
+     "meta": 0.4795,
+     "original": 0.395,
+     "advanced": 0.3538
+    }
+   },
+   {
+    "idx": 120,
+    "rank": 19,
+    "rr_avg": 0.6445,
+    "stats": [
+     187,
+     165,
+     158,
+     130,
+     144,
+     152
+    ],
+    "moves": [
+     "BD",
+     "EQ",
+     "SB",
+     "SUB"
+    ],
+    "moves_jp": [
+     "じならし",
+     "じしん",
+     "シャドーボール",
+     "みがわり"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "advanced",
+    "rate": {
+     "beginner": 0.6635,
+     "meta": 0.8139,
+     "original": 0.7235,
+     "advanced": 0.2578
+    }
+   },
+   {
+    "idx": 121,
+    "rank": 129,
+    "rr_avg": 0.401,
+    "stats": [
+     185,
+     148,
+     172,
+     139,
+     148,
+     145
+    ],
+    "moves": [
+     "BP",
+     "BD",
+     "SB",
+     "ID"
+    ],
+    "moves_jp": [
+     "ボディプレス",
+     "じならし",
+     "シャドーボール",
+     "てっぺき"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.7037,
+     "meta": 0.4708,
+     "original": 0.3962,
+     "advanced": 0.3136
+    }
+   },
+   {
+    "idx": 122,
+    "rank": 119,
+    "rr_avg": 0.4081,
+    "stats": [
+     187,
+     148,
+     174,
+     125,
+     148,
+     156
+    ],
+    "moves": [
+     "SB",
+     "AGI",
+     "ID",
+     "TRK"
+    ],
+    "moves_jp": [
+     "シャドーボール",
+     "こうそくいどう",
+     "てっぺき",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.6038,
+     "meta": 0.2822,
+     "original": 0.4535,
+     "advanced": 0.4997
+    }
+   },
+   {
+    "idx": 123,
+    "rank": 153,
+    "rr_avg": 0.387,
+    "stats": [
+     186,
+     148,
+     176,
+     149,
+     133,
+     145
+    ],
+    "moves": [
+     "SCL",
+     "SB",
+     "ID",
+     "PU"
+    ],
+    "moves_jp": [
+     "シャドークロー",
+     "シャドーボール",
+     "てっぺき",
+     "サイコアップ"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.7631,
+     "meta": 0.4557,
+     "original": 0.3756,
+     "advanced": 0.3149
+    }
+   },
+   {
+    "idx": 124,
+    "rank": 124,
+    "rr_avg": 0.4059,
+    "stats": [
+     187,
+     148,
+     172,
+     139,
+     146,
+     145
+    ],
+    "moves": [
+     "SB",
+     "ID",
+     "REST",
+     "ST"
+    ],
+    "moves_jp": [
+     "シャドーボール",
+     "てっぺき",
+     "ねむる",
+     "ねごと"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.7154,
+     "meta": 0.4783,
+     "original": 0.3912,
+     "advanced": 0.3348
+    }
+   },
+   {
+    "idx": 125,
+    "rank": 61,
+    "rr_avg": 0.5467,
+    "stats": [
+     187,
+     148,
+     172,
+     139,
+     144,
+     147
+    ],
+    "moves": [
+     "SB",
+     "ID",
+     "ST",
+     "TRK"
+    ],
+    "moves_jp": [
+     "シャドーボール",
+     "てっぺき",
+     "ねごと",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.7113,
+     "meta": 0.7292,
+     "original": 0.5498,
+     "advanced": 0.2948
+    }
+   },
+   {
+    "idx": 126,
+    "rank": 66,
+    "rr_avg": 0.5436,
+    "stats": [
+     187,
+     148,
+     172,
+     139,
+     144,
+     147
+    ],
+    "moves": [
+     "SB",
+     "ID",
+     "PU",
+     "TRK"
+    ],
+    "moves_jp": [
+     "シャドーボール",
+     "てっぺき",
+     "サイコアップ",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.7169,
+     "meta": 0.7241,
+     "original": 0.5475,
+     "advanced": 0.2929
+    }
+   },
+   {
+    "idx": 127,
+    "rank": 112,
+    "rr_avg": 0.4132,
+    "stats": [
+     187,
+     148,
+     170,
+     139,
+     148,
+     145
+    ],
+    "moves": [
+     "BP",
+     "SCL",
+     "SB",
+     "ID"
+    ],
+    "moves_jp": [
+     "ボディプレス",
+     "シャドークロー",
+     "シャドーボール",
+     "てっぺき"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.6913,
+     "meta": 0.4803,
+     "original": 0.4054,
+     "advanced": 0.3347
+    }
+   },
+   {
+    "idx": 128,
+    "rank": 116,
+    "rr_avg": 0.4112,
+    "stats": [
+     187,
+     148,
+     174,
+     125,
+     148,
+     156
+    ],
+    "moves": [
+     "SB",
+     "MS",
+     "ID",
+     "ST"
+    ],
+    "moves_jp": [
+     "シャドーボール",
+     "どろかけ",
+     "てっぺき",
+     "ねごと"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.604,
+     "meta": 0.2801,
+     "original": 0.4575,
+     "advanced": 0.5035
+    }
+   },
+   {
+    "idx": 129,
+    "rank": 126,
+    "rr_avg": 0.4027,
+    "stats": [
+     187,
+     148,
+     172,
+     139,
+     146,
+     145
+    ],
+    "moves": [
+     "SCL",
+     "SB",
+     "ID",
+     "PU"
+    ],
+    "moves_jp": [
+     "シャドークロー",
+     "シャドーボール",
+     "てっぺき",
+     "サイコアップ"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.721,
+     "meta": 0.4741,
+     "original": 0.3849,
+     "advanced": 0.3387
+    }
+   },
+   {
+    "idx": 130,
+    "rank": 63,
+    "rr_avg": 0.5457,
+    "stats": [
+     187,
+     148,
+     172,
+     139,
+     144,
+     147
+    ],
+    "moves": [
+     "SCL",
+     "SB",
+     "MS",
+     "ID"
+    ],
+    "moves_jp": [
+     "シャドークロー",
+     "シャドーボール",
+     "どろかけ",
+     "てっぺき"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.716,
+     "meta": 0.723,
+     "original": 0.5449,
+     "advanced": 0.3035
+    }
+   },
+   {
+    "idx": 131,
+    "rank": 138,
+    "rr_avg": 0.3972,
+    "stats": [
+     182,
+     148,
+     176,
+     149,
+     137,
+     145
+    ],
+    "moves": [
+     "SB",
+     "ID",
+     "ST",
+     "TRK"
+    ],
+    "moves_jp": [
+     "シャドーボール",
+     "てっぺき",
+     "ねごと",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.7448,
+     "meta": 0.4627,
+     "original": 0.3837,
+     "advanced": 0.3334
+    }
+   },
+   {
+    "idx": 132,
+    "rank": 160,
+    "rr_avg": 0.364,
+    "stats": [
+     187,
+     148,
+     176,
+     125,
+     148,
+     154
+    ],
+    "moves": [
+     "SB",
+     "AGI",
+     "ID",
+     "ST"
+    ],
+    "moves_jp": [
+     "シャドーボール",
+     "こうそくいどう",
+     "てっぺき",
+     "ねごと"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.6179,
+     "meta": 0.2633,
+     "original": 0.4361,
+     "advanced": 0.3724
+    }
+   },
+   {
+    "idx": 133,
+    "rank": 139,
+    "rr_avg": 0.3964,
+    "stats": [
+     187,
+     148,
+     172,
+     125,
+     144,
+     162
+    ],
+    "moves": [
+     "SB",
+     "AGI",
+     "ID",
+     "TRK"
+    ],
+    "moves_jp": [
+     "シャドーボール",
+     "こうそくいどう",
+     "てっぺき",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.5802,
+     "meta": 0.273,
+     "original": 0.4463,
+     "advanced": 0.4762
+    }
+   },
+   {
+    "idx": 134,
+    "rank": 101,
+    "rr_avg": 0.4523,
+    "stats": [
+     183,
+     148,
+     170,
+     125,
+     156,
+     156
+    ],
+    "moves": [
+     "SB",
+     "MS",
+     "ID",
+     "ST"
+    ],
+    "moves_jp": [
+     "シャドーボール",
+     "どろかけ",
+     "てっぺき",
+     "ねごと"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.5058,
+     "meta": 0.3404,
+     "original": 0.4878,
+     "advanced": 0.5384
+    }
+   },
+   {
+    "idx": 135,
+    "rank": 163,
+    "rr_avg": 0.3277,
+    "stats": [
+     186,
+     148,
+     189,
+     136,
+     137,
+     145
+    ],
+    "moves": [
+     "BD",
+     "SB",
+     "ID",
+     "PU"
+    ],
+    "moves_jp": [
+     "じならし",
+     "シャドーボール",
+     "てっぺき",
+     "サイコアップ"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.8921,
+     "meta": 0.3922,
+     "original": 0.3248,
+     "advanced": 0.2442
+    }
+   },
+   {
+    "idx": 136,
+    "rank": 134,
+    "rr_avg": 0.3986,
+    "stats": [
+     186,
+     148,
+     172,
+     149,
+     137,
+     145
+    ],
+    "moves": [
+     "EQ",
+     "SB",
+     "ID",
+     "ST"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドーボール",
+     "てっぺき",
+     "ねごと"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.7444,
+     "meta": 0.4671,
+     "original": 0.3765,
+     "advanced": 0.3443
+    }
+   },
+   {
+    "idx": 137,
+    "rank": 121,
+    "rr_avg": 0.4075,
+    "stats": [
+     187,
+     148,
+     172,
+     139,
+     146,
+     145
+    ],
+    "moves": [
+     "SB",
+     "ID",
+     "ST",
+     "TRK"
+    ],
+    "moves_jp": [
+     "シャドーボール",
+     "てっぺき",
+     "ねごと",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.7219,
+     "meta": 0.4801,
+     "original": 0.3968,
+     "advanced": 0.3292
+    }
+   },
+   {
+    "idx": 138,
+    "rank": 159,
+    "rr_avg": 0.3661,
+    "stats": [
+     187,
+     148,
+     176,
+     125,
+     148,
+     154
+    ],
+    "moves": [
+     "SB",
+     "MS",
+     "ID",
+     "ST"
+    ],
+    "moves_jp": [
+     "シャドーボール",
+     "どろかけ",
+     "てっぺき",
+     "ねごと"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.6223,
+     "meta": 0.258,
+     "original": 0.4423,
+     "advanced": 0.3732
+    }
+   },
+   {
+    "idx": 139,
+    "rank": 130,
+    "rr_avg": 0.4005,
+    "stats": [
+     185,
+     148,
+     172,
+     139,
+     148,
+     145
+    ],
+    "moves": [
+     "BP",
+     "SB",
+     "AGI",
+     "ID"
+    ],
+    "moves_jp": [
+     "ボディプレス",
+     "シャドーボール",
+     "こうそくいどう",
+     "てっぺき"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.7063,
+     "meta": 0.463,
+     "original": 0.3989,
+     "advanced": 0.3173
+    }
+   },
+   {
+    "idx": 140,
+    "rank": 140,
+    "rr_avg": 0.3953,
+    "stats": [
+     185,
+     148,
+     172,
+     139,
+     148,
+     145
+    ],
+    "moves": [
+     "SB",
+     "ID",
+     "PU",
+     "TRK"
+    ],
+    "moves_jp": [
+     "シャドーボール",
+     "てっぺき",
+     "サイコアップ",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.7019,
+     "meta": 0.4662,
+     "original": 0.3898,
+     "advanced": 0.3099
+    }
+   },
+   {
+    "idx": 141,
+    "rank": 115,
+    "rr_avg": 0.4122,
+    "stats": [
+     187,
+     148,
+     170,
+     139,
+     148,
+     145
+    ],
+    "moves": [
+     "SB",
+     "ID",
+     "PU",
+     "TRK"
+    ],
+    "moves_jp": [
+     "シャドーボール",
+     "てっぺき",
+     "サイコアップ",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.6892,
+     "meta": 0.4776,
+     "original": 0.4047,
+     "advanced": 0.3376
+    }
+   },
+   {
+    "idx": 142,
+    "rank": 76,
+    "rr_avg": 0.5074,
+    "stats": [
+     186,
+     148,
+     198,
+     125,
+     133,
+     152
+    ],
+    "moves": [
+     "BD",
+     "SCL",
+     "SB",
+     "AGI"
+    ],
+    "moves_jp": [
+     "じならし",
+     "シャドークロー",
+     "シャドーボール",
+     "こうそくいどう"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.8612,
+     "meta": 0.6124,
+     "original": 0.5797,
+     "advanced": 0.233
+    }
+   },
+   {
+    "idx": 143,
+    "rank": 122,
+    "rr_avg": 0.4075,
+    "stats": [
+     186,
+     148,
+     172,
+     149,
+     137,
+     145
+    ],
+    "moves": [
+     "SCL",
+     "SB",
+     "ID",
+     "PU"
+    ],
+    "moves_jp": [
+     "シャドークロー",
+     "シャドーボール",
+     "てっぺき",
+     "サイコアップ"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.7469,
+     "meta": 0.4743,
+     "original": 0.3875,
+     "advanced": 0.354
+    }
+   },
+   {
+    "idx": 144,
+    "rank": 108,
+    "rr_avg": 0.4186,
+    "stats": [
+     186,
+     148,
+     172,
+     149,
+     137,
+     145
+    ],
+    "moves": [
+     "SCL",
+     "SB",
+     "ID",
+     "PRO"
+    ],
+    "moves_jp": [
+     "シャドークロー",
+     "シャドーボール",
+     "てっぺき",
+     "まもる"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.7462,
+     "meta": 0.4817,
+     "original": 0.4088,
+     "advanced": 0.3512
+    }
+   },
+   {
+    "idx": 145,
+    "rank": 7,
+    "rr_avg": 0.707,
+    "stats": [
+     186,
+     165,
+     178,
+     125,
+     133,
+     154
+    ],
+    "moves": [
+     "EQ",
+     "SCL",
+     "SB",
+     "TRK"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドークロー",
+     "シャドーボール",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "advanced",
+    "rate": {
+     "beginner": 0.756,
+     "meta": 0.796,
+     "original": 0.8312,
+     "advanced": 0.3491
+    }
+   },
+   {
+    "idx": 146,
+    "rank": 70,
+    "rr_avg": 0.5399,
+    "stats": [
+     184,
+     165,
+     180,
+     127,
+     133,
+     152
+    ],
+    "moves": [
+     "BD",
+     "EQ",
+     "SB",
+     "REST"
+    ],
+    "moves_jp": [
+     "じならし",
+     "じしん",
+     "シャドーボール",
+     "ねむる"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.7348,
+     "meta": 0.67,
+     "original": 0.6201,
+     "advanced": 0.2181
+    }
+   },
+   {
+    "idx": 147,
+    "rank": 147,
+    "rr_avg": 0.3913,
+    "stats": [
+     186,
+     148,
+     176,
+     149,
+     133,
+     145
+    ],
+    "moves": [
+     "SCL",
+     "SB",
+     "ID",
+     "PRO"
+    ],
+    "moves_jp": [
+     "シャドークロー",
+     "シャドーボール",
+     "てっぺき",
+     "まもる"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.7658,
+     "meta": 0.4535,
+     "original": 0.3893,
+     "advanced": 0.3108
+    }
+   },
+   {
+    "idx": 148,
+    "rank": 105,
+    "rr_avg": 0.4203,
+    "stats": [
+     183,
+     148,
+     172,
+     125,
+     152,
+     158
+    ],
+    "moves": [
+     "SB",
+     "AGI",
+     "ID",
+     "ST"
+    ],
+    "moves_jp": [
+     "シャドーボール",
+     "こうそくいどう",
+     "てっぺき",
+     "ねごと"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.5483,
+     "meta": 0.299,
+     "original": 0.4651,
+     "advanced": 0.5062
+    }
+   },
+   {
+    "idx": 149,
+    "rank": 141,
+    "rr_avg": 0.394,
+    "stats": [
+     183,
+     148,
+     172,
+     125,
+     148,
+     162
+    ],
+    "moves": [
+     "SB",
+     "MS",
+     "ID",
+     "ST"
+    ],
+    "moves_jp": [
+     "シャドーボール",
+     "どろかけ",
+     "てっぺき",
+     "ねごと"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.5308,
+     "meta": 0.2654,
+     "original": 0.4474,
+     "advanced": 0.4702
+    }
+   },
+   {
+    "idx": 150,
+    "rank": 161,
+    "rr_avg": 0.3309,
+    "stats": [
+     186,
+     148,
+     189,
+     136,
+     137,
+     145
+    ],
+    "moves": [
+     "SCL",
+     "SB",
+     "ID",
+     "PRO"
+    ],
+    "moves_jp": [
+     "シャドークロー",
+     "シャドーボール",
+     "てっぺき",
+     "まもる"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.8835,
+     "meta": 0.3899,
+     "original": 0.3304,
+     "advanced": 0.2524
+    }
+   },
+   {
+    "idx": 151,
+    "rank": 152,
+    "rr_avg": 0.3881,
+    "stats": [
+     186,
+     148,
+     176,
+     149,
+     133,
+     145
+    ],
+    "moves": [
+     "SB",
+     "ID",
+     "PRO",
+     "ST"
+    ],
+    "moves_jp": [
+     "シャドーボール",
+     "てっぺき",
+     "まもる",
+     "ねごと"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.7669,
+     "meta": 0.4573,
+     "original": 0.3766,
+     "advanced": 0.3136
+    }
+   },
+   {
+    "idx": 152,
+    "rank": 151,
+    "rr_avg": 0.3883,
+    "stats": [
+     186,
+     148,
+     176,
+     149,
+     133,
+     145
+    ],
+    "moves": [
+     "EQ",
+     "SB",
+     "ID",
+     "PRO"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドーボール",
+     "てっぺき",
+     "まもる"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.77,
+     "meta": 0.448,
+     "original": 0.3824,
+     "advanced": 0.3168
+    }
+   },
+   {
+    "idx": 153,
+    "rank": 68,
+    "rr_avg": 0.5421,
+    "stats": [
+     183,
+     148,
+     172,
+     139,
+     148,
+     147
+    ],
+    "moves": [
+     "BD",
+     "SB",
+     "AGI",
+     "ID"
+    ],
+    "moves_jp": [
+     "じならし",
+     "シャドーボール",
+     "こうそくいどう",
+     "てっぺき"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.684,
+     "meta": 0.7116,
+     "original": 0.5529,
+     "advanced": 0.2896
+    }
+   },
+   {
+    "idx": 154,
+    "rank": 109,
+    "rr_avg": 0.4143,
+    "stats": [
+     186,
+     148,
+     172,
+     149,
+     137,
+     145
+    ],
+    "moves": [
+     "SB",
+     "ID",
+     "PRO",
+     "ST"
+    ],
+    "moves_jp": [
+     "シャドーボール",
+     "てっぺき",
+     "まもる",
+     "ねごと"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.7481,
+     "meta": 0.4807,
+     "original": 0.3938,
+     "advanced": 0.3597
+    }
+   },
+   {
+    "idx": 155,
+    "rank": 136,
+    "rr_avg": 0.3975,
+    "stats": [
+     185,
+     148,
+     172,
+     139,
+     148,
+     145
+    ],
+    "moves": [
+     "BD",
+     "SCL",
+     "SB",
+     "ID"
+    ],
+    "moves_jp": [
+     "じならし",
+     "シャドークロー",
+     "シャドーボール",
+     "てっぺき"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.7044,
+     "meta": 0.4669,
+     "original": 0.3929,
+     "advanced": 0.3122
+    }
+   },
+   {
+    "idx": 156,
+    "rank": 114,
+    "rr_avg": 0.4129,
+    "stats": [
+     187,
+     148,
+     170,
+     139,
+     148,
+     145
+    ],
+    "moves": [
+     "BP",
+     "BD",
+     "SB",
+     "ID"
+    ],
+    "moves_jp": [
+     "ボディプレス",
+     "じならし",
+     "シャドーボール",
+     "てっぺき"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.6923,
+     "meta": 0.4826,
+     "original": 0.406,
+     "advanced": 0.3296
+    }
+   },
+   {
+    "idx": 157,
+    "rank": 62,
+    "rr_avg": 0.546,
+    "stats": [
+     187,
+     148,
+     172,
+     139,
+     144,
+     147
+    ],
+    "moves": [
+     "BP",
+     "SCL",
+     "SB",
+     "ID"
+    ],
+    "moves_jp": [
+     "ボディプレス",
+     "シャドークロー",
+     "シャドーボール",
+     "てっぺき"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.7167,
+     "meta": 0.7255,
+     "original": 0.5486,
+     "advanced": 0.2947
+    }
+   },
+   {
+    "idx": 158,
+    "rank": 4,
+    "rr_avg": 0.7323,
+    "stats": [
+     182,
+     165,
+     180,
+     125,
+     133,
+     156
+    ],
+    "moves": [
+     "BD",
+     "EQ",
+     "SB",
+     "PRO"
+    ],
+    "moves_jp": [
+     "じならし",
+     "じしん",
+     "シャドーボール",
+     "まもる"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "advanced",
+    "rate": {
+     "beginner": 0.7265,
+     "meta": 0.8005,
+     "original": 0.8185,
+     "advanced": 0.4748
+    }
+   },
+   {
+    "idx": 159,
+    "rank": 107,
+    "rr_avg": 0.4197,
+    "stats": [
+     179,
+     148,
+     170,
+     125,
+     162,
+     154
+    ],
+    "moves": [
+     "SB",
+     "AGI",
+     "ID",
+     "TRK"
+    ],
+    "moves_jp": [
+     "シャドーボール",
+     "こうそくいどう",
+     "てっぺき",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.4706,
+     "meta": 0.3413,
+     "original": 0.4817,
+     "advanced": 0.416
+    }
+   },
+   {
+    "idx": 160,
+    "rank": 80,
+    "rr_avg": 0.491,
+    "stats": [
+     186,
+     181,
+     180,
+     125,
+     119,
+     152
+    ],
+    "moves": [
+     "EQ",
+     "SCL",
+     "SB",
+     "SF"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドークロー",
+     "シャドーボール",
+     "こわいかお"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "advanced",
+    "rate": {
+     "beginner": 0.8496,
+     "meta": 0.569,
+     "original": 0.5631,
+     "advanced": 0.246
+    }
+   },
+   {
+    "idx": 161,
+    "rank": 165,
+    "rr_avg": 0.3253,
+    "stats": [
+     186,
+     148,
+     189,
+     136,
+     137,
+     145
+    ],
+    "moves": [
+     "SB",
+     "ID",
+     "PU",
+     "TRK"
+    ],
+    "moves_jp": [
+     "シャドーボール",
+     "てっぺき",
+     "サイコアップ",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "meta",
+    "rate": {
+     "beginner": 0.8933,
+     "meta": 0.3838,
+     "original": 0.3298,
+     "advanced": 0.2379
+    }
+   },
+   {
+    "idx": 162,
+    "rank": 131,
+    "rr_avg": 0.4,
+    "stats": [
+     187,
+     151,
+     209,
+     128,
+     134,
+     134
+    ],
+    "moves": [
+     "BD",
+     "SB",
+     "AGI",
+     "SF"
+    ],
+    "moves_jp": [
+     "じならし",
+     "シャドーボール",
+     "こうそくいどう",
+     "こわいかお"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.8106,
+     "meta": 0.3525,
+     "original": 0.404,
+     "advanced": 0.4579
+    }
+   },
+   {
+    "idx": 163,
+    "rank": 144,
+    "rr_avg": 0.3927,
+    "stats": [
+     187,
+     168,
+     209,
+     128,
+     124,
+     130
+    ],
+    "moves": [
+     "BD",
+     "SB",
+     "AGI",
+     "SF"
+    ],
+    "moves_jp": [
+     "じならし",
+     "シャドーボール",
+     "こうそくいどう",
+     "こわいかお"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.7365,
+     "meta": 0.3225,
+     "original": 0.398,
+     "advanced": 0.4798
+    }
+   },
+   {
+    "idx": 164,
+    "rank": 167,
+    "rr_avg": 0.3236,
+    "stats": [
+     186,
+     148,
+     189,
+     136,
+     137,
+     145
+    ],
+    "moves": [
+     "EQ",
+     "SB",
+     "ID",
+     "TRK"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドーボール",
+     "てっぺき",
+     "トリック"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.896,
+     "meta": 0.3954,
+     "original": 0.3156,
+     "advanced": 0.2393
+    }
+   },
+   {
+    "idx": 165,
+    "rank": 81,
+    "rr_avg": 0.4874,
+    "stats": [
+     186,
+     181,
+     180,
+     125,
+     119,
+     152
+    ],
+    "moves": [
+     "EQ",
+     "SB",
+     "PU",
+     "REST"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドーボール",
+     "サイコアップ",
+     "ねむる"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "advanced",
+    "rate": {
+     "beginner": 0.8219,
+     "meta": 0.5654,
+     "original": 0.5605,
+     "advanced": 0.2407
+    }
+   },
+   {
+    "idx": 166,
+    "rank": 79,
+    "rr_avg": 0.4911,
+    "stats": [
+     186,
+     181,
+     180,
+     125,
+     119,
+     152
+    ],
+    "moves": [
+     "EQ",
+     "SCL",
+     "SB",
+     "REST"
+    ],
+    "moves_jp": [
+     "じしん",
+     "シャドークロー",
+     "シャドーボール",
+     "ねむる"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "advanced",
+    "rate": {
+     "beginner": 0.8462,
+     "meta": 0.5801,
+     "original": 0.5565,
+     "advanced": 0.2432
+    }
+   },
+   {
+    "idx": 167,
+    "rank": 64,
+    "rr_avg": 0.5446,
+    "stats": [
+     183,
+     148,
+     172,
+     139,
+     148,
+     147
+    ],
+    "moves": [
+     "BP",
+     "BD",
+     "SB",
+     "ID"
+    ],
+    "moves_jp": [
+     "ボディプレス",
+     "じならし",
+     "シャドーボール",
+     "てっぺき"
+    ],
+    "item": "stone",
+    "item_jp": "メタグロスナイト",
+    "mega": true,
+    "group": "original",
+    "rate": {
+     "beginner": 0.6846,
+     "meta": 0.7193,
+     "original": 0.5487,
+     "advanced": 0.2971
+    }
+   }
+  ]
+ }
+}
