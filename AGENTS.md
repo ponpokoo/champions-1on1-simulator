@@ -6,11 +6,12 @@
 
 ```sh
 make verify
-gcc -O3 -march=native -o engine/engine engine/engine.c -lm
 ./engine/engine policy-version
+gcc -O3 -march=native -o engine/engine engine/engine.c -lm
 ```
 
-- 最初に `make verify` を通す。上のgccは単体ビルド、`policy-version` は重みハッシュ確認。
+- 最初に `make verify` を通す。次に `policy-version` で重みハッシュを確認する。上のgccは単体ビルド用。
+- 型スペックの文法とコマンドの使い方は `docs/spec_and_cli.md` を参照する。
 - `./engine/engine matrix 3000 12345` のMD5は `f3128c506954574a0c48bdfb79e2a917`。観測OFF／互換観測ON（`ENGINE_OBSERVER=1 ENGINE_OBS_COMPAT=1`）とも一致させる。検証前に `ENGINE_SEQ`・`ENGINE_OBSERVER`・`ENGINE_OBS_COMPAT` を解除する。
 
 ## 厳守

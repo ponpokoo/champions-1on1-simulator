@@ -1,3 +1,5 @@
+> 注記: 本ファイルは開発時の作業ログであり、本文中のファイル名は開発ツリー上の配置を指す（配布物に含まれないものもある）。本文に現れる行列 MD5 `21f0b28488d25682bb05ceba5ef5d8b6` はダメージ計算式の組み替え前の歴史的値で、現行の基準は `f3128c506954574a0c48bdfb79e2a917`。
+
 # Stage 3 findings — learned-policy loop
 
 Status: GPU campaign completed; actual results follow.

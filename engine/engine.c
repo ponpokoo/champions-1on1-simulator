@@ -2497,9 +2497,12 @@ static int parse_policy(const char *s) {
     if (!strcmp(s, "obsdemo2")) return POL_OBSDEMO2;
     if (!strcmp(s, "obsh3")) return POL_OBSH3;
     if (!strcmp(s, "learned2")) return POL_LEARNED2;
+    static int warned = 0;
+    if (!warned) { warned = 1; fprintf(stderr, "warning: unknown policy token \"%s\" treated as mirror\n", s); }
     return POL_MIRROR;
 }
 static int parse_item(const char *s) {
+    if (!strcmp(s, "none")) return ITEM_NONE;
     if (!strcmp(s, "helmet")) return ITEM_HELMET;
     if (!strcmp(s, "stone")) return ITEM_STONE;
     if (!strcmp(s, "leftovers")) return ITEM_LEFTOVERS;
@@ -2534,6 +2537,8 @@ static int parse_item(const char *s) {
     if (!strcmp(s, "fband")) return ITEM_FBAND;
     if (!strcmp(s, "balloon")) return ITEM_BALLOON;
     if (!strcmp(s, "herb")) return ITEM_HERB;
+    static int warned = 0;
+    if (!warned) { warned = 1; fprintf(stderr, "warning: unknown item token \"%s\" treated as none\n", s); }
     return ITEM_NONE;
 }
 static void init_mon(Mon *m, const char *spec) {
@@ -2556,6 +2561,10 @@ static void init_mon(Mon *m, const char *spec) {
         char *tok = strtok(moves_s, ",");
         while (tok) {
             int mv = move_from_code(tok);
+            if (mv < 0) {
+                static int warned = 0;
+                if (!warned) { warned = 1; fprintf(stderr, "warning: unknown move code \"%s\" ignored\n", tok); }
+            }
             if (mv < 0 || m->nmoves >= 4) m->state_features |= MON_UNKNOWN_VOCAB;
             if (mv >= 0 && m->nmoves < 4) { m->moves[m->nmoves] = mv; m->pp[m->nmoves] = MOVES[mv].pp; m->nmoves++; }
             tok = strtok(NULL, ",");
@@ -2571,6 +2580,10 @@ static void init_mon(Mon *m, const char *spec) {
     if (ab_s && !m->mega) {   // Mega's ability is fixed to Tough Claws (via the mega flag)
         if (!strcmp(ab_s, "cb")) m->ability = AB_CB;
         else if (!strcmp(ab_s, "lm")) m->ability = AB_LM;
+        else {
+            static int warned = 0;
+            if (!warned) { warned = 1; fprintf(stderr, "warning: unknown ability token \"%s\" treated as none\n", ab_s); }
+        }
     }
 }
 
