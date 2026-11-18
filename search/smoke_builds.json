@@ -1,0 +1,2052 @@
+{
+ "count": 341,
+ "games_per_species": 100,
+ "builds": [
+  {
+   "species": "venusaur",
+   "name_ja": "フシギバナ",
+   "kind": "normal",
+   "spec": "venusaur:32,0,0,2,0,32|frenzyplant,gigaimpact,hyperbeam,leafstorm|generic|none|0|overgrow|3,2|m"
+  },
+  {
+   "species": "venusaurmega",
+   "name_ja": "メガフシギバナ",
+   "kind": "mega",
+   "spec": "venusaur:32,0,0,2,0,32|frenzyplant,gigaimpact,hyperbeam,leafstorm|generic|venusaurite|1|thickfat|3,4|m"
+  },
+  {
+   "species": "charizard",
+   "name_ja": "リザードン",
+   "kind": "normal",
+   "spec": "charizard:32,0,0,2,0,32|blastburn,focuspunch,gigaimpact,hyperbeam|generic|none|0|blaze|3,2|m"
+  },
+  {
+   "species": "charizardmegax",
+   "name_ja": "メガリザードンX",
+   "kind": "mega",
+   "spec": "charizard:32,2,0,0,0,32|blastburn,focuspunch,gigaimpact,hyperbeam|generic|charizarditex|1|toughclaws|1,4|m"
+  },
+  {
+   "species": "charizardmegay",
+   "name_ja": "メガリザードンY",
+   "kind": "mega",
+   "spec": "charizard:32,0,0,2,0,32|blastburn,focuspunch,gigaimpact,hyperbeam|generic|charizarditey|1|drought|3,2|m"
+  },
+  {
+   "species": "blastoise",
+   "name_ja": "カメックス",
+   "kind": "normal",
+   "spec": "blastoise:32,0,0,2,0,32|focuspunch,gigaimpact,hydrocannon,hyperbeam|generic|none|0|torrent|3,2|m"
+  },
+  {
+   "species": "blastoisemega",
+   "name_ja": "メガカメックス",
+   "kind": "mega",
+   "spec": "blastoise:32,0,0,2,0,32|focuspunch,gigaimpact,hydrocannon,hyperbeam|generic|blastoisinite|1|megalauncher|3,4|m"
+  },
+  {
+   "species": "beedrill",
+   "name_ja": "スピアー",
+   "kind": "normal",
+   "spec": "beedrill:32,2,0,0,0,32|gigaimpact,hyperbeam,doubleedge,solarbeam|generic|none|0|swarm|1,2|m"
+  },
+  {
+   "species": "beedrillmega",
+   "name_ja": "メガスピアー",
+   "kind": "mega",
+   "spec": "beedrill:32,2,0,0,0,32|gigaimpact,hyperbeam,doubleedge,solarbeam|generic|beedrillite|1|adaptability|1,2|m"
+  },
+  {
+   "species": "pidgeot",
+   "name_ja": "ピジョット",
+   "kind": "normal",
+   "spec": "pidgeot:32,2,0,0,0,32|gigaimpact,hyperbeam,skyattack,bravebird|generic|none|0|keeneye|1,4|m"
+  },
+  {
+   "species": "pidgeotmega",
+   "name_ja": "メガピジョット",
+   "kind": "mega",
+   "spec": "pidgeot:32,0,0,2,0,32|gigaimpact,hyperbeam,skyattack,bravebird|generic|pidgeotite|1|noguard|3,2|m"
+  },
+  {
+   "species": "arbok",
+   "name_ja": "アーボック",
+   "kind": "normal",
+   "spec": "arbok:32,2,0,0,0,32|gigaimpact,hyperbeam,belch,doubleedge|generic|none|0|intimidate|1,2|m"
+  },
+  {
+   "species": "pikachu",
+   "name_ja": "ピカチュウ",
+   "kind": "normal",
+   "spec": "pikachu:32,2,0,0,0,32|focuspunch,megakick,volttackle,zapcannon|generic|none|0|static|1,2|m"
+  },
+  {
+   "species": "raichu",
+   "name_ja": "ライチュウ",
+   "kind": "normal",
+   "spec": "raichu:32,2,0,0,0,32|focuspunch,gigaimpact,hyperbeam,focusblast|generic|none|0|static|1,2|m"
+  },
+  {
+   "species": "raichualola",
+   "name_ja": "ライチュウ（アローラ）",
+   "kind": "normal",
+   "spec": "raichualola:32,0,0,2,0,32|focuspunch,gigaimpact,hyperbeam,focusblast|generic|none|0|surgesurfer|3,2|m"
+  },
+  {
+   "species": "raichumegax",
+   "name_ja": "メガライチュウX",
+   "kind": "mega",
+   "spec": "raichu:32,2,0,0,0,32|focuspunch,gigaimpact,hyperbeam,focusblast|generic|raichunitex|1|electricsurge|1,2|m"
+  },
+  {
+   "species": "raichumegay",
+   "name_ja": "メガライチュウY",
+   "kind": "mega",
+   "spec": "raichu:32,0,0,2,0,32|focuspunch,gigaimpact,hyperbeam,focusblast|generic|raichunitey|1|noguard|3,2|m"
+  },
+  {
+   "species": "clefable",
+   "name_ja": "ピクシー",
+   "kind": "normal",
+   "spec": "clefable:32,0,0,2,0,32|focuspunch,gigaimpact,hyperbeam,doubleedge|generic|none|0|cutecharm|3,2|m"
+  },
+  {
+   "species": "clefablemega",
+   "name_ja": "メガピクシー",
+   "kind": "mega",
+   "spec": "clefable:32,0,0,2,0,32|focuspunch,gigaimpact,hyperbeam,doubleedge|generic|clefablite|1|magicbounce|3,2|m"
+  },
+  {
+   "species": "ninetales",
+   "name_ja": "キュウコン",
+   "kind": "normal",
+   "spec": "ninetales:32,0,0,2,0,32|gigaimpact,hyperbeam,overheat,doubleedge|generic|none|0|flashfire|3,2|m"
+  },
+  {
+   "species": "ninetalesalola",
+   "name_ja": "キュウコン（アローラ）",
+   "kind": "normal",
+   "spec": "ninetalesalola:32,0,0,2,0,32|gigaimpact,hyperbeam,doubleedge,blizzard|generic|none|0|snowcloak|3,2|m"
+  },
+  {
+   "species": "wigglytuff",
+   "name_ja": "プクリン",
+   "kind": "normal",
+   "spec": "wigglytuff:32,0,0,2,0,32|selfdestruct,focuspunch,gigaimpact,hyperbeam|generic|none|0|cutecharm|3,2|m"
+  },
+  {
+   "species": "vileplume",
+   "name_ja": "ラフレシア",
+   "kind": "normal",
+   "spec": "vileplume:32,0,0,2,0,32|gigaimpact,hyperbeam,leafstorm,solarblade|generic|none|0|chlorophyll|3,2|m"
+  },
+  {
+   "species": "persian",
+   "name_ja": "ペルシアン",
+   "kind": "normal",
+   "spec": "persian:32,2,0,0,0,32|gigaimpact,hyperbeam,lastresort,doubleedge|generic|none|0|limber|1,2|m"
+  },
+  {
+   "species": "persianalola",
+   "name_ja": "ペルシアン（アローラ）",
+   "kind": "normal",
+   "spec": "persianalola:32,0,0,2,0,32|gigaimpact,hyperbeam,doubleedge,gunkshot|generic|none|0|furcoat|3,2|m"
+  },
+  {
+   "species": "arcanine",
+   "name_ja": "ウインディ",
+   "kind": "normal",
+   "spec": "arcanine:32,2,0,0,0,32|gigaimpact,hyperbeam,burnup,overheat|generic|none|0|intimidate|1,2|m"
+  },
+  {
+   "species": "arcaninehisui",
+   "name_ja": "ウインディ（ヒスイ）",
+   "kind": "normal",
+   "spec": "arcaninehisui:32,2,0,0,0,32|gigaimpact,headsmash,hyperbeam,burnup|generic|none|0|intimidate|1,2|m"
+  },
+  {
+   "species": "alakazam",
+   "name_ja": "フーディン",
+   "kind": "normal",
+   "spec": "alakazam:32,0,0,2,0,32|gigaimpact,hyperbeam,focusblast,futuresight|generic|none|0|synchronize|3,2|m"
+  },
+  {
+   "species": "alakazammega",
+   "name_ja": "メガフーディン",
+   "kind": "mega",
+   "spec": "alakazam:32,0,0,2,0,32|gigaimpact,hyperbeam,focusblast,futuresight|generic|alakazite|1|trace|3,2|m"
+  },
+  {
+   "species": "machamp",
+   "name_ja": "カイリキー",
+   "kind": "normal",
+   "spec": "machamp:32,2,0,0,0,32|gigaimpact,hyperbeam,closecombat,doubleedge|generic|none|0|guts|1,2|m"
+  },
+  {
+   "species": "victreebel",
+   "name_ja": "ウツボット",
+   "kind": "normal",
+   "spec": "victreebel:32,2,0,0,0,32|gigaimpact,hyperbeam,leafstorm,powerwhip|generic|none|0|chlorophyll|1,2|m"
+  },
+  {
+   "species": "victreebelmega",
+   "name_ja": "メガウツボット",
+   "kind": "mega",
+   "spec": "victreebel:32,0,0,2,0,32|gigaimpact,hyperbeam,leafstorm,powerwhip|generic|victreebelite|1|innardsout|3,2|m"
+  },
+  {
+   "species": "slowbro",
+   "name_ja": "ヤドラン",
+   "kind": "normal",
+   "spec": "slowbro:32,0,0,2,0,32|focuspunch,gigaimpact,hyperbeam,belch|generic|none|0|oblivious|3,4|m"
+  },
+  {
+   "species": "slowbrogalar",
+   "name_ja": "ヤドラン（ガラル）",
+   "kind": "normal",
+   "spec": "slowbrogalar:32,2,0,0,0,32|gigaimpact,hyperbeam,belch,doubleedge|generic|none|0|quickdraw|1,4|m"
+  },
+  {
+   "species": "slowbromega",
+   "name_ja": "メガヤドラン",
+   "kind": "mega",
+   "spec": "slowbro:32,0,0,2,0,32|focuspunch,gigaimpact,hyperbeam,belch|generic|slowbronite|1|shellarmor|3,4|m"
+  },
+  {
+   "species": "farfetchd",
+   "name_ja": "カモネギ",
+   "kind": "normal",
+   "spec": "farfetchd:32,2,0,0,0,32|skyattack,solarblade,bravebird,closecombat|generic|none|0|keeneye|1,2|m"
+  },
+  {
+   "species": "gengar",
+   "name_ja": "ゲンガー",
+   "kind": "normal",
+   "spec": "gengar:32,0,0,2,0,32|selfdestruct,focuspunch,gigaimpact,hyperbeam|generic|none|0|cursedbody|3,2|m"
+  },
+  {
+   "species": "gengarmega",
+   "name_ja": "メガゲンガー",
+   "kind": "mega",
+   "spec": "gengar:32,0,0,2,0,32|selfdestruct,focuspunch,gigaimpact,hyperbeam|generic|gengarite|1|shadowtag|3,2|m"
+  },
+  {
+   "species": "kangaskhan",
+   "name_ja": "ガルーラ",
+   "kind": "normal",
+   "spec": "kangaskhan:32,2,0,0,0,32|gigaimpact,hyperbeam,lastresort,doubleedge|generic|none|0|earlybird|1,2|f"
+  },
+  {
+   "species": "kangaskhanmega",
+   "name_ja": "メガガルーラ",
+   "kind": "mega",
+   "spec": "kangaskhan:32,2,0,0,0,32|gigaimpact,hyperbeam,lastresort,doubleedge|generic|kangaskhanite|1|parentalbond|1,2|f"
+  },
+  {
+   "species": "starmie",
+   "name_ja": "スターミー",
+   "kind": "normal",
+   "spec": "starmie:32,0,0,2,0,32|selfdestruct,gigaimpact,hyperbeam,doubleedge|generic|none|0|illuminate|3,2|n"
+  },
+  {
+   "species": "starmiemega",
+   "name_ja": "メガスターミー",
+   "kind": "mega",
+   "spec": "starmie:32,0,0,2,0,32|selfdestruct,gigaimpact,hyperbeam,doubleedge|generic|starminite|1|hugepower|3,2|n"
+  },
+  {
+   "species": "mrmime",
+   "name_ja": "バリヤード",
+   "kind": "normal",
+   "spec": "mrmime:32,0,0,2,0,32|gigaimpact,hyperbeam,focusblast,futuresight|generic|none|0|soundproof|3,2|m"
+  },
+  {
+   "species": "pinsir",
+   "name_ja": "カイロス",
+   "kind": "normal",
+   "spec": "pinsir:32,2,0,0,0,32|gigaimpact,hyperbeam,closecombat,focusblast|generic|none|0|hypercutter|1,4|m"
+  },
+  {
+   "species": "pinsirmega",
+   "name_ja": "メガカイロス",
+   "kind": "mega",
+   "spec": "pinsir:32,2,0,0,0,32|gigaimpact,hyperbeam,closecombat,focusblast|generic|pinsirite|1|aerilate|1,4|m"
+  },
+  {
+   "species": "tauros",
+   "name_ja": "ケンタロス",
+   "kind": "normal",
+   "spec": "tauros:32,2,0,0,0,32|gigaimpact,hyperbeam,closecombat,doubleedge|generic|none|0|intimidate|1,4|m"
+  },
+  {
+   "species": "taurospaldeaaqua",
+   "name_ja": "ケンタロス（Paldea-Aqua）",
+   "kind": "normal",
+   "spec": "taurospaldeaaqua:32,2,0,0,0,32|gigaimpact,hyperbeam,closecombat,doubleedge|generic|none|0|intimidate|1,4|m"
+  },
+  {
+   "species": "taurospaldeablaze",
+   "name_ja": "ケンタロス（Paldea-Blaze）",
+   "kind": "normal",
+   "spec": "taurospaldeablaze:32,2,0,0,0,32|gigaimpact,hyperbeam,overheat,closecombat|generic|none|0|intimidate|1,4|m"
+  },
+  {
+   "species": "taurospaldeacombat",
+   "name_ja": "ケンタロス（Paldea-Combat）",
+   "kind": "normal",
+   "spec": "taurospaldeacombat:32,2,0,0,0,32|gigaimpact,hyperbeam,closecombat,doubleedge|generic|none|0|intimidate|1,4|m"
+  },
+  {
+   "species": "gyarados",
+   "name_ja": "ギャラドス",
+   "kind": "normal",
+   "spec": "gyarados:32,2,0,0,0,32|gigaimpact,hyperbeam,doubleedge,outrage|generic|none|0|intimidate|1,2|m"
+  },
+  {
+   "species": "gyaradosmega",
+   "name_ja": "メガギャラドス",
+   "kind": "mega",
+   "spec": "gyarados:32,2,0,0,0,32|gigaimpact,hyperbeam,doubleedge,outrage|generic|gyaradosite|1|moldbreaker|1,2|m"
+  },
+  {
+   "species": "ditto",
+   "name_ja": "メタモン",
+   "kind": "normal",
+   "spec": "ditto:32,2,0,0,0,32|transform|generic|none|0|limber|1,2|n"
+  },
+  {
+   "species": "vaporeon",
+   "name_ja": "シャワーズ",
+   "kind": "normal",
+   "spec": "vaporeon:32,0,0,2,0,32|gigaimpact,hyperbeam,lastresort,doubleedge|generic|none|0|waterabsorb|3,2|m"
+  },
+  {
+   "species": "jolteon",
+   "name_ja": "サンダース",
+   "kind": "normal",
+   "spec": "jolteon:32,0,0,2,0,32|gigaimpact,hyperbeam,lastresort,doubleedge|generic|none|0|voltabsorb|3,2|m"
+  },
+  {
+   "species": "flareon",
+   "name_ja": "ブースター",
+   "kind": "normal",
+   "spec": "flareon:32,2,0,0,0,32|gigaimpact,hyperbeam,lastresort,overheat|generic|none|0|flashfire|1,2|m"
+  },
+  {
+   "species": "aerodactyl",
+   "name_ja": "プテラ",
+   "kind": "normal",
+   "spec": "aerodactyl:32,2,0,0,0,32|gigaimpact,hyperbeam,skyattack,meteorbeam|generic|none|0|rockhead|1,2|m"
+  },
+  {
+   "species": "aerodactylmega",
+   "name_ja": "メガプテラ",
+   "kind": "mega",
+   "spec": "aerodactyl:32,2,0,0,0,32|gigaimpact,hyperbeam,skyattack,meteorbeam|generic|aerodactylite|1|toughclaws|1,2|m"
+  },
+  {
+   "species": "snorlax",
+   "name_ja": "カビゴン",
+   "kind": "normal",
+   "spec": "snorlax:32,2,0,0,0,32|selfdestruct,focuspunch,gigaimpact,hyperbeam|generic|none|0|immunity|1,2|m"
+  },
+  {
+   "species": "dragonite",
+   "name_ja": "カイリュー",
+   "kind": "normal",
+   "spec": "dragonite:32,2,0,0,0,32|focuspunch,gigaimpact,hyperbeam,dracometeor|generic|none|0|innerfocus|1,2|m"
+  },
+  {
+   "species": "dragonitemega",
+   "name_ja": "メガカイリュー",
+   "kind": "mega",
+   "spec": "dragonite:32,0,0,2,0,32|focuspunch,gigaimpact,hyperbeam,dracometeor|generic|dragoninite|1|multiscale|3,2|m"
+  },
+  {
+   "species": "meganium",
+   "name_ja": "メガニウム",
+   "kind": "normal",
+   "spec": "meganium:32,0,0,2,0,32|frenzyplant,gigaimpact,hyperbeam,leafstorm|generic|none|0|overgrow|3,2|m"
+  },
+  {
+   "species": "meganiummega",
+   "name_ja": "メガメガニウム",
+   "kind": "mega",
+   "spec": "meganium:32,0,0,2,0,32|frenzyplant,gigaimpact,hyperbeam,leafstorm|generic|meganiumite|1|megasol|3,2|m"
+  },
+  {
+   "species": "typhlosion",
+   "name_ja": "バクフーン",
+   "kind": "normal",
+   "spec": "typhlosion:32,0,0,2,0,32|blastburn,eruption,focuspunch,gigaimpact|generic|none|0|blaze|3,2|m"
+  },
+  {
+   "species": "typhlosionhisui",
+   "name_ja": "バクフーン（ヒスイ）",
+   "kind": "normal",
+   "spec": "typhlosionhisui:32,0,0,2,0,32|blastburn,eruption,focuspunch,gigaimpact|generic|none|0|blaze|3,2|m"
+  },
+  {
+   "species": "feraligatr",
+   "name_ja": "オーダイル",
+   "kind": "normal",
+   "spec": "feraligatr:32,2,0,0,0,32|focuspunch,gigaimpact,hydrocannon,hyperbeam|generic|none|0|torrent|1,4|m"
+  },
+  {
+   "species": "feraligatrmega",
+   "name_ja": "メガオーダイル",
+   "kind": "mega",
+   "spec": "feraligatr:32,2,0,0,0,32|focuspunch,gigaimpact,hydrocannon,hyperbeam|generic|feraligite|1|dragonize|1,4|m"
+  },
+  {
+   "species": "ariados",
+   "name_ja": "アリアドス",
+   "kind": "normal",
+   "spec": "ariados:32,2,0,0,0,32|gigaimpact,hyperbeam,megahorn,solarbeam|generic|none|0|swarm|1,2|m"
+  },
+  {
+   "species": "ampharos",
+   "name_ja": "デンリュウ",
+   "kind": "normal",
+   "spec": "ampharos:32,0,0,2,0,32|focuspunch,gigaimpact,hyperbeam,doubleedge|generic|none|0|static|3,2|m"
+  },
+  {
+   "species": "ampharosmega",
+   "name_ja": "メガデンリュウ",
+   "kind": "mega",
+   "spec": "ampharos:32,0,0,2,0,32|focuspunch,gigaimpact,hyperbeam,doubleedge|generic|ampharosite|1|moldbreaker|3,2|m"
+  },
+  {
+   "species": "azumarill",
+   "name_ja": "マリルリ",
+   "kind": "normal",
+   "spec": "azumarill:32,0,0,2,0,32|focuspunch,gigaimpact,hyperbeam,doubleedge|generic|none|0|thickfat|3,2|m"
+  },
+  {
+   "species": "politoed",
+   "name_ja": "ニョロトノ",
+   "kind": "normal",
+   "spec": "politoed:32,0,0,2,0,32|focuspunch,gigaimpact,hyperbeam,doubleedge|generic|none|0|waterabsorb|3,2|m"
+  },
+  {
+   "species": "espeon",
+   "name_ja": "エーフィ",
+   "kind": "normal",
+   "spec": "espeon:32,0,0,2,0,32|gigaimpact,hyperbeam,lastresort,doubleedge|generic|none|0|synchronize|3,2|m"
+  },
+  {
+   "species": "umbreon",
+   "name_ja": "ブラッキー",
+   "kind": "normal",
+   "spec": "umbreon:32,2,0,0,0,32|gigaimpact,hyperbeam,lastresort,doubleedge|generic|none|0|synchronize|1,2|m"
+  },
+  {
+   "species": "slowking",
+   "name_ja": "ヤドキング",
+   "kind": "normal",
+   "spec": "slowking:32,0,0,2,0,32|focuspunch,gigaimpact,hyperbeam,belch|generic|none|0|oblivious|3,2|m"
+  },
+  {
+   "species": "slowkinggalar",
+   "name_ja": "ヤドキング（ガラル）",
+   "kind": "normal",
+   "spec": "slowkinggalar:32,0,0,2,0,32|gigaimpact,hyperbeam,belch,focusblast|generic|none|0|curiousmedicine|3,2|m"
+  },
+  {
+   "species": "forretress",
+   "name_ja": "フォレトス",
+   "kind": "normal",
+   "spec": "forretress:32,2,0,0,0,32|explosion,selfdestruct,gigaimpact,hyperbeam|generic|none|0|sturdy|1,4|m"
+  },
+  {
+   "species": "steelix",
+   "name_ja": "ハガネール",
+   "kind": "normal",
+   "spec": "steelix:32,2,0,0,0,32|selfdestruct,gigaimpact,headsmash,hyperbeam|generic|none|0|rockhead|1,4|m"
+  },
+  {
+   "species": "steelixmega",
+   "name_ja": "メガハガネール",
+   "kind": "mega",
+   "spec": "steelix:32,2,0,0,0,32|selfdestruct,gigaimpact,headsmash,hyperbeam|generic|steelixite|1|sandforce|1,4|m"
+  },
+  {
+   "species": "qwilfish",
+   "name_ja": "ハリーセン",
+   "kind": "normal",
+   "spec": "qwilfish:32,2,0,0,0,32|selfdestruct,gigaimpact,steelroller,doubleedge|generic|none|0|poisonpoint|1,4|m"
+  },
+  {
+   "species": "scizor",
+   "name_ja": "ハッサム",
+   "kind": "normal",
+   "spec": "scizor:32,2,0,0,0,32|gigaimpact,hyperbeam,steelbeam,closecombat|generic|none|0|swarm|1,4|m"
+  },
+  {
+   "species": "scizormega",
+   "name_ja": "メガハッサム",
+   "kind": "mega",
+   "spec": "scizor:32,2,0,0,0,32|gigaimpact,hyperbeam,steelbeam,closecombat|generic|scizorite|1|technician|1,4|m"
+  },
+  {
+   "species": "heracross",
+   "name_ja": "ヘラクロス",
+   "kind": "normal",
+   "spec": "heracross:32,2,0,0,0,32|focuspunch,gigaimpact,hyperbeam,closecombat|generic|none|0|swarm|1,2|m"
+  },
+  {
+   "species": "heracrossmega",
+   "name_ja": "メガヘラクロス",
+   "kind": "mega",
+   "spec": "heracross:32,2,0,0,0,32|focuspunch,gigaimpact,hyperbeam,closecombat|generic|heracronite|1|skilllink|1,4|m"
+  },
+  {
+   "species": "skarmory",
+   "name_ja": "エアームド",
+   "kind": "normal",
+   "spec": "skarmory:32,2,0,0,0,32|gigaimpact,hyperbeam,skyattack,steelbeam|generic|none|0|keeneye|1,4|m"
+  },
+  {
+   "species": "skarmorymega",
+   "name_ja": "メガエアームド",
+   "kind": "mega",
+   "spec": "skarmory:32,2,0,0,0,32|gigaimpact,hyperbeam,skyattack,steelbeam|generic|skarmorite|1|stalwart|1,4|m"
+  },
+  {
+   "species": "houndoom",
+   "name_ja": "ヘルガー",
+   "kind": "normal",
+   "spec": "houndoom:32,0,0,2,0,32|gigaimpact,hyperbeam,overheat,doubleedge|generic|none|0|earlybird|3,2|m"
+  },
+  {
+   "species": "houndoommega",
+   "name_ja": "メガヘルガー",
+   "kind": "mega",
+   "spec": "houndoom:32,0,0,2,0,32|gigaimpact,hyperbeam,overheat,doubleedge|generic|houndoominite|1|solarpower|3,2|m"
+  },
+  {
+   "species": "tyranitar",
+   "name_ja": "バンギラス",
+   "kind": "normal",
+   "spec": "tyranitar:32,2,0,0,0,32|focuspunch,gigaimpact,hyperbeam,doubleedge|generic|none|0|sandstream|1,4|m"
+  },
+  {
+   "species": "tyranitarmega",
+   "name_ja": "メガバンギラス",
+   "kind": "mega",
+   "spec": "tyranitar:32,2,0,0,0,32|focuspunch,gigaimpact,hyperbeam,doubleedge|generic|tyranitarite|1|sandstream|1,4|m"
+  },
+  {
+   "species": "sceptile",
+   "name_ja": "ジュカイン",
+   "kind": "normal",
+   "spec": "sceptile:32,0,0,2,0,32|focuspunch,frenzyplant,gigaimpact,hyperbeam|generic|none|0|overgrow|3,2|m"
+  },
+  {
+   "species": "sceptilemega",
+   "name_ja": "メガジュカイン",
+   "kind": "mega",
+   "spec": "sceptile:32,0,0,2,0,32|focuspunch,frenzyplant,gigaimpact,hyperbeam|generic|sceptilite|1|lightningrod|3,2|m"
+  },
+  {
+   "species": "blaziken",
+   "name_ja": "バシャーモ",
+   "kind": "normal",
+   "spec": "blaziken:32,2,0,0,0,32|blastburn,focuspunch,gigaimpact,hyperbeam|generic|none|0|blaze|1,2|m"
+  },
+  {
+   "species": "blazikenmega",
+   "name_ja": "メガバシャーモ",
+   "kind": "mega",
+   "spec": "blaziken:32,2,0,0,0,32|blastburn,focuspunch,gigaimpact,hyperbeam|generic|blazikenite|1|speedboost|1,2|m"
+  },
+  {
+   "species": "swampert",
+   "name_ja": "ラグラージ",
+   "kind": "normal",
+   "spec": "swampert:32,2,0,0,0,32|focuspunch,gigaimpact,hydrocannon,hyperbeam|generic|none|0|torrent|1,2|m"
+  },
+  {
+   "species": "swampertmega",
+   "name_ja": "メガラグラージ",
+   "kind": "mega",
+   "spec": "swampert:32,2,0,0,0,32|focuspunch,gigaimpact,hydrocannon,hyperbeam|generic|swampertite|1|swiftswim|1,2|m"
+  },
+  {
+   "species": "pelipper",
+   "name_ja": "ペリッパー",
+   "kind": "normal",
+   "spec": "pelipper:32,0,0,2,0,32|gigaimpact,hyperbeam,bravebird,gunkshot|generic|none|0|keeneye|3,4|m"
+  },
+  {
+   "species": "gardevoir",
+   "name_ja": "サーナイト",
+   "kind": "normal",
+   "spec": "gardevoir:32,0,0,2,0,32|gigaimpact,hyperbeam,focusblast,futuresight|generic|none|0|synchronize|3,2|m"
+  },
+  {
+   "species": "gardevoirmega",
+   "name_ja": "メガサーナイト",
+   "kind": "mega",
+   "spec": "gardevoir:32,0,0,2,0,32|gigaimpact,hyperbeam,focusblast,futuresight|generic|gardevoirite|1|pixilate|3,2|m"
+  },
+  {
+   "species": "sableye",
+   "name_ja": "ヤミラミ",
+   "kind": "normal",
+   "spec": "sableye:32,2,0,0,0,32|focuspunch,gigaimpact,hyperbeam,megakick|generic|none|0|keeneye|1,4|m"
+  },
+  {
+   "species": "sableyemega",
+   "name_ja": "メガヤミラミ",
+   "kind": "mega",
+   "spec": "sableye:32,2,0,0,0,32|focuspunch,gigaimpact,hyperbeam,megakick|generic|sablenite|1|magicbounce|1,4|m"
+  },
+  {
+   "species": "mawile",
+   "name_ja": "クチート",
+   "kind": "normal",
+   "spec": "mawile:32,2,0,0,0,32|gigaimpact,hyperbeam,steelbeam,doubleedge|generic|none|0|hypercutter|1,4|m"
+  },
+  {
+   "species": "mawilemega",
+   "name_ja": "メガクチート",
+   "kind": "mega",
+   "spec": "mawile:32,2,0,0,0,32|gigaimpact,hyperbeam,steelbeam,doubleedge|generic|mawilite|1|hugepower|1,4|m"
+  },
+  {
+   "species": "aggron",
+   "name_ja": "ボスゴドラ",
+   "kind": "normal",
+   "spec": "aggron:32,2,0,0,0,32|gigaimpact,headsmash,hyperbeam,steelbeam|generic|none|0|sturdy|1,4|m"
+  },
+  {
+   "species": "aggronmega",
+   "name_ja": "メガボスゴドラ",
+   "kind": "mega",
+   "spec": "aggron:32,2,0,0,0,32|gigaimpact,headsmash,hyperbeam,steelbeam|generic|aggronite|1|filter|1,4|m"
+  },
+  {
+   "species": "medicham",
+   "name_ja": "チャーレム",
+   "kind": "normal",
+   "spec": "medicham:32,2,0,0,0,32|focuspunch,gigaimpact,hyperbeam,highjumpkick|generic|none|0|purepower|1,2|m"
+  },
+  {
+   "species": "medichammega",
+   "name_ja": "メガチャーレム",
+   "kind": "mega",
+   "spec": "medicham:32,2,0,0,0,32|focuspunch,gigaimpact,hyperbeam,highjumpkick|generic|medichamite|1|purepower|1,2|m"
+  },
+  {
+   "species": "manectric",
+   "name_ja": "ライボルト",
+   "kind": "normal",
+   "spec": "manectric:32,0,0,2,0,32|gigaimpact,hyperbeam,overheat,thunder|generic|none|0|static|3,2|m"
+  },
+  {
+   "species": "manectricmega",
+   "name_ja": "メガライボルト",
+   "kind": "mega",
+   "spec": "manectric:32,0,0,2,0,32|gigaimpact,hyperbeam,overheat,thunder|generic|manectite|1|intimidate|3,2|m"
+  },
+  {
+   "species": "swalot",
+   "name_ja": "マルノーム",
+   "kind": "normal",
+   "spec": "swalot:32,2,0,0,0,32|selfdestruct,gigaimpact,hyperbeam,belch|generic|none|0|liquidooze|1,2|m"
+  },
+  {
+   "species": "sharpedo",
+   "name_ja": "サメハダー",
+   "kind": "normal",
+   "spec": "sharpedo:32,2,0,0,0,32|gigaimpact,hyperbeam,closecombat,doubleedge|generic|none|0|roughskin|1,2|m"
+  },
+  {
+   "species": "sharpedomega",
+   "name_ja": "メガサメハダー",
+   "kind": "mega",
+   "spec": "sharpedo:32,2,0,0,0,32|gigaimpact,hyperbeam,closecombat,doubleedge|generic|sharpedonite|1|strongjaw|1,4|m"
+  },
+  {
+   "species": "camerupt",
+   "name_ja": "バクーダ",
+   "kind": "normal",
+   "spec": "camerupt:32,0,0,2,0,32|selfdestruct,eruption,gigaimpact,hyperbeam|generic|none|0|magmaarmor|3,2|m"
+  },
+  {
+   "species": "cameruptmega",
+   "name_ja": "メガバクーダ",
+   "kind": "mega",
+   "spec": "camerupt:32,0,0,2,0,32|selfdestruct,eruption,gigaimpact,hyperbeam|generic|cameruptite|1|sheerforce|3,2|m"
+  },
+  {
+   "species": "torkoal",
+   "name_ja": "コータス",
+   "kind": "normal",
+   "spec": "torkoal:32,2,0,0,0,32|selfdestruct,eruption,gigaimpact,hyperbeam|generic|none|0|whitesmoke|1,4|m"
+  },
+  {
+   "species": "altaria",
+   "name_ja": "チルタリス",
+   "kind": "normal",
+   "spec": "altaria:32,2,0,0,0,32|gigaimpact,hyperbeam,skyattack,dracometeor|generic|none|0|naturalcure|1,2|m"
+  },
+  {
+   "species": "altariamega",
+   "name_ja": "メガチルタリス",
+   "kind": "mega",
+   "spec": "altaria:32,2,0,0,0,32|gigaimpact,hyperbeam,skyattack,dracometeor|generic|altarianite|1|pixilate|1,4|m"
+  },
+  {
+   "species": "milotic",
+   "name_ja": "ミロカロス",
+   "kind": "normal",
+   "spec": "milotic:32,0,0,2,0,32|gigaimpact,hyperbeam,doubleedge,blizzard|generic|none|0|marvelscale|3,2|m"
+  },
+  {
+   "species": "castform",
+   "name_ja": "ポワルン",
+   "kind": "normal",
+   "spec": "castform:32,2,0,0,0,32|futuresight,solarbeam,blizzard,fireblast|generic|none|0|forecast|1,2|m"
+  },
+  {
+   "species": "banette",
+   "name_ja": "ジュペッタ",
+   "kind": "normal",
+   "spec": "banette:32,2,0,0,0,32|gigaimpact,hyperbeam,gunkshot,poltergeist|generic|none|0|insomnia|1,4|m"
+  },
+  {
+   "species": "banettemega",
+   "name_ja": "メガジュペッタ",
+   "kind": "mega",
+   "spec": "banette:32,2,0,0,0,32|gigaimpact,hyperbeam,gunkshot,poltergeist|generic|banettite|1|prankster|1,2|m"
+  },
+  {
+   "species": "chimecho",
+   "name_ja": "チリーン",
+   "kind": "normal",
+   "spec": "chimecho:32,0,0,2,0,32|selfdestruct,boomburst,doubleedge,futuresight|generic|none|0|levitate|3,2|m"
+  },
+  {
+   "species": "chimechomega",
+   "name_ja": "メガチリーン",
+   "kind": "mega",
+   "spec": "chimecho:32,0,0,2,0,32|selfdestruct,boomburst,doubleedge,futuresight|generic|chimechite|1|levitate|3,2|m"
+  },
+  {
+   "species": "absol",
+   "name_ja": "アブソル",
+   "kind": "normal",
+   "spec": "absol:32,2,0,0,0,32|gigaimpact,hyperbeam,closecombat,doubleedge|generic|none|0|pressure|1,2|m"
+  },
+  {
+   "species": "absolmega",
+   "name_ja": "メガアブソル",
+   "kind": "mega",
+   "spec": "absol:32,2,0,0,0,32|gigaimpact,hyperbeam,closecombat,doubleedge|generic|absolite|1|magicbounce|1,2|m"
+  },
+  {
+   "species": "absolmegaz",
+   "name_ja": "メガアブソルZ",
+   "kind": "mega",
+   "spec": "absol:32,2,0,0,0,32|gigaimpact,hyperbeam,closecombat,doubleedge|generic|absolitez|1|sharpness|1,2|m"
+  },
+  {
+   "species": "glalie",
+   "name_ja": "オニゴーリ",
+   "kind": "normal",
+   "spec": "glalie:32,2,0,0,0,32|explosion,selfdestruct,gigaimpact,hyperbeam|generic|none|0|innerfocus|1,2|m"
+  },
+  {
+   "species": "glaliemega",
+   "name_ja": "メガオニゴーリ",
+   "kind": "mega",
+   "spec": "glalie:32,2,0,0,0,32|explosion,selfdestruct,gigaimpact,hyperbeam|generic|glalitite|1|refrigerate|1,2|m"
+  },
+  {
+   "species": "salamence",
+   "name_ja": "ボーマンダ",
+   "kind": "normal",
+   "spec": "salamence:32,2,0,0,0,32|gigaimpact,hyperbeam,dracometeor,doubleedge|generic|none|0|intimidate|1,2|m"
+  },
+  {
+   "species": "salamencemega",
+   "name_ja": "メガボーマンダ",
+   "kind": "mega",
+   "spec": "salamence:32,2,0,0,0,32|gigaimpact,hyperbeam,dracometeor,doubleedge|generic|salamencite|1|aerilate|1,4|m"
+  },
+  {
+   "species": "metagross",
+   "name_ja": "メタグロス",
+   "kind": "normal",
+   "spec": "metagross:32,2,0,0,0,32|explosion,selfdestruct,focuspunch,gigaimpact|generic|none|0|clearbody|1,4|n"
+  },
+  {
+   "species": "metagrossmega",
+   "name_ja": "メガメタグロス",
+   "kind": "mega",
+   "spec": "metagross:32,2,0,0,0,32|explosion,selfdestruct,focuspunch,gigaimpact|generic|metagrossite|1|toughclaws|1,4|n"
+  },
+  {
+   "species": "torterra",
+   "name_ja": "ドダイトス",
+   "kind": "normal",
+   "spec": "torterra:32,2,0,0,0,32|frenzyplant,gigaimpact,hyperbeam,leafstorm|generic|none|0|overgrow|1,4|m"
+  },
+  {
+   "species": "infernape",
+   "name_ja": "ゴウカザル",
+   "kind": "normal",
+   "spec": "infernape:32,2,0,0,0,32|blastburn,focuspunch,gigaimpact,hyperbeam|generic|none|0|blaze|1,2|m"
+  },
+  {
+   "species": "empoleon",
+   "name_ja": "エンペルト",
+   "kind": "normal",
+   "spec": "empoleon:32,0,0,2,0,32|gigaimpact,hydrocannon,hyperbeam,steelbeam|generic|none|0|torrent|3,2|m"
+  },
+  {
+   "species": "staraptor",
+   "name_ja": "ムクホーク",
+   "kind": "normal",
+   "spec": "staraptor:32,2,0,0,0,32|gigaimpact,hyperbeam,skyattack,bravebird|generic|none|0|intimidate|1,4|m"
+  },
+  {
+   "species": "staraptormega",
+   "name_ja": "メガムクホーク",
+   "kind": "mega",
+   "spec": "staraptor:32,2,0,0,0,32|gigaimpact,hyperbeam,skyattack,bravebird|generic|staraptite|1|contrary|1,4|m"
+  },
+  {
+   "species": "luxray",
+   "name_ja": "レントラー",
+   "kind": "normal",
+   "spec": "luxray:32,2,0,0,0,32|gigaimpact,hyperbeam,doubleedge,superpower|generic|none|0|rivalry|1,2|m"
+  },
+  {
+   "species": "roserade",
+   "name_ja": "ロズレイド",
+   "kind": "normal",
+   "spec": "roserade:32,0,0,2,0,32|gigaimpact,hyperbeam,leafstorm,petaldance|generic|none|0|naturalcure|3,2|m"
+  },
+  {
+   "species": "rampardos",
+   "name_ja": "ラムパルド",
+   "kind": "normal",
+   "spec": "rampardos:32,2,0,0,0,32|focuspunch,gigaimpact,headsmash,hyperbeam|generic|none|0|moldbreaker|1,4|m"
+  },
+  {
+   "species": "bastiodon",
+   "name_ja": "トリデプス",
+   "kind": "normal",
+   "spec": "bastiodon:32,2,0,0,0,32|gigaimpact,hyperbeam,steelbeam,steelroller|generic|none|0|sturdy|1,4|m"
+  },
+  {
+   "species": "lopunny",
+   "name_ja": "ミミロップ",
+   "kind": "normal",
+   "spec": "lopunny:32,2,0,0,0,32|focuspunch,gigaimpact,hyperbeam,highjumpkick|generic|none|0|cutecharm|1,2|m"
+  },
+  {
+   "species": "lopunnymega",
+   "name_ja": "メガミミロップ",
+   "kind": "mega",
+   "spec": "lopunny:32,2,0,0,0,32|focuspunch,gigaimpact,hyperbeam,highjumpkick|generic|lopunnite|1|scrappy|1,2|m"
+  },
+  {
+   "species": "spiritomb",
+   "name_ja": "ミカルゲ",
+   "kind": "normal",
+   "spec": "spiritomb:32,2,0,0,0,32|gigaimpact,hyperbeam,poltergeist,foulplay|generic|none|0|pressure|1,2|m"
+  },
+  {
+   "species": "garchomp",
+   "name_ja": "ガブリアス",
+   "kind": "normal",
+   "spec": "garchomp:32,2,0,0,0,32|gigaimpact,hyperbeam,dracometeor,doubleedge|generic|none|0|sandveil|1,4|m"
+  },
+  {
+   "species": "garchompmega",
+   "name_ja": "メガガブリアス",
+   "kind": "mega",
+   "spec": "garchomp:32,2,0,0,0,32|gigaimpact,hyperbeam,dracometeor,doubleedge|generic|garchompite|1|sandforce|1,4|m"
+  },
+  {
+   "species": "garchompmegaz",
+   "name_ja": "メガガブリアスZ",
+   "kind": "mega",
+   "spec": "garchomp:32,0,0,2,0,32|gigaimpact,hyperbeam,dracometeor,doubleedge|generic|garchompitez|1|levitate|3,2|m"
+  },
+  {
+   "species": "lucario",
+   "name_ja": "ルカリオ",
+   "kind": "normal",
+   "spec": "lucario:32,0,0,2,0,32|focuspunch,gigaimpact,hyperbeam,steelbeam|generic|none|0|steadfast|3,2|m"
+  },
+  {
+   "species": "lucariomega",
+   "name_ja": "メガルカリオ",
+   "kind": "mega",
+   "spec": "lucario:32,2,0,0,0,32|focuspunch,gigaimpact,hyperbeam,steelbeam|generic|lucarionite|1|adaptability|1,4|m"
+  },
+  {
+   "species": "lucariomegaz",
+   "name_ja": "メガルカリオZ",
+   "kind": "mega",
+   "spec": "lucario:32,0,0,2,0,32|focuspunch,gigaimpact,hyperbeam,steelbeam|generic|lucarionitez|1|auraguard|3,2|m"
+  },
+  {
+   "species": "hippowdon",
+   "name_ja": "カバルドン",
+   "kind": "normal",
+   "spec": "hippowdon:32,2,0,0,0,32|gigaimpact,hyperbeam,doubleedge,superpower|generic|none|0|sandstream|1,4|m"
+  },
+  {
+   "species": "toxicroak",
+   "name_ja": "ドクロッグ",
+   "kind": "normal",
+   "spec": "toxicroak:32,2,0,0,0,32|focuspunch,gigaimpact,hyperbeam,belch|generic|none|0|anticipation|1,2|m"
+  },
+  {
+   "species": "abomasnow",
+   "name_ja": "ユキノオー",
+   "kind": "normal",
+   "spec": "abomasnow:32,2,0,0,0,32|focuspunch,gigaimpact,hyperbeam,leafstorm|generic|none|0|snowwarning|1,2|m"
+  },
+  {
+   "species": "abomasnowmega",
+   "name_ja": "メガユキノオー",
+   "kind": "mega",
+   "spec": "abomasnow:32,2,0,0,0,32|focuspunch,gigaimpact,hyperbeam,leafstorm|generic|abomasite|1|snowwarning|1,2|m"
+  },
+  {
+   "species": "weavile",
+   "name_ja": "マニューラ",
+   "kind": "normal",
+   "spec": "weavile:32,2,0,0,0,32|focuspunch,gigaimpact,hyperbeam,focusblast|generic|none|0|pressure|1,2|m"
+  },
+  {
+   "species": "rhyperior",
+   "name_ja": "ドサイドン",
+   "kind": "normal",
+   "spec": "rhyperior:32,2,0,0,0,32|focuspunch,gigaimpact,hyperbeam,rockwrecker|generic|none|0|lightningrod|1,4|m"
+  },
+  {
+   "species": "leafeon",
+   "name_ja": "リーフィア",
+   "kind": "normal",
+   "spec": "leafeon:32,2,0,0,0,32|gigaimpact,hyperbeam,lastresort,leafstorm|generic|none|0|leafguard|1,4|m"
+  },
+  {
+   "species": "glaceon",
+   "name_ja": "グレイシア",
+   "kind": "normal",
+   "spec": "glaceon:32,0,0,2,0,32|gigaimpact,hyperbeam,lastresort,doubleedge|generic|none|0|snowcloak|3,4|m"
+  },
+  {
+   "species": "gliscor",
+   "name_ja": "グライオン",
+   "kind": "normal",
+   "spec": "gliscor:32,2,0,0,0,32|gigaimpact,hyperbeam,doubleedge,gunkshot|generic|none|0|hypercutter|1,4|m"
+  },
+  {
+   "species": "mamoswine",
+   "name_ja": "マンムー",
+   "kind": "normal",
+   "spec": "mamoswine:32,2,0,0,0,32|gigaimpact,hyperbeam,doubleedge,superpower|generic|none|0|oblivious|1,4|m"
+  },
+  {
+   "species": "gallade",
+   "name_ja": "エルレイド",
+   "kind": "normal",
+   "spec": "gallade:32,2,0,0,0,32|focuspunch,gigaimpact,hyperbeam,solarblade|generic|none|0|steadfast|1,2|m"
+  },
+  {
+   "species": "gallademega",
+   "name_ja": "メガエルレイド",
+   "kind": "mega",
+   "spec": "gallade:32,2,0,0,0,32|focuspunch,gigaimpact,hyperbeam,solarblade|generic|galladite|1|innerfocus|1,2|m"
+  },
+  {
+   "species": "froslass",
+   "name_ja": "ユキメノコ",
+   "kind": "normal",
+   "spec": "froslass:32,2,0,0,0,32|gigaimpact,hyperbeam,blizzard,poltergeist|generic|none|0|snowcloak|1,2|f"
+  },
+  {
+   "species": "froslassmega",
+   "name_ja": "メガユキメノコ",
+   "kind": "mega",
+   "spec": "froslass:32,0,0,2,0,32|gigaimpact,hyperbeam,blizzard,poltergeist|generic|froslassite|1|snowwarning|3,2|f"
+  },
+  {
+   "species": "rotom",
+   "name_ja": "ロトム",
+   "kind": "normal",
+   "spec": "rotom:32,0,0,2,0,32|poltergeist,thunder,foulplay,hypervoice|generic|none|0|levitate|3,2|n"
+  },
+  {
+   "species": "rotomfan",
+   "name_ja": "ロトム（Fan）",
+   "kind": "normal",
+   "spec": "rotomfan:32,0,0,2,0,32|poltergeist,thunder,foulplay,hypervoice|generic|none|0|levitate|3,2|n"
+  },
+  {
+   "species": "rotomfrost",
+   "name_ja": "ロトム（Frost）",
+   "kind": "normal",
+   "spec": "rotomfrost:32,0,0,2,0,32|blizzard,poltergeist,thunder,foulplay|generic|none|0|levitate|3,2|n"
+  },
+  {
+   "species": "rotomheat",
+   "name_ja": "ロトム（Heat）",
+   "kind": "normal",
+   "spec": "rotomheat:32,0,0,2,0,32|overheat,poltergeist,thunder,foulplay|generic|none|0|levitate|3,2|n"
+  },
+  {
+   "species": "rotommow",
+   "name_ja": "ロトム（Mow）",
+   "kind": "normal",
+   "spec": "rotommow:32,0,0,2,0,32|leafstorm,poltergeist,thunder,foulplay|generic|none|0|levitate|3,2|n"
+  },
+  {
+   "species": "rotomwash",
+   "name_ja": "ロトム（Wash）",
+   "kind": "normal",
+   "spec": "rotomwash:32,0,0,2,0,32|hydropump,poltergeist,thunder,foulplay|generic|none|0|levitate|3,2|n"
+  },
+  {
+   "species": "serperior",
+   "name_ja": "ジャローダ",
+   "kind": "normal",
+   "spec": "serperior:32,2,0,0,0,32|frenzyplant,gigaimpact,hyperbeam,leafstorm|generic|none|0|overgrow|1,2|m"
+  },
+  {
+   "species": "emboar",
+   "name_ja": "エンブオー",
+   "kind": "normal",
+   "spec": "emboar:32,2,0,0,0,32|blastburn,focuspunch,gigaimpact,headsmash|generic|none|0|blaze|1,2|m"
+  },
+  {
+   "species": "emboarmega",
+   "name_ja": "メガエンブオー",
+   "kind": "mega",
+   "spec": "emboar:32,2,0,0,0,32|blastburn,focuspunch,gigaimpact,headsmash|generic|emboarite|1|moldbreaker|1,2|m"
+  },
+  {
+   "species": "samurott",
+   "name_ja": "ダイケンキ",
+   "kind": "normal",
+   "spec": "samurott:32,0,0,2,0,32|gigaimpact,hydrocannon,hyperbeam,megahorn|generic|none|0|torrent|3,4|m"
+  },
+  {
+   "species": "samurotthisui",
+   "name_ja": "ダイケンキ（ヒスイ）",
+   "kind": "normal",
+   "spec": "samurotthisui:32,2,0,0,0,32|gigaimpact,hydrocannon,hyperbeam,megahorn|generic|none|0|torrent|1,4|m"
+  },
+  {
+   "species": "watchog",
+   "name_ja": "ミルホッグ",
+   "kind": "normal",
+   "spec": "watchog:32,2,0,0,0,32|gigaimpact,hyperbeam,doubleedge,focusblast|generic|none|0|illuminate|1,2|m"
+  },
+  {
+   "species": "liepard",
+   "name_ja": "レパルダス",
+   "kind": "normal",
+   "spec": "liepard:32,2,0,0,0,32|gigaimpact,hyperbeam,gunkshot,irontail|generic|none|0|limber|1,2|m"
+  },
+  {
+   "species": "simisage",
+   "name_ja": "ヤナッキー",
+   "kind": "normal",
+   "spec": "simisage:32,2,0,0,0,32|gigaimpact,hyperbeam,leafstorm,solarblade|generic|none|0|gluttony|1,2|m"
+  },
+  {
+   "species": "simisear",
+   "name_ja": "バオッキー",
+   "kind": "normal",
+   "spec": "simisear:32,2,0,0,0,32|gigaimpact,hyperbeam,overheat,belch|generic|none|0|gluttony|1,2|m"
+  },
+  {
+   "species": "simipour",
+   "name_ja": "ヒヤッキー",
+   "kind": "normal",
+   "spec": "simipour:32,2,0,0,0,32|gigaimpact,hyperbeam,belch,focusblast|generic|none|0|gluttony|1,2|m"
+  },
+  {
+   "species": "musharna",
+   "name_ja": "ムシャーナ",
+   "kind": "normal",
+   "spec": "musharna:32,0,0,2,0,32|gigaimpact,hyperbeam,futuresight,mistyexplosion|generic|none|0|forewarn|3,2|m"
+  },
+  {
+   "species": "excadrill",
+   "name_ja": "ドリュウズ",
+   "kind": "normal",
+   "spec": "excadrill:32,2,0,0,0,32|gigaimpact,hyperbeam,steelbeam,doubleedge|generic|none|0|sandrush|1,2|m"
+  },
+  {
+   "species": "excadrillmega",
+   "name_ja": "メガドリュウズ",
+   "kind": "mega",
+   "spec": "excadrill:32,2,0,0,0,32|gigaimpact,hyperbeam,steelbeam,doubleedge|generic|excadrite|1|piercingdrill|1,4|m"
+  },
+  {
+   "species": "audino",
+   "name_ja": "タブンネ",
+   "kind": "normal",
+   "spec": "audino:32,2,0,0,0,32|gigaimpact,hyperbeam,lastresort,doubleedge|generic|none|0|healer|1,2|m"
+  },
+  {
+   "species": "audinomega",
+   "name_ja": "メガタブンネ",
+   "kind": "mega",
+   "spec": "audino:32,0,0,2,0,32|gigaimpact,hyperbeam,lastresort,doubleedge|generic|audinite|1|healer|3,2|m"
+  },
+  {
+   "species": "conkeldurr",
+   "name_ja": "ローブシン",
+   "kind": "normal",
+   "spec": "conkeldurr:32,2,0,0,0,32|focuspunch,gigaimpact,hyperbeam,closecombat|generic|none|0|guts|1,4|m"
+  },
+  {
+   "species": "scolipede",
+   "name_ja": "ペンドラー",
+   "kind": "normal",
+   "spec": "scolipede:32,2,0,0,0,32|gigaimpact,hyperbeam,steelroller,doubleedge|generic|none|0|poisonpoint|1,4|m"
+  },
+  {
+   "species": "scolipedemega",
+   "name_ja": "メガペンドラー",
+   "kind": "mega",
+   "spec": "scolipede:32,2,0,0,0,32|gigaimpact,hyperbeam,steelroller,doubleedge|generic|scolipite|1|shellarmor|1,4|m"
+  },
+  {
+   "species": "whimsicott",
+   "name_ja": "エルフーン",
+   "kind": "normal",
+   "spec": "whimsicott:32,0,0,2,0,32|gigaimpact,hyperbeam,solarbeam,hurricane|generic|none|0|prankster|3,4|m"
+  },
+  {
+   "species": "krookodile",
+   "name_ja": "ワルビアル",
+   "kind": "normal",
+   "spec": "krookodile:32,2,0,0,0,32|focuspunch,gigaimpact,hyperbeam,closecombat|generic|none|0|intimidate|1,4|m"
+  },
+  {
+   "species": "scrafty",
+   "name_ja": "ズルズキン",
+   "kind": "normal",
+   "spec": "scrafty:32,2,0,0,0,32|focuspunch,gigaimpact,headsmash,hyperbeam|generic|none|0|shedskin|1,2|m"
+  },
+  {
+   "species": "scraftymega",
+   "name_ja": "メガズルズキン",
+   "kind": "mega",
+   "spec": "scrafty:32,2,0,0,0,32|focuspunch,gigaimpact,headsmash,hyperbeam|generic|scraftinite|1|intimidate|1,2|m"
+  },
+  {
+   "species": "cofagrigus",
+   "name_ja": "デスカーン",
+   "kind": "normal",
+   "spec": "cofagrigus:32,0,0,2,0,32|selfdestruct,gigaimpact,hyperbeam,poltergeist|generic|none|0|mummy|3,4|m"
+  },
+  {
+   "species": "garbodor",
+   "name_ja": "ダストダス",
+   "kind": "normal",
+   "spec": "garbodor:32,2,0,0,0,32|explosion,selfdestruct,gigaimpact,hyperbeam|generic|none|0|stench|1,2|m"
+  },
+  {
+   "species": "zoroark",
+   "name_ja": "ゾロアーク",
+   "kind": "normal",
+   "spec": "zoroark:32,0,0,2,0,32|gigaimpact,hyperbeam,focusblast,megakick|generic|none|0|illusion|3,2|m"
+  },
+  {
+   "species": "zoroarkhisui",
+   "name_ja": "ゾロアーク（ヒスイ）",
+   "kind": "normal",
+   "spec": "zoroarkhisui:32,0,0,2,0,32|focuspunch,gigaimpact,hyperbeam,focusblast|generic|none|0|illusion|3,2|m"
+  },
+  {
+   "species": "reuniclus",
+   "name_ja": "ランクルス",
+   "kind": "normal",
+   "spec": "reuniclus:32,0,0,2,0,32|focuspunch,gigaimpact,hyperbeam,steelroller|generic|none|0|overcoat|3,2|m"
+  },
+  {
+   "species": "vanilluxe",
+   "name_ja": "バイバニラ",
+   "kind": "normal",
+   "spec": "vanilluxe:32,0,0,2,0,32|explosion,selfdestruct,gigaimpact,hyperbeam|generic|none|0|icebody|3,2|m"
+  },
+  {
+   "species": "emolga",
+   "name_ja": "エモンガ",
+   "kind": "normal",
+   "spec": "emolga:32,2,0,0,0,32|solarbeam,thunder,irontail,energyball|generic|none|0|static|1,2|m"
+  },
+  {
+   "species": "eelektross",
+   "name_ja": "シビルドン",
+   "kind": "normal",
+   "spec": "eelektross:32,2,0,0,0,32|focuspunch,gigaimpact,hyperbeam,closecombat|generic|none|0|levitate|1,2|m"
+  },
+  {
+   "species": "eelektrossmega",
+   "name_ja": "メガシビルドン",
+   "kind": "mega",
+   "spec": "eelektross:32,2,0,0,0,32|focuspunch,gigaimpact,hyperbeam,closecombat|generic|eelektrossite|1|eelevate|1,2|m"
+  },
+  {
+   "species": "chandelure",
+   "name_ja": "シャンデラ",
+   "kind": "normal",
+   "spec": "chandelure:32,0,0,2,0,32|gigaimpact,hyperbeam,overheat,flareblitz|generic|none|0|flashfire|3,2|m"
+  },
+  {
+   "species": "chandeluremega",
+   "name_ja": "メガシャンデラ",
+   "kind": "mega",
+   "spec": "chandelure:32,0,0,2,0,32|gigaimpact,hyperbeam,overheat,flareblitz|generic|chandelurite|1|infiltrator|3,2|m"
+  },
+  {
+   "species": "beartic",
+   "name_ja": "ツンベアー",
+   "kind": "normal",
+   "spec": "beartic:32,2,0,0,0,32|focuspunch,gigaimpact,hyperbeam,closecombat|generic|none|0|snowcloak|1,2|m"
+  },
+  {
+   "species": "stunfisk",
+   "name_ja": "マッギョ",
+   "kind": "normal",
+   "spec": "stunfisk:32,0,0,2,0,32|thunder,earthquake,stoneedge,foulplay|generic|none|0|static|3,2|m"
+  },
+  {
+   "species": "stunfiskgalar",
+   "name_ja": "マッギョ（ガラル）",
+   "kind": "normal",
+   "spec": "stunfiskgalar:32,2,0,0,0,32|steelbeam,earthquake,stoneedge,foulplay|generic|none|0|mimicry|1,4|m"
+  },
+  {
+   "species": "golurk",
+   "name_ja": "ゴルーグ",
+   "kind": "normal",
+   "spec": "golurk:32,2,0,0,0,32|selfdestruct,focuspunch,gigaimpact,hyperbeam|generic|none|0|ironfist|1,2|n"
+  },
+  {
+   "species": "golurkmega",
+   "name_ja": "メガゴルーグ",
+   "kind": "mega",
+   "spec": "golurk:32,2,0,0,0,32|selfdestruct,focuspunch,gigaimpact,hyperbeam|generic|golurkite|1|unseenfist|1,2|n"
+  },
+  {
+   "species": "hydreigon",
+   "name_ja": "サザンドラ",
+   "kind": "normal",
+   "spec": "hydreigon:32,0,0,2,0,32|gigaimpact,headsmash,hyperbeam,dracometeor|generic|none|0|levitate|3,2|m"
+  },
+  {
+   "species": "volcarona",
+   "name_ja": "ウルガモス",
+   "kind": "normal",
+   "spec": "volcarona:32,0,0,2,0,32|gigaimpact,hyperbeam,overheat,doubleedge|generic|none|0|flamebody|3,2|m"
+  },
+  {
+   "species": "chesnaught",
+   "name_ja": "ブリガロン",
+   "kind": "normal",
+   "spec": "chesnaught:32,2,0,0,0,32|focuspunch,frenzyplant,gigaimpact,hyperbeam|generic|none|0|overgrow|1,4|m"
+  },
+  {
+   "species": "chesnaughtmega",
+   "name_ja": "メガブリガロン",
+   "kind": "mega",
+   "spec": "chesnaught:32,2,0,0,0,32|focuspunch,frenzyplant,gigaimpact,hyperbeam|generic|chesnaughtite|1|bulletproof|1,4|m"
+  },
+  {
+   "species": "delphox",
+   "name_ja": "マフォクシー",
+   "kind": "normal",
+   "spec": "delphox:32,0,0,2,0,32|blastburn,gigaimpact,hyperbeam,overheat|generic|none|0|blaze|3,2|m"
+  },
+  {
+   "species": "delphoxmega",
+   "name_ja": "メガマフォクシー",
+   "kind": "mega",
+   "spec": "delphox:32,0,0,2,0,32|blastburn,gigaimpact,hyperbeam,overheat|generic|delphoxite|1|levitate|3,2|m"
+  },
+  {
+   "species": "greninja",
+   "name_ja": "ゲッコウガ",
+   "kind": "normal",
+   "spec": "greninja:32,0,0,2,0,32|gigaimpact,hydrocannon,hyperbeam,gunkshot|generic|none|0|torrent|3,2|m"
+  },
+  {
+   "species": "greninjamega",
+   "name_ja": "メガゲッコウガ",
+   "kind": "mega",
+   "spec": "greninja:32,0,0,2,0,32|gigaimpact,hydrocannon,hyperbeam,gunkshot|generic|greninjite|1|protean|3,2|m"
+  },
+  {
+   "species": "diggersby",
+   "name_ja": "ホルード",
+   "kind": "normal",
+   "spec": "diggersby:32,2,0,0,0,32|gigaimpact,hyperbeam,gunkshot,megakick|generic|none|0|pickup|1,2|m"
+  },
+  {
+   "species": "talonflame",
+   "name_ja": "ファイアロー",
+   "kind": "normal",
+   "spec": "talonflame:32,2,0,0,0,32|gigaimpact,hyperbeam,skyattack,overheat|generic|none|0|flamebody|1,4|m"
+  },
+  {
+   "species": "vivillon",
+   "name_ja": "ビビヨン",
+   "kind": "normal",
+   "spec": "vivillon:32,0,0,2,0,32|gigaimpact,hyperbeam,solarbeam,hurricane|generic|none|0|shielddust|3,2|m"
+  },
+  {
+   "species": "pyroar",
+   "name_ja": "カエンジシ",
+   "kind": "normal",
+   "spec": "pyroar:32,0,0,2,0,32|gigaimpact,hyperbeam,overheat,doubleedge|generic|none|0|rivalry|3,4|m"
+  },
+  {
+   "species": "pyroarmega",
+   "name_ja": "メガカエンジシ",
+   "kind": "mega",
+   "spec": "pyroar:32,0,0,2,0,32|gigaimpact,hyperbeam,overheat,doubleedge|generic|pyroarite|1|firemane|3,4|m"
+  },
+  {
+   "species": "floetteeternal",
+   "name_ja": "フラエッテ（Eternal）",
+   "kind": "normal",
+   "spec": "floetteeternal:32,0,0,2,0,32|hyperbeam,lightofruin,petaldance,solarbeam|generic|none|0|flowerveil|3,2|f"
+  },
+  {
+   "species": "floettemega",
+   "name_ja": "メガフラエッテ",
+   "kind": "mega",
+   "spec": "floetteeternal:32,0,0,2,0,32|hyperbeam,lightofruin,petaldance,solarbeam|generic|floettite|1|fairyaura|3,2|f"
+  },
+  {
+   "species": "florges",
+   "name_ja": "フラージェス",
+   "kind": "normal",
+   "spec": "florges:32,0,0,2,0,32|gigaimpact,hyperbeam,petaldance,solarbeam|generic|none|0|flowerveil|3,2|f"
+  },
+  {
+   "species": "gogoat",
+   "name_ja": "ゴーゴート",
+   "kind": "normal",
+   "spec": "gogoat:32,2,0,0,0,32|gigaimpact,hyperbeam,leafstorm,doubleedge|generic|none|0|sapsipper|1,2|m"
+  },
+  {
+   "species": "pangoro",
+   "name_ja": "ゴロンダ",
+   "kind": "normal",
+   "spec": "pangoro:32,2,0,0,0,32|gigaimpact,hyperbeam,closecombat,focusblast|generic|none|0|ironfist|1,4|m"
+  },
+  {
+   "species": "furfrou",
+   "name_ja": "トリミアン",
+   "kind": "normal",
+   "spec": "furfrou:32,2,0,0,0,32|gigaimpact,lastresort,doubleedge,irontail|generic|none|0|furcoat|1,2|m"
+  },
+  {
+   "species": "meowstic",
+   "name_ja": "ニャオニクス",
+   "kind": "normal",
+   "spec": "meowstic:32,0,0,2,0,32|gigaimpact,hyperbeam,irontail,energyball|generic|none|0|keeneye|3,2|m"
+  },
+  {
+   "species": "meowsticfmega",
+   "name_ja": "ニャオニクス（F-Mega）",
+   "kind": "mega",
+   "spec": "meowstic:32,0,0,2,0,32|gigaimpact,hyperbeam,irontail,energyball|generic|meowsticite|1|trace|3,2|f"
+  },
+  {
+   "species": "meowsticmmega",
+   "name_ja": "ニャオニクス（M-Mega）",
+   "kind": "mega",
+   "spec": "meowstic:32,0,0,2,0,32|gigaimpact,hyperbeam,irontail,energyball|generic|meowsticite|1|trace|3,2|m"
+  },
+  {
+   "species": "aegislash",
+   "name_ja": "ギルガルド",
+   "kind": "normal",
+   "spec": "aegislash:32,2,0,0,0,32|gigaimpact,headsmash,hyperbeam,steelbeam|generic|none|0|stancechange|1,2|m"
+  },
+  {
+   "species": "aromatisse",
+   "name_ja": "フレフワン",
+   "kind": "normal",
+   "spec": "aromatisse:32,0,0,2,0,32|gigaimpact,hyperbeam,thunder,mistyexplosion|generic|none|0|healer|3,2|m"
+  },
+  {
+   "species": "slurpuff",
+   "name_ja": "ペロリーム",
+   "kind": "normal",
+   "spec": "slurpuff:32,0,0,2,0,32|gigaimpact,hyperbeam,thunder,mistyexplosion|generic|none|0|sweetveil|3,4|m"
+  },
+  {
+   "species": "malamar",
+   "name_ja": "カラマネロ",
+   "kind": "normal",
+   "spec": "malamar:32,2,0,0,0,32|gigaimpact,hyperbeam,futuresight,superpower|generic|none|0|contrary|1,4|m"
+  },
+  {
+   "species": "malamarmega",
+   "name_ja": "メガカラマネロ",
+   "kind": "mega",
+   "spec": "malamar:32,2,0,0,0,32|gigaimpact,hyperbeam,futuresight,superpower|generic|malamarite|1|contrary|1,2|m"
+  },
+  {
+   "species": "barbaracle",
+   "name_ja": "ガメノデス",
+   "kind": "normal",
+   "spec": "barbaracle:32,2,0,0,0,32|gigaimpact,hyperbeam,closecombat,focusblast|generic|none|0|toughclaws|1,4|m"
+  },
+  {
+   "species": "barbaraclemega",
+   "name_ja": "メガガメノデス",
+   "kind": "mega",
+   "spec": "barbaracle:32,2,0,0,0,32|gigaimpact,hyperbeam,closecombat,focusblast|generic|barbaracite|1|toughclaws|1,4|m"
+  },
+  {
+   "species": "dragalge",
+   "name_ja": "ドラミドロ",
+   "kind": "normal",
+   "spec": "dragalge:32,0,0,2,0,32|gigaimpact,hyperbeam,dracometeor,focusblast|generic|none|0|poisonpoint|3,2|m"
+  },
+  {
+   "species": "dragalgemega",
+   "name_ja": "メガドラミドロ",
+   "kind": "mega",
+   "spec": "dragalge:32,0,0,2,0,32|gigaimpact,hyperbeam,dracometeor,focusblast|generic|dragalgite|1|regenerator|3,2|m"
+  },
+  {
+   "species": "clawitzer",
+   "name_ja": "ブロスター",
+   "kind": "normal",
+   "spec": "clawitzer:32,0,0,2,0,32|gigaimpact,hyperbeam,focusblast,blizzard|generic|none|0|megalauncher|3,2|m"
+  },
+  {
+   "species": "heliolisk",
+   "name_ja": "エレザード",
+   "kind": "normal",
+   "spec": "heliolisk:32,0,0,2,0,32|gigaimpact,hyperbeam,focusblast,megakick|generic|none|0|dryskin|3,2|m"
+  },
+  {
+   "species": "tyrantrum",
+   "name_ja": "ガチゴラス",
+   "kind": "normal",
+   "spec": "tyrantrum:32,2,0,0,0,32|gigaimpact,headsmash,hyperbeam,dracometeor|generic|none|0|strongjaw|1,4|m"
+  },
+  {
+   "species": "aurorus",
+   "name_ja": "アマルルガ",
+   "kind": "normal",
+   "spec": "aurorus:32,0,0,2,0,32|gigaimpact,hyperbeam,meteorbeam,outrage|generic|none|0|refrigerate|3,2|m"
+  },
+  {
+   "species": "sylveon",
+   "name_ja": "ニンフィア",
+   "kind": "normal",
+   "spec": "sylveon:32,0,0,2,0,32|gigaimpact,hyperbeam,lastresort,doubleedge|generic|none|0|cutecharm|3,2|m"
+  },
+  {
+   "species": "hawlucha",
+   "name_ja": "ルチャブル",
+   "kind": "normal",
+   "spec": "hawlucha:32,2,0,0,0,32|focuspunch,gigaimpact,hyperbeam,skyattack|generic|none|0|limber|1,4|m"
+  },
+  {
+   "species": "hawluchamega",
+   "name_ja": "メガルチャブル",
+   "kind": "mega",
+   "spec": "hawlucha:32,2,0,0,0,32|focuspunch,gigaimpact,hyperbeam,skyattack|generic|hawluchanite|1|noguard|1,4|m"
+  },
+  {
+   "species": "dedenne",
+   "name_ja": "デデンネ",
+   "kind": "normal",
+   "spec": "dedenne:32,0,0,2,0,32|gigaimpact,hyperbeam,thunder,irontail|generic|none|0|cheekpouch|3,2|m"
+  },
+  {
+   "species": "goodra",
+   "name_ja": "ヌメルゴン",
+   "kind": "normal",
+   "spec": "goodra:32,0,0,2,0,32|focuspunch,gigaimpact,hyperbeam,dracometeor|generic|none|0|sapsipper|3,2|m"
+  },
+  {
+   "species": "goodrahisui",
+   "name_ja": "ヌメルゴン（ヒスイ）",
+   "kind": "normal",
+   "spec": "goodrahisui:32,0,0,2,0,32|gigaimpact,hyperbeam,steelbeam,dracometeor|generic|none|0|sapsipper|3,2|m"
+  },
+  {
+   "species": "klefki",
+   "name_ja": "クレッフィ",
+   "kind": "normal",
+   "spec": "klefki:32,2,0,0,0,32|gigaimpact,hyperbeam,lastresort,steelbeam|generic|none|0|prankster|1,4|m"
+  },
+  {
+   "species": "trevenant",
+   "name_ja": "オーロット",
+   "kind": "normal",
+   "spec": "trevenant:32,2,0,0,0,32|gigaimpact,hyperbeam,leafstorm,focusblast|generic|none|0|naturalcure|1,2|m"
+  },
+  {
+   "species": "gourgeist",
+   "name_ja": "パンプジン",
+   "kind": "normal",
+   "spec": "gourgeist:32,2,0,0,0,32|explosion,selfdestruct,gigaimpact,hyperbeam|generic|none|0|pickup|1,4|m"
+  },
+  {
+   "species": "gourgeistlarge",
+   "name_ja": "パンプジン（Large）",
+   "kind": "normal",
+   "spec": "gourgeistlarge:32,2,0,0,0,32|explosion,selfdestruct,gigaimpact,hyperbeam|generic|none|0|pickup|1,4|m"
+  },
+  {
+   "species": "gourgeistsmall",
+   "name_ja": "パンプジン（Small）",
+   "kind": "normal",
+   "spec": "gourgeistsmall:32,2,0,0,0,32|explosion,selfdestruct,gigaimpact,hyperbeam|generic|none|0|pickup|1,4|m"
+  },
+  {
+   "species": "gourgeistsuper",
+   "name_ja": "パンプジン（Super）",
+   "kind": "normal",
+   "spec": "gourgeistsuper:32,2,0,0,0,32|explosion,selfdestruct,gigaimpact,hyperbeam|generic|none|0|pickup|1,4|m"
+  },
+  {
+   "species": "avalugg",
+   "name_ja": "クレベース",
+   "kind": "normal",
+   "spec": "avalugg:32,2,0,0,0,32|gigaimpact,hyperbeam,doubleedge,superpower|generic|none|0|owntempo|1,4|m"
+  },
+  {
+   "species": "avalugghisui",
+   "name_ja": "クレベース（ヒスイ）",
+   "kind": "normal",
+   "spec": "avalugghisui:32,2,0,0,0,32|gigaimpact,hyperbeam,doubleedge,meteorbeam|generic|none|0|strongjaw|1,4|m"
+  },
+  {
+   "species": "noivern",
+   "name_ja": "オンバーン",
+   "kind": "normal",
+   "spec": "noivern:32,0,0,2,0,32|gigaimpact,hyperbeam,boomburst,skyattack|generic|none|0|frisk|3,2|m"
+  },
+  {
+   "species": "decidueye",
+   "name_ja": "ジュナイパー",
+   "kind": "normal",
+   "spec": "decidueye:32,2,0,0,0,32|frenzyplant,gigaimpact,hyperbeam,leafstorm|generic|none|0|overgrow|1,2|m"
+  },
+  {
+   "species": "decidueyehisui",
+   "name_ja": "ジュナイパー（ヒスイ）",
+   "kind": "normal",
+   "spec": "decidueyehisui:32,2,0,0,0,32|focuspunch,frenzyplant,gigaimpact,hyperbeam|generic|none|0|overgrow|1,2|m"
+  },
+  {
+   "species": "incineroar",
+   "name_ja": "ガオガエン",
+   "kind": "normal",
+   "spec": "incineroar:32,2,0,0,0,32|blastburn,focuspunch,gigaimpact,hyperbeam|generic|none|0|blaze|1,2|m"
+  },
+  {
+   "species": "primarina",
+   "name_ja": "アシレーヌ",
+   "kind": "normal",
+   "spec": "primarina:32,0,0,2,0,32|gigaimpact,hydrocannon,hyperbeam,blizzard|generic|none|0|torrent|3,2|m"
+  },
+  {
+   "species": "toucannon",
+   "name_ja": "ドデカバシ",
+   "kind": "normal",
+   "spec": "toucannon:32,2,0,0,0,32|gigaimpact,hyperbeam,boomburst,skyattack|generic|none|0|keeneye|1,2|m"
+  },
+  {
+   "species": "crabominable",
+   "name_ja": "ケケンカニ",
+   "kind": "normal",
+   "spec": "crabominable:32,2,0,0,0,32|focuspunch,gigaimpact,hyperbeam,closecombat|generic|none|0|hypercutter|1,4|m"
+  },
+  {
+   "species": "crabominablemega",
+   "name_ja": "メガケケンカニ",
+   "kind": "mega",
+   "spec": "crabominable:32,2,0,0,0,32|focuspunch,gigaimpact,hyperbeam,closecombat|generic|crabominite|1|ironfist|1,4|m"
+  },
+  {
+   "species": "lycanroc",
+   "name_ja": "ルガルガン",
+   "kind": "normal",
+   "spec": "lycanroc:32,2,0,0,0,32|gigaimpact,lastresort,closecombat,doubleedge|generic|none|0|keeneye|1,2|m"
+  },
+  {
+   "species": "lycanrocdusk",
+   "name_ja": "ルガルガン（Dusk）",
+   "kind": "normal",
+   "spec": "lycanrocdusk:32,2,0,0,0,32|gigaimpact,lastresort,closecombat,doubleedge|generic|none|0|toughclaws|1,2|m"
+  },
+  {
+   "species": "lycanrocmidnight",
+   "name_ja": "ルガルガン（Midnight）",
+   "kind": "normal",
+   "spec": "lycanrocmidnight:32,2,0,0,0,32|focuspunch,gigaimpact,lastresort,closecombat|generic|none|0|keeneye|1,2|m"
+  },
+  {
+   "species": "toxapex",
+   "name_ja": "ドヒドイデ",
+   "kind": "normal",
+   "spec": "toxapex:32,2,0,0,0,32|gigaimpact,hyperbeam,gunkshot,blizzard|generic|none|0|merciless|1,4|m"
+  },
+  {
+   "species": "mudsdale",
+   "name_ja": "バンバドロ",
+   "kind": "normal",
+   "spec": "mudsdale:32,2,0,0,0,32|gigaimpact,hyperbeam,closecombat,doubleedge|generic|none|0|owntempo|1,4|m"
+  },
+  {
+   "species": "araquanid",
+   "name_ja": "オニシズクモ",
+   "kind": "normal",
+   "spec": "araquanid:32,2,0,0,0,32|gigaimpact,hyperbeam,blizzard,hydropump|generic|none|0|waterbubble|1,2|m"
+  },
+  {
+   "species": "salazzle",
+   "name_ja": "エンニュート",
+   "kind": "normal",
+   "spec": "salazzle:32,0,0,2,0,32|gigaimpact,hyperbeam,overheat,belch|generic|none|0|corrosion|3,2|f"
+  },
+  {
+   "species": "tsareena",
+   "name_ja": "アマージョ",
+   "kind": "normal",
+   "spec": "tsareena:32,2,0,0,0,32|gigaimpact,hyperbeam,highjumpkick,leafstorm|generic|none|0|leafguard|1,2|f"
+  },
+  {
+   "species": "oranguru",
+   "name_ja": "ヤレユータン",
+   "kind": "normal",
+   "spec": "oranguru:32,0,0,2,0,32|gigaimpact,hyperbeam,lastresort,focusblast|generic|none|0|innerfocus|3,2|m"
+  },
+  {
+   "species": "passimian",
+   "name_ja": "ナゲツケサル",
+   "kind": "normal",
+   "spec": "passimian:32,2,0,0,0,32|focuspunch,gigaimpact,hyperbeam,closecombat|generic|none|0|receiver|1,4|m"
+  },
+  {
+   "species": "golisopod",
+   "name_ja": "グソクムシャ",
+   "kind": "normal",
+   "spec": "golisopod:32,2,0,0,0,32|gigaimpact,hyperbeam,closecombat,focusblast|generic|none|0|emergencyexit|1,4|m"
+  },
+  {
+   "species": "golisopodmega",
+   "name_ja": "メガグソクムシャ",
+   "kind": "mega",
+   "spec": "golisopod:32,2,0,0,0,32|gigaimpact,hyperbeam,closecombat,focusblast|generic|golisopite|1|toughclaws|1,4|m"
+  },
+  {
+   "species": "mimikyu",
+   "name_ja": "ミミッキュ",
+   "kind": "normal",
+   "spec": "mimikyu:32,2,0,0,0,32|gigaimpact,hyperbeam,woodhammer,thunder|generic|none|0|disguise|1,2|m"
+  },
+  {
+   "species": "drampa",
+   "name_ja": "ジジーロン",
+   "kind": "normal",
+   "spec": "drampa:32,0,0,2,0,32|gigaimpact,hyperbeam,dracometeor,focusblast|generic|none|0|berserk|3,2|m"
+  },
+  {
+   "species": "drampamega",
+   "name_ja": "メガジジーロン",
+   "kind": "mega",
+   "spec": "drampa:32,0,0,2,0,32|gigaimpact,hyperbeam,dracometeor,focusblast|generic|drampanite|1|berserk|3,2|m"
+  },
+  {
+   "species": "kommoo",
+   "name_ja": "ジャラランガ",
+   "kind": "normal",
+   "spec": "kommoo:32,2,0,0,0,32|focuspunch,gigaimpact,hyperbeam,boomburst|generic|none|0|bulletproof|1,4|m"
+  },
+  {
+   "species": "rillaboom",
+   "name_ja": "ゴリランダー",
+   "kind": "normal",
+   "spec": "rillaboom:32,2,0,0,0,32|focuspunch,frenzyplant,gigaimpact,hyperbeam|generic|none|0|overgrow|1,4|m"
+  },
+  {
+   "species": "cinderace",
+   "name_ja": "エースバーン",
+   "kind": "normal",
+   "spec": "cinderace:32,2,0,0,0,32|blastburn,gigaimpact,hyperbeam,highjumpkick|generic|none|0|blaze|1,2|m"
+  },
+  {
+   "species": "inteleon",
+   "name_ja": "インテレオン",
+   "kind": "normal",
+   "spec": "inteleon:32,0,0,2,0,32|gigaimpact,hydrocannon,hyperbeam,blizzard|generic|none|0|torrent|3,2|m"
+  },
+  {
+   "species": "corviknight",
+   "name_ja": "アーマーガア",
+   "kind": "normal",
+   "spec": "corviknight:32,2,0,0,0,32|gigaimpact,hyperbeam,skyattack,steelbeam|generic|none|0|pressure|1,4|m"
+  },
+  {
+   "species": "thievul",
+   "name_ja": "フォクスライ",
+   "kind": "normal",
+   "spec": "thievul:32,0,0,2,0,32|gigaimpact,hyperbeam,firstimpression,foulplay|generic|none|0|runaway|3,2|m"
+  },
+  {
+   "species": "flapple",
+   "name_ja": "アップリュー",
+   "kind": "normal",
+   "spec": "flapple:32,2,0,0,0,32|gigaimpact,hyperbeam,dracometeor,leafstorm|generic|none|0|ripen|1,4|m"
+  },
+  {
+   "species": "appletun",
+   "name_ja": "タルップル",
+   "kind": "normal",
+   "spec": "appletun:32,0,0,2,0,32|gigaimpact,hyperbeam,dracometeor,leafstorm|generic|none|0|ripen|3,2|m"
+  },
+  {
+   "species": "sandaconda",
+   "name_ja": "サダイジャ",
+   "kind": "normal",
+   "spec": "sandaconda:32,2,0,0,0,32|gigaimpact,hyperbeam,lastresort,belch|generic|none|0|sandspit|1,4|m"
+  },
+  {
+   "species": "toxtricity",
+   "name_ja": "ストリンダー",
+   "kind": "normal",
+   "spec": "toxtricity:32,0,0,2,0,32|gigaimpact,hyperbeam,boomburst,belch|generic|none|0|punkrock|3,2|m"
+  },
+  {
+   "species": "grapploct",
+   "name_ja": "オトスパス",
+   "kind": "normal",
+   "spec": "grapploct:32,2,0,0,0,32|gigaimpact,hyperbeam,closecombat,focusblast|generic|none|0|limber|1,4|m"
+  },
+  {
+   "species": "polteageist",
+   "name_ja": "ポットデス",
+   "kind": "normal",
+   "spec": "polteageist:32,0,0,2,0,32|selfdestruct,gigaimpact,hyperbeam,poltergeist|generic|none|0|weakarmor|3,2|n"
+  },
+  {
+   "species": "hatterene",
+   "name_ja": "ブリムオン",
+   "kind": "normal",
+   "spec": "hatterene:32,0,0,2,0,32|gigaimpact,hyperbeam,futuresight,powerwhip|generic|none|0|healer|3,2|f"
+  },
+  {
+   "species": "grimmsnarl",
+   "name_ja": "オーロンゲ",
+   "kind": "normal",
+   "spec": "grimmsnarl:32,2,0,0,0,32|focuspunch,gigaimpact,hyperbeam,focusblast|generic|none|0|prankster|1,2|m"
+  },
+  {
+   "species": "perrserker",
+   "name_ja": "ニャイキング",
+   "kind": "normal",
+   "spec": "perrserker:32,2,0,0,0,32|gigaimpact,hyperbeam,steelbeam,closecombat|generic|none|0|battlearmor|1,4|m"
+  },
+  {
+   "species": "sirfetchd",
+   "name_ja": "ネギガナイト",
+   "kind": "normal",
+   "spec": "sirfetchd:32,2,0,0,0,32|meteorassault,skyattack,solarblade,bravebird|generic|none|0|steadfast|1,4|m"
+  },
+  {
+   "species": "mrrime",
+   "name_ja": "バリコオル",
+   "kind": "normal",
+   "spec": "mrrime:32,0,0,2,0,32|gigaimpact,hyperbeam,focusblast,futuresight|generic|none|0|tangledfeet|3,2|m"
+  },
+  {
+   "species": "runerigus",
+   "name_ja": "デスバーン",
+   "kind": "normal",
+   "spec": "runerigus:32,2,0,0,0,32|selfdestruct,gigaimpact,hyperbeam,poltergeist|generic|none|0|wanderingspirit|1,4|m"
+  },
+  {
+   "species": "alcremie",
+   "name_ja": "マホイップ",
+   "kind": "normal",
+   "spec": "alcremie:32,0,0,2,0,32|gigaimpact,hyperbeam,lastresort,solarbeam|generic|none|0|sweetveil|3,2|f"
+  },
+  {
+   "species": "falinks",
+   "name_ja": "タイレーツ",
+   "kind": "normal",
+   "spec": "falinks:32,2,0,0,0,32|gigaimpact,hyperbeam,closecombat,focusblast|generic|none|0|battlearmor|1,4|n"
+  },
+  {
+   "species": "falinksmega",
+   "name_ja": "メガタイレーツ",
+   "kind": "mega",
+   "spec": "falinks:32,2,0,0,0,32|gigaimpact,hyperbeam,closecombat,focusblast|generic|falinksite|1|defiant|1,4|n"
+  },
+  {
+   "species": "pincurchin",
+   "name_ja": "バチンウニ",
+   "kind": "normal",
+   "spec": "pincurchin:32,2,0,0,0,32|selfdestruct,gigaimpact,hyperbeam,hydropump|generic|none|0|lightningrod|1,4|m"
+  },
+  {
+   "species": "indeedee",
+   "name_ja": "イエッサン",
+   "kind": "normal",
+   "spec": "indeedee:32,0,0,2,0,32|lastresort,futuresight,energyball,hypervoice|generic|none|0|innerfocus|3,2|m"
+  },
+  {
+   "species": "indeedeef",
+   "name_ja": "イエッサン（F）",
+   "kind": "normal",
+   "spec": "indeedeef:32,0,0,2,0,32|futuresight,energyball,hypervoice,playrough|generic|none|0|owntempo|3,2|f"
+  },
+  {
+   "species": "morpeko",
+   "name_ja": "モルペコ",
+   "kind": "normal",
+   "spec": "morpeko:32,2,0,0,0,32|doubleedge,outrage,thrash,aurawheel|generic|none|0|hungerswitch|1,2|m"
+  },
+  {
+   "species": "dragapult",
+   "name_ja": "ドラパルト",
+   "kind": "normal",
+   "spec": "dragapult:32,2,0,0,0,32|gigaimpact,hyperbeam,lastresort,dracometeor|generic|none|0|clearbody|1,2|m"
+  },
+  {
+   "species": "wyrdeer",
+   "name_ja": "アヤシシ",
+   "kind": "normal",
+   "spec": "wyrdeer:32,2,0,0,0,32|gigaimpact,hyperbeam,doubleedge,futuresight|generic|none|0|intimidate|1,2|m"
+  },
+  {
+   "species": "kleavor",
+   "name_ja": "バサギリ",
+   "kind": "normal",
+   "spec": "kleavor:32,2,0,0,0,32|gigaimpact,hyperbeam,closecombat,doubleedge|generic|none|0|swarm|1,4|m"
+  },
+  {
+   "species": "basculegion",
+   "name_ja": "イダイトウ",
+   "kind": "normal",
+   "spec": "basculegion:32,2,0,0,0,32|gigaimpact,headsmash,hyperbeam,doubleedge|generic|none|0|swiftswim|1,2|m"
+  },
+  {
+   "species": "basculegionf",
+   "name_ja": "イダイトウ（F）",
+   "kind": "normal",
+   "spec": "basculegionf:32,0,0,2,0,32|gigaimpact,headsmash,hyperbeam,doubleedge|generic|none|0|swiftswim|3,2|f"
+  },
+  {
+   "species": "sneasler",
+   "name_ja": "オオニューラ",
+   "kind": "normal",
+   "spec": "sneasler:32,2,0,0,0,32|focuspunch,gigaimpact,hyperbeam,closecombat|generic|none|0|pressure|1,2|m"
+  },
+  {
+   "species": "overqwil",
+   "name_ja": "ハリーマン",
+   "kind": "normal",
+   "spec": "overqwil:32,2,0,0,0,32|selfdestruct,gigaimpact,hyperbeam,doubleedge|generic|none|0|poisonpoint|1,4|m"
+  },
+  {
+   "species": "meowscarada",
+   "name_ja": "マスカーニャ",
+   "kind": "normal",
+   "spec": "meowscarada:32,2,0,0,0,32|frenzyplant,gigaimpact,hyperbeam,leafstorm|generic|none|0|overgrow|1,2|m"
+  },
+  {
+   "species": "skeledirge",
+   "name_ja": "ラウドボーン",
+   "kind": "normal",
+   "spec": "skeledirge:32,0,0,2,0,32|blastburn,gigaimpact,hyperbeam,burnup|generic|none|0|blaze|3,4|m"
+  },
+  {
+   "species": "quaquaval",
+   "name_ja": "ウェーニバル",
+   "kind": "normal",
+   "spec": "quaquaval:32,2,0,0,0,32|gigaimpact,hydrocannon,hyperbeam,lastresort|generic|none|0|torrent|1,4|m"
+  },
+  {
+   "species": "pawmot",
+   "name_ja": "パーモット",
+   "kind": "normal",
+   "spec": "pawmot:32,2,0,0,0,32|focuspunch,gigaimpact,hyperbeam,closecombat|generic|none|0|voltabsorb|1,4|m"
+  },
+  {
+   "species": "maushold",
+   "name_ja": "イッカネズミ",
+   "kind": "normal",
+   "spec": "maushold:32,2,0,0,0,32|gigaimpact,hyperbeam,doubleedge,hypervoice|generic|none|0|friendguard|1,2|n"
+  },
+  {
+   "species": "arboliva",
+   "name_ja": "オリーヴァ",
+   "kind": "normal",
+   "spec": "arboliva:32,0,0,2,0,32|gigaimpact,hyperbeam,leafstorm,solarblade|generic|none|0|seedsower|3,2|m"
+  },
+  {
+   "species": "squawkabilly",
+   "name_ja": "イキリンコ",
+   "kind": "normal",
+   "spec": "squawkabilly:32,2,0,0,0,32|gigaimpact,hyperbeam,bravebird,doubleedge|generic|none|0|intimidate|1,2|m"
+  },
+  {
+   "species": "garganacl",
+   "name_ja": "キョジオーン",
+   "kind": "normal",
+   "spec": "garganacl:32,2,0,0,0,32|explosion,focuspunch,gigaimpact,hyperbeam|generic|none|0|purifyingsalt|1,4|m"
+  },
+  {
+   "species": "armarouge",
+   "name_ja": "グレンアルマ",
+   "kind": "normal",
+   "spec": "armarouge:32,0,0,2,0,32|hyperbeam,burnup,overheat,armorcannon|generic|none|0|flashfire|3,4|m"
+  },
+  {
+   "species": "ceruledge",
+   "name_ja": "ソウブレイズ",
+   "kind": "normal",
+   "spec": "ceruledge:32,2,0,0,0,32|gigaimpact,burnup,overheat,solarblade|generic|none|0|flashfire|1,2|m"
+  },
+  {
+   "species": "bellibolt",
+   "name_ja": "ハラバリー",
+   "kind": "normal",
+   "spec": "bellibolt:32,0,0,2,0,32|gigaimpact,hyperbeam,zapcannon,thunder|generic|none|0|electromorphosis|3,4|m"
+  },
+  {
+   "species": "mabosstiff",
+   "name_ja": "マフィティフ",
+   "kind": "normal",
+   "spec": "mabosstiff:32,2,0,0,0,32|gigaimpact,hyperbeam,doubleedge,outrage|generic|none|0|intimidate|1,4|m"
+  },
+  {
+   "species": "scovillain",
+   "name_ja": "スコヴィラン",
+   "kind": "normal",
+   "spec": "scovillain:32,2,0,0,0,32|gigaimpact,hyperbeam,leafstorm,overheat|generic|none|0|chlorophyll|1,2|m"
+  },
+  {
+   "species": "scovillainmega",
+   "name_ja": "メガスコヴィラン",
+   "kind": "mega",
+   "spec": "scovillain:32,2,0,0,0,32|gigaimpact,hyperbeam,leafstorm,overheat|generic|scovillainite|1|spicyspray|1,2|m"
+  },
+  {
+   "species": "espathra",
+   "name_ja": "クエスパトラ",
+   "kind": "normal",
+   "spec": "espathra:32,0,0,2,0,32|gigaimpact,hyperbeam,lastresort,bravebird|generic|none|0|opportunist|3,2|m"
+  },
+  {
+   "species": "tinkaton",
+   "name_ja": "デカヌチャン",
+   "kind": "normal",
+   "spec": "tinkaton:32,2,0,0,0,32|gigatonhammer,steelbeam,woodhammer,icehammer|generic|none|0|moldbreaker|1,2|f"
+  },
+  {
+   "species": "palafin",
+   "name_ja": "イルカマン",
+   "kind": "normal",
+   "spec": "palafin:32,2,0,0,0,32|focuspunch,gigaimpact,hyperbeam,boomburst|generic|none|0|zerotohero|1,4|m"
+  },
+  {
+   "species": "orthworm",
+   "name_ja": "ミミズズ",
+   "kind": "normal",
+   "spec": "orthworm:32,2,0,0,0,32|gigaimpact,hyperbeam,steelbeam,doubleedge|generic|none|0|eartheater|1,4|m"
+  },
+  {
+   "species": "glimmora",
+   "name_ja": "キラフロル",
+   "kind": "normal",
+   "spec": "glimmora:32,0,0,2,0,32|explosion,selfdestruct,gigaimpact,hyperbeam|generic|none|0|toxicdebris|3,4|m"
+  },
+  {
+   "species": "glimmoramega",
+   "name_ja": "メガキラフロル",
+   "kind": "mega",
+   "spec": "glimmora:32,0,0,2,0,32|explosion,selfdestruct,gigaimpact,hyperbeam|generic|glimmoranite|1|adaptability|3,4|m"
+  },
+  {
+   "species": "houndstone",
+   "name_ja": "ハカドッグ",
+   "kind": "normal",
+   "spec": "houndstone:32,2,0,0,0,32|gigaimpact,hyperbeam,doubleedge,poltergeist|generic|none|0|sandrush|1,4|m"
+  },
+  {
+   "species": "annihilape",
+   "name_ja": "コノヨザル",
+   "kind": "normal",
+   "spec": "annihilape:32,2,0,0,0,32|focuspunch,gigaimpact,hyperbeam,overheat|generic|none|0|vitalspirit|1,2|m"
+  },
+  {
+   "species": "farigiraf",
+   "name_ja": "リキキリン",
+   "kind": "normal",
+   "spec": "farigiraf:32,0,0,2,0,32|gigaimpact,hyperbeam,doubleedge,futuresight|generic|none|0|cudchew|3,2|m"
+  },
+  {
+   "species": "kingambit",
+   "name_ja": "ドドゲザン",
+   "kind": "normal",
+   "spec": "kingambit:32,2,0,0,0,32|gigaimpact,hyperbeam,steelbeam,focusblast|generic|none|0|defiant|1,4|m"
+  },
+  {
+   "species": "baxcalibur",
+   "name_ja": "セグレイブ",
+   "kind": "normal",
+   "spec": "baxcalibur:32,2,0,0,0,32|gigaimpact,hyperbeam,dracometeor,doubleedge|generic|none|0|thermalexchange|1,4|m"
+  },
+  {
+   "species": "baxcaliburmega",
+   "name_ja": "メガセグレイブ",
+   "kind": "mega",
+   "spec": "baxcalibur:32,2,0,0,0,32|gigaimpact,hyperbeam,dracometeor,doubleedge|generic|baxcalibrite|1|thermalexchange|1,4|m"
+  },
+  {
+   "species": "gholdengo",
+   "name_ja": "サーフゴー",
+   "kind": "normal",
+   "spec": "gholdengo:32,0,0,2,0,32|focuspunch,gigaimpact,hyperbeam,steelbeam|generic|none|0|goodasgold|3,4|n"
+  },
+  {
+   "species": "sinistcha",
+   "name_ja": "ヤバソチャ",
+   "kind": "normal",
+   "spec": "sinistcha:32,0,0,2,0,32|hyperbeam,leafstorm,solarbeam,poltergeist|generic|none|0|hospitality|3,4|n"
+  },
+  {
+   "species": "archaludon",
+   "name_ja": "ブリジュラス",
+   "kind": "normal",
+   "spec": "archaludon:32,0,0,2,0,32|gigaimpact,hyperbeam,steelbeam,dracometeor|generic|none|0|stamina|3,4|m"
+  },
+  {
+   "species": "hydrapple",
+   "name_ja": "カミツオロチ",
+   "kind": "normal",
+   "spec": "hydrapple:32,0,0,2,0,32|gigaimpact,hyperbeam,dracometeor,leafstorm|generic|none|0|supersweetsyrup|3,4|m"
+  }
+ ]
+}

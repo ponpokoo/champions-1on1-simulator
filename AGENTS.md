@@ -26,6 +26,8 @@ gcc -O3 -march=native -o engine/engine engine/engine.c -lm
 ## 探索・配置
 
 - 型探索は `skill/SKILL.md` に従う。数学的に同一な型だけ畳み、役割で候補を切らず、平均勝率と最悪相性を評価する。
-- エンジン本体：`engine/engine.c`。方針ヘッダ・重み：`engine/stage3/`（観測v1・学習方針 g12 の `weights.h`）と `engine/campaign3/`（観測v2側のヘッダ。68技の現行操縦役はヒューリスティクス方針 `obsh3` で、学習方針 learned2 は対照超えが確認できていない）。
+- 種族別の探索は `search/` の規模選択ツールを使う（使い方は `search/README.md`）。規模は所要時間の予算から選ぶこと（軽量→標準の順に上げるのが基本。精密は数時間級）。
+- メガシンカのタイミング検証は `search/README.md` の手順（机上チェック→オラクル上限→+3ポイントの線引き）に従い、必要な種族だけ別途行う。標準の前提は1ターン目メガ。
+- エンジン本体：`engine/engine.c`（全種族データは `engine/stage8/` のヘッダ群）。方針ヘッダ・重み：`engine/stage3/`（観測v1・学習方針 g12 の `weights.h`）と `engine/campaign3/`（観測v2側のヘッダ）。現行の標準操縦役は、全種族では観測v3の `obsh4`、メタグロス68技では `obsh3`（学習方針 learned2 は対照超えが確認できていない）。
 - 学習：`training/`。軌跡生成はCPU、学習はGPU。GPUがなければ `training/colab/`・`training/modal/` に従い学習のみ外部GPUで行う。学習後は未見型で保留評価する。
 - 結果：`viewer/index.html`・`viewer/data/`。データ更新時は上記の結果メタデータも更新する。
