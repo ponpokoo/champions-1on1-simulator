@@ -1,3 +1,5 @@
+> **アーカイブ注記**: 本ファイルは観測仕様 v1（`MGO1`・メタグロス 17 技、`learned` / `obsh2` 用）の実装時仕様です。本文中の `ASTRA_BRIEFING.md`・`IMPROVEMENT_PLAN.md`・旧 MD5 `21f0b28488d25682bb05ceba5ef5d8b6` 等は開発当時の記録です。現行の全種族仕様は [observation_spec_v3.md](../observation_spec_v3.md) を参照してください。
+
 # Observation specification — Metagross milestone v1
 
 Status: approved 2026-11-15; implemented in `engine.c`, with fixtures in `observation_test.c`. Schema: `metagross_observation_v1` (transport `MGO1`, version 1); public rule metadata version 1. Sources: `ASTRA_BRIEFING.md`, current `engine.c`, corrected `README.md`, `IMPROVEMENT_PLAN.md` (including section 5 and Amendment), `issue_addendum.md`, and `ablation/findings.md`.

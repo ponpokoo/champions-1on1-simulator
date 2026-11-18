@@ -1,6 +1,6 @@
 // Offline generation/evaluation harness. Metadata and sampling streams stay here.
 #define main engine_cli_main
-#include "../engine.c"
+#include "../engine/engine.c"
 #undef main
 #include <inttypes.h>
 #define RECORD_BYTES 390
@@ -68,13 +68,16 @@ static int collect_policy(const Observation *o,const ActionMask *m) {
 }
 static void generate(int argc,char **argv) {
     // generate population out games seed actor hash [earlier snapshot ...]
-    if(argc<9 || strlen(argv[8])!=64) exit(2);
+    if(argc<9 || strlen(argv[8])!=64) {
+        fprintf(stderr,"usage: loop stage3 generate <population> <out.mgt> <games> <seed> <model|@compiled> <64-hex-sha256> [snapshots...]\n");
+        exit(2);
+    }
     long games=strtol(argv[5],NULL,10); uint64_t seed=strtoull(argv[6],NULL,10);
-    if(games<1 || games>1000000) exit(2);
+    if(games<1 || games>1000000) { fprintf(stderr,"games must be in 1..1000000\n"); exit(2); }
     load_weights(argv[7],&actor);
-    nsnap=argc-9; if(nsnap>16) exit(2);
+    nsnap=argc-9; if(nsnap>16) { fprintf(stderr,"too many snapshots (max 16)\n"); exit(2); }
     for(int s=0;s<nsnap;s++) load_weights(argv[9+s],&snapshots[s]);
-    FILE *f=fopen(argv[4],"wb"); if(!f) exit(2);
+    FILE *f=fopen(argv[4],"wb"); if(!f) { perror(argv[4]); exit(2); }
     unsigned char header[64]={0}; memcpy(header,"MGT3",4);
     put32(header+4,1); put32(header+8,256); put32(header+12,181); put32(header+16,RECORD_BYTES); put32(header+20,games); put64(header+24,seed);
     for(int i=0;i<32;i++) { unsigned h; if(sscanf(argv[8]+2*i,"%2x",&h)!=1) exit(2); header[32+i]=h; }

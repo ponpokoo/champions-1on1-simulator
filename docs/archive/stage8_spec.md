@@ -1,3 +1,5 @@
+> **アーカイブ注記**: 本ファイルは段階 8（全 341 種族一般化）実装当時の仕様・設計記録です。本文中の `stage8/` や `Sol` / `Muse`、作業単位 `8b`〜`8f` 等は開発当時の作業ツリー・進捗管理を指します。現行の使い方・型スペック・観測境界は [README.md](../../README.md)・[spec_and_cli.md](../spec_and_cli.md)・[observation_spec_v3.md](../observation_spec_v3.md)・[search/README.md](../../search/README.md) を参照してください。
+
 # 段階8 仕様（種族一般化）— v1.0（Sol レビュー反映済み、2026-11-16 ユーザー承認）
 
 権威の階層： 判断は `stage8/PLAN_STAGE8.md` の D8-1〜D8-7（ユーザー承認

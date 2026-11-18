@@ -1,22 +1,23 @@
 // Pokémon Champions 1on1 battle engine (fast C core)
-// Scope: 68 Metagross mirror moves (Stage 6 G0–G5) + Struggle.
-// Round chaining uses the committed action queue. MGO1 and the v1/g12 pilot calculations remain frozen.
-// Items: the 33 Champions-implemented candidates verified for Reg M-C
-// (see parse_item for codes) plus none/stone (Mega).
-// Mechanics follow the mainline where the Python sim was silent, and follow the
-// Python sim where it made explicit choices (documented per-move below).
-// Build: gcc -O3 -march=native -o engine engine.c -lm
+// Scope: 341 initial species (351 form rows), 511 selectable moves + Struggle,
+//        217 abilities, 85 items + 81 Mega stones (Regulation M-C, Lv.50, 66 pts).
+//        Legacy Metagross 17-move (MGO1/g12) and 68-move (MGO2/obsh3) paths remain
+//        supported and frozen for regression compatibility.
+// Build: gcc -O3 -march=native -o engine/engine engine/engine.c -lm
 // Usage:
-//   ./engine battle "<specA>" "<specB>" <n> <seed>
-//   ./engine matrix <n> <seed>
-// spec: "HP,A,B,C,D,S|MV,MV,MV,MV|policy|item|mega[|ability[|up,down]]"
-// v3: base-species:points|moves|policy|canonical-item|mega|canonical-ability|up,down|sex
-//     six points 0..32, total 66; sex m/f/n; none is the no-item sentinel.
-// mega=2: NORMAL final stats, stone, cb/lm; optional nature A=1..S=5, 0,0 neutral.
-//   moves: BP BD EQ SCL SB MS AGI CP ID PRO PU REST SF ST SUB TRK PN
-//          AA SP PC SE BUL RND BSW PSH RS IH ZH SN RT IW PSY FC MM TB HA
-//          IP TP BSL SLB SWG FAC
-//   policy: mirror noise fast stall generic obsdemo obsh2 learned obsdemo2 obsh3 learned2 obsdemo3 obsh4; mega: 0/1/2
+//   ./engine/engine battle "<specA>" "<specB>" <n> <seed>
+//   ./engine/engine matrix [n] [seed]
+//   ./engine/engine screen <cand_file> <pool_file> <games> <seed>
+//   ./engine/engine screenx <cand_file> <pool_file> <games> <seed>
+//   ./engine/engine trace "<specA>" "<specB>" <seed>
+//   ./engine/engine policy-version
+// Spec v3 (all species):
+//   <species>:<H,A,B,C,D,S>|<mv1,mv2,mv3,mv4>|<policy>|<item>|<mega>|<ability>|<up,down>|<sex>
+//   points 0..32 totaling 66; mega 0/1/2; nature up,down in 1..5 or 0,0; sex m/f/n.
+// Legacy spec (Metagross):
+//   "HP,A,B,C,D,S|MV,MV,MV,MV|policy|item|mega[|ability[|up,down]]"
+// Policies:
+//   mirror noise fast stall generic obsdemo obsh2 learned obsdemo2 obsh3 learned2 obsdemo3 obsh4
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -9071,9 +9072,11 @@ int main(int argc, char **argv) {
         if (!pf) { fprintf(stderr, "cannot open pool file\n"); return 1; }
         static char pool[512][512]; int np = 0;
         char line[512];
-        while (np < 512 && fgets(line, sizeof line, pf)) {
+        while (fgets(line, sizeof line, pf)) {
             line[strcspn(line, "\r\n")] = 0;
-            if (line[0]) strcpy(pool[np++], line);
+            if (!line[0]) continue;
+            if (np >= 512) { fprintf(stderr, "pool file exceeds maximum 512 builds\n"); fclose(pf); return 1; }
+            strcpy(pool[np++], line);
         }
         fclose(pf);
         FILE *cf = fopen(argv[2], "r");
@@ -9110,9 +9113,11 @@ int main(int argc, char **argv) {
         if (!pf) { fprintf(stderr, "cannot open pool file\n"); return 1; }
         static char pool[512][512]; int np = 0;
         char line[512];
-        while (np < 512 && fgets(line, sizeof line, pf)) {
+        while (fgets(line, sizeof line, pf)) {
             line[strcspn(line, "\r\n")] = 0;
-            if (line[0]) strcpy(pool[np++], line);
+            if (!line[0]) continue;
+            if (np >= 512) { fprintf(stderr, "pool file exceeds maximum 512 builds\n"); fclose(pf); return 1; }
+            strcpy(pool[np++], line);
         }
         fclose(pf);
         FILE *cf = fopen(argv[2], "r");
@@ -9164,6 +9169,23 @@ int main(int argc, char **argv) {
         run_matchup(SPEC_A0, SPEC_AI, n, seed, "A0型 vs AI型      (sim5: 115-185)");
         return 0;
     }
-    fprintf(stderr, "usage: engine battle <specA> <specB> <n> <seed> | engine matrix [n] [seed] | engine screen <cand_file> <pool_file> <games> <seed>\n");
+    if (argc == 2 && (!strcmp(argv[1], "--help") || !strcmp(argv[1], "-h"))) {
+        printf("usage:\n"
+               "  engine battle <specA> <specB> <n> <seed>\n"
+               "  engine matrix [n] [seed]\n"
+               "  engine screen <cand_file> <pool_file> <games> <seed>\n"
+               "  engine screenx <cand_file> <pool_file> <games> <seed>\n"
+               "  engine trace <specA> <specB> <seed>\n"
+               "  engine policy-version\n");
+        return 0;
+    }
+    fprintf(stderr,
+            "usage:\n"
+            "  engine battle <specA> <specB> <n> <seed>\n"
+            "  engine matrix [n] [seed]\n"
+            "  engine screen <cand_file> <pool_file> <games> <seed>\n"
+            "  engine screenx <cand_file> <pool_file> <games> <seed>\n"
+            "  engine trace <specA> <specB> <seed>\n"
+            "  engine policy-version\n");
     return 1;
 }

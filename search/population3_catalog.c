@@ -60,6 +60,16 @@ static int catalog(const char *key) {
     return ferror(stdout) ? 1 : 0;
 }
 
+static int catalog_all(void) {
+    for (int i = 0; i < S8_SPECIES_ROWS_COUNT; ++i) {
+        if (S8_SPECIES[i].initial && S8_SPECIES[i].form_kind == S8_FORM_NORMAL) {
+            printf("species\t%s\n", S8_SPECIES[i].id);
+            if (catalog(S8_SPECIES[i].id) != 0) return 1;
+        }
+    }
+    return ferror(stdout) ? 1 : 0;
+}
+
 static int check(void) {
     char line[513];
     size_t count = 0;
@@ -79,7 +89,8 @@ static int check(void) {
 
 int main(int argc, char **argv) {
     if (argc == 3 && !strcmp(argv[1], "catalog")) return catalog(argv[2]);
+    if (argc == 2 && !strcmp(argv[1], "catalog-all")) return catalog_all();
     if (argc == 2 && !strcmp(argv[1], "check")) return check();
-    fprintf(stderr, "usage: population3_catalog catalog <species> | check < candidates.txt\n");
+    fprintf(stderr, "usage: population3_catalog catalog <species> | catalog-all | check < candidates.txt\n");
     return 2;
 }

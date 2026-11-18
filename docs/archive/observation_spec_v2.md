@@ -1,3 +1,5 @@
+> **アーカイブ注記**: 本ファイルは観測仕様 v2（`MGO2`・メタグロス 68 技、`obsh3` 用）の実装時仕様です。本文中の `stage6/` や `Sol` / `Muse` 等は開発当時の作業ツリー・担当名を指します。現行の全種族仕様は [observation_spec_v3.md](../observation_spec_v3.md) を参照してください。
+
 # Observation specification v2 — DRAFT (stage 6c)
 
 Status: approved by the user 2026-11-15 for implementation (rulings R1–R3 as written). Implementation brief: stage6/sol_task_6c.md.

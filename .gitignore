@@ -1,4 +1,17 @@
 engine/engine
+engine/engine.exe
+engine_search
+engine_search.exe
+runs/
+search/population3_catalog
+search/population3_catalog.exe
+training/loop
+training/loop.exe
+training/parity
+training/parity.exe
+training/sampling_test
+training/sampling_test.exe
+training/work/
 *.o
 __pycache__/
 *.pyc

@@ -39,7 +39,7 @@ Each record is one learner pre-choice boundary; nominal choices while asleep are
 
 Reconstruct v[117] from offset 362 and v[181..255] as zero, then prepend ASCII `MGO1` + u32 256 and serialize 256 signed LE32 words to recover the existing **exact** canonical observation. No observation semantics or precision change. Writer asserts all remaining active values fit i16 and reserved words are zero, rather than truncating. The duplicated mask must equal v[176..180]. Data loader validates profile, terminal flag, legal selected/prior actions, group consistency, decision counts and timings. Gzip is transport compression; the format inside is identical.
 
-Only the reconstructed observation and mask go to the encoder. The prior action is a pure obsh2 transform of those same inputs; outcome/behavior estimates are training targets or PPO bookkeeping. IDs, seed, opponent, seat and final turn count never enter actor or critic inputs. `prepare.py` provenance and evaluation identifiers are isolated from the network.
+Only the reconstructed observation and mask go to the encoder. The prior action is a pure obsh2 transform of those same inputs; outcome/behavior estimates are training targets or PPO bookkeeping. IDs, seed, opponent, seat and final turn count never enter actor or critic inputs. Population provenance and evaluation identifiers are isolated from the network.
 
 ## MWP1 network
 

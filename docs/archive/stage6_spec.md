@@ -1,3 +1,5 @@
+> **アーカイブ注記**: 本ファイルは段階 6（メタグロス 68 技拡張）実装当時の開発記録・仕様ドラフトです。本文中の `stage6/` や `~/workspace/showdown-champions`、`Sol` / `Muse` 等の表記は開発当時の作業ツリー・担当名を指します。現行の全種族対応仕様・CLI は [README.md](../../README.md)・[spec_and_cli.md](../spec_and_cli.md)・[observation_spec_v3.md](../observation_spec_v3.md)・[known_issues.md](../known_issues.md) を参照してください。
+
 # 段階6a 仕様策定（68技への拡張）— ドラフト
 
 前提： 数値（威力・命中・PP・優先度・接触）は species_dataset.json（Serebii Champions 権威）、

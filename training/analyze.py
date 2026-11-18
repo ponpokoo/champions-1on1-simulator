@@ -4,7 +4,9 @@ from pathlib import Path
 import numpy as np
 p=argparse.ArgumentParser(); p.add_argument('prefix'); args=p.parse_args()
 path=Path(args.prefix); raw=np.frombuffer(Path(str(path)+'.bin').read_bytes(),np.uint8)
-rows=list(csv.DictReader(open(str(path)+'.csv'))); results=[]; grouped={}
+with open(str(path)+'.csv', encoding='utf-8', newline='') as f:
+    rows=list(csv.DictReader(f))
+results=[]; grouped={}
 rng=np.random.default_rng(73104)
 for row in rows:
     n=int(row['n']); off=int(row['offset']); r=raw[off:off+2*n].reshape(n,2); score=r[:,0]/2
@@ -27,8 +29,8 @@ for (pop,opp),group in grouped.items():
     for seat,score,turns,row in group:
         result['seats'].append(dict(seat=seat,score=float(score.mean()*100),ci95=ci(score),w=int(row['w']),l=int(row['l']),d=int(row['d']),mean_turns=float(turns.mean()),cap=int(row['cap']),fallbacks=0))
     results.append(result)
-Path(str(path)+'.json').write_text(json.dumps(results,indent=2)+'\n')
+Path(str(path)+'.json').write_text(json.dumps(results,indent=2)+'\n', encoding='utf-8')
 lines=['| Population | Opponent | Learner seat A score % (95% CI) | Learner seat B | Both seats |','|---|---|---:|---:|---:|']
 def cell(s): return f"{s['score']:.2f} [{s['ci95'][0]:.2f}, {s['ci95'][1]:.2f}]"
 for r in results: lines.append(f"| {r['population']} | {r['opponent']} | {cell(r['seats'][0])} | {cell(r['seats'][1])} | {cell(r)} |")
-Path(str(path)+'.md').write_text('\n'.join(lines)+'\n'); print('\n'.join(lines))
+Path(str(path)+'.md').write_text('\n'.join(lines)+'\n', encoding='utf-8'); print('\n'.join(lines))
