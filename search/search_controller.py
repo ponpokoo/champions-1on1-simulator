@@ -29,6 +29,8 @@ from search_tiers import TIERS
 
 MATRIX_MD5 = 'f3128c506954574a0c48bdfb79e2a917'
 SEED_A0, SEED_B, SEED_F = 20263310, 20263350, 20263360
+# Minimum scheduled games per shard before another shard is worth spawning.
+GAMES_PER_SHARD_MIN = 5_000
 
 
 def log(msg):
@@ -60,7 +62,15 @@ class Controller:
             raise RuntimeError(f'screenx failed rc={p.returncode}: {p.stderr[-500:]}')
 
     def run_shards(self, cand_lines, pool_file, games, seed0, tag):
-        nshards = min(self.shards, max(1, len(cand_lines) // 50))
+        # Shard count follows the actual workload (candidates x pool x games),
+        # not just the candidate count, so heavy stages with few candidates
+        # (e.g. finals: 64 x 64 x 160 games) still run in parallel. The legacy
+        # candidates // 50 rule is kept as a floor so no stage loses shards.
+        pool_size = sum(1 for ln in Path(pool_file).read_text(encoding='utf-8').splitlines()
+                        if ln.strip())
+        total_games = len(cand_lines) * pool_size * games
+        nshards = min(self.shards, max(1, len(cand_lines)),
+                      max(1, len(cand_lines) // 50, total_games // GAMES_PER_SHARD_MIN))
         def shard_file(lines, idx, n):
             f = self.dir / f'{tag}_cand_{idx:02d}.txt'
             f.write_text('\n'.join(lines[idx::n]) + '\n', encoding='utf-8')
