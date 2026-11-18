@@ -1542,6 +1542,7 @@ const APP = {
   },
   viewer: {
     selectedRun: "",
+    loadedMtime: 0,
     raw: null,
     parsed: null,
     seatMode: "both",
@@ -1690,6 +1691,7 @@ function switchTab(name) {
     document.getElementById(`tab-${t}`).hidden = t !== name;
   });
   renderCurrentTab();
+  if (name === "viewer" && APP.serverOk) pollJobsOnce();
 }
 function renderCurrentTab() {
   if (APP.activeTab === "battle") renderBattleTab();
@@ -2976,7 +2978,7 @@ function renderSearchTab() {
           </div>
         </div>
 
-        <div class="chip-grid">
+        <div class="chip-grid" style="flex:1; min-height:280px; max-height:480px; align-content:flex-start">
           ${visMoves.map((m) => {
             const mv = META.moves[m];
             const isSel = mvCustom && selMoveSet.has(m);
@@ -2991,8 +2993,8 @@ function renderSearchTab() {
           }).join("")}
         </div>
 
-        <div class="row" style="justify-content:space-between; margin-top:0.2rem">
-          <span class="small"><b>採用技数：</b></span>
+        <div class="row" style="justify-content:space-between; margin-top:auto; padding-top:0.55rem; border-top:1px solid var(--border)">
+          <span class="small"><b>採用技数</b> <span class="xs dim">（既定: 4技）</span></span>
           <div class="row" style="gap:0.35rem">
             ${[1, 2, 3, 4].map((c) => {
               const on = f.move_counts.includes(c);
@@ -3397,6 +3399,7 @@ function wireSearchEvents() {
         species: st.species, tier: st.tier, runName: st.runName, shards: st.shards,
         candidates: st.candidatesOverride ? Number(st.candidatesOverride) : null, filters: searchFilterPayload(),
       });
+      APP.search.lastJobStatuses[st.runName] = "generating";
       toast(`探索「${st.runName}」を開始しました`, "good");
       await pollJobsOnce();
       renderSearchTab();
@@ -3419,9 +3422,11 @@ async function pollJobsOnce() {
     const [j, r] = await Promise.all([apiGet("/api/search/jobs"), apiGet("/api/runs")]);
     APP.jobs = j.jobs || [];
     APP.runs = r.runs || [];
+    let completedRun = null;
     for (const job of APP.jobs) {
       const wasActive = prev[job.run] === "generating" || prev[job.run] === "running";
       if (wasActive && job.status === "complete") {
+        completedRun = job.run;
         APP.search.recentNotice = { run: job.run, species: job.species };
         document.title = `✓ 完了: ${job.run} | Champions 1on1 Studio`;
         toast(`🎉 探索「${job.run}」が完了しました！`, "good");
@@ -3435,9 +3440,22 @@ async function pollJobsOnce() {
       }
       APP.search.lastJobStatuses[job.run] = job.status;
     }
+    syncPoolRunDefault();
     syncJobPollingTimer();
     updateNavBadges();
     if (APP.activeTab === "search") updateSearchJobsDom();
+    if (completedRun && APP.runs.some((x) => x.run === completedRun && x.hasResults)) {
+      await loadRunIntoViewer(completedRun);
+      if (APP.activeTab === "battle") renderBattleTab();
+    } else if (!APP.viewer.selectedRun) {
+      const completed = APP.runs.filter((x) => x.hasResults);
+      if (completed.length) await loadRunIntoViewer(completed[0].run);
+    } else {
+      const cur = APP.runs.find((x) => x.run === APP.viewer.selectedRun);
+      if (cur && cur.hasResults && cur.mtime > (APP.viewer.loadedMtime || 0)) {
+        await loadRunIntoViewer(cur.run);
+      }
+    }
   } catch (_) {}
 }
 window.addEventListener("focus", () => {
@@ -3559,7 +3577,11 @@ function setViewerData(raw) {
 
 async function loadRunIntoViewer(runName) {
   APP.viewer.error = null; APP.viewer.selectedRun = runName;
-  try { setViewerData(await apiGet(`/api/runs/${encodeURIComponent(runName)}`)); }
+  const meta = APP.runs.find((x) => x.run === runName);
+  try {
+    setViewerData(await apiGet(`/api/runs/${encodeURIComponent(runName)}`));
+    APP.viewer.loadedMtime = meta?.mtime || Date.now() / 1000;
+  }
   catch (err) { APP.viewer.error = err.message; }
   renderViewerTab();
 }

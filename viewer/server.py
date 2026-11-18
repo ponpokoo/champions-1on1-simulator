@@ -14,6 +14,7 @@ import hashlib
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -557,6 +558,8 @@ def start_search_job(payload):
         child_env = dict(_clean_env(), PYTHONUNBUFFERED="1")
         try:
             if not resume:
+                if run_dir.exists():
+                    shutil.rmtree(run_dir)
                 cmd_gen = [
                     sys.executable, "-u", str(ROOT / "search" / "search_tiers.py"),
                     "gen", species, tier, str(run_dir), "--gcc", _GCC_PATH,
