@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="color-scheme" content="light dark" />
 <link rel="icon" href="data:," />
-<title>Champions 1on1 Studio — Stage 8 全種族ワークベンチ</title>
+<title>Champions 1on1 Studio — 同種ミラー1on1研究ツール</title>
 <style>
 :root{
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
@@ -1214,14 +1214,14 @@ table.tbl thead th{
       </div>
       <div>
         <div class="brand-title">Champions 1on1 Studio</div>
-        <div class="brand-sub">Stage 8 全 341 種族 · Lv.50 · ステータスポイント 66 · 標準方針 <span class="mono">obsh4</span></div>
+        <div class="brand-sub">M-D全種類対応・同種ミラー1on1研究ツール</div>
       </div>
     </div>
 
     <nav class="nav-tabs" role="tablist" aria-label="ワークスペース切り替え">
-      <button type="button" role="tab" data-tab="battle" aria-selected="true">1. 自作型テスト</button>
-      <button type="button" role="tab" data-tab="search" aria-selected="false" id="navTabSearch">2. 種族探索</button>
-      <button type="button" role="tab" data-tab="viewer" aria-selected="false">3. 結果分析</button>
+      <button type="button" role="tab" data-tab="battle" aria-selected="true">1. 型を比較する</button>
+      <button type="button" role="tab" data-tab="search" aria-selected="false" id="navTabSearch">2. 有力な型を探す</button>
+      <button type="button" role="tab" data-tab="viewer" aria-selected="false">3. 探索結果を分析</button>
     </nav>
 
     <div class="topbar-right">
@@ -1274,11 +1274,11 @@ table.tbl thead th{
       <button type="button" class="btn xs ghost" id="btnCloseHelpModal">閉じる (Esc)</button>
     </div>
     <div class="row" style="gap:0.5rem">
-      <input type="search" id="inHelpSearch" placeholder="用語を検索（例：obsh4, メガ, 定義A, SP, 両席）" style="flex:1; min-width:180px" />
+      <input type="search" id="inHelpSearch" placeholder="用語を検索（例：標準AI, メガ, 定義A, SP, 両視点）" style="flex:1; min-width:180px" />
       <div class="seg" id="helpCatSeg">
         <button type="button" data-hcat="all" aria-pressed="true">すべて</button>
         <button type="button" data-hcat="basic" aria-pressed="false">基本・用語</button>
-        <button type="button" data-hcat="battle" aria-pressed="false">1. テスト</button>
+        <button type="button" data-hcat="battle" aria-pressed="false">1. 比較</button>
         <button type="button" data-hcat="search" aria-pressed="false">2. 探索</button>
         <button type="button" data-hcat="viewer" aria-pressed="false">3. 分析</button>
       </div>
@@ -1291,6 +1291,7 @@ table.tbl thead th{
 <div class="toast-host" id="toastHost" aria-live="polite"></div>
 
 <script src="metadata.js"></script>
+<script src="examples/sample_data.js"></script>
 <script>
 "use strict";
 
@@ -1485,6 +1486,43 @@ function reconcileBuild(b, fillMovesIfEmpty = false) {
   return b;
 }
 
+const BATTLE_SAMPLE_PAIRS = [
+  {
+    id: "gyarados-offense-vs-bulky",
+    label: "ギャラドス：火力・素早さ寄り vs 耐久・回復寄り",
+    desc: "型A（いじっぱりAS・りゅうのまい軸）と型B（わんぱくHB・10まんボルト＋ねむる軸）のメガ同種ミラーです。対戦を実行して勝率を比較できます。",
+    A: {
+      species: "gyarados", points: [2, 32, 0, 0, 0, 32],
+      moves: ["powerwhip", "crunch", "dragondance", "protect"],
+      policy: "obsh4", item: "gyaradosite", mega: 2, ability: "intimidate", nature: "1,3", sex: "m",
+    },
+    B: {
+      species: "gyarados", points: [32, 2, 32, 0, 0, 0],
+      moves: ["powerwhip", "thunderbolt", "rest", "protect"],
+      policy: "obsh4", item: "gyaradosite", mega: 2, ability: "intimidate", nature: "2,3", sex: "m",
+    },
+  },
+  {
+    id: "gyarados-normal-vs-mega-special",
+    label: "ギャラドス：通常（いのちのたま）vs メガ（特殊寄り）",
+    desc: "型A（通常フォルム・ようきAS・いのちのたま）と型B（メガギャラドス・ひかえめHC・10まんボルト/ねっとう軸）の比較サンプルです。",
+    A: {
+      species: "gyarados", points: [2, 32, 0, 0, 0, 32],
+      moves: ["powerwhip", "stoneedge", "dragondance", "protect"],
+      policy: "obsh4", item: "lifeorb", mega: 0, ability: "intimidate", nature: "5,3", sex: "m",
+    },
+    B: {
+      species: "gyarados", points: [28, 0, 6, 32, 0, 0],
+      moves: ["thunderbolt", "scald", "taunt", "protect"],
+      policy: "obsh4", item: "gyaradosite", mega: 2, ability: "intimidate", nature: "3,1", sex: "m",
+    },
+  },
+];
+
+function cloneSampleBuild(b) {
+  return reconcileBuild({ ...b, points: [...b.points], moves: [...b.moves] });
+}
+
 const APP = {
   serverOk: false,
   health: null,
@@ -1493,8 +1531,10 @@ const APP = {
   jobs: [],
   jobTimer: null,
   battle: {
-    A: defaultBuild("gyarados"),
-    B: defaultBuild("gyarados"),
+    A: cloneSampleBuild(BATTLE_SAMPLE_PAIRS[0].A),
+    B: cloneSampleBuild(BATTLE_SAMPLE_PAIRS[0].B),
+    samplePairIdx: 0,
+    showAdvanced: false,
     games: 1000,
     seed: 12345,
     lastBattle: null,
@@ -1512,6 +1552,7 @@ const APP = {
     species: "gyarados",
     tier: "light",
     runName: "gyarados-light",
+    conflict: null,
     shards: 4,
     shardsTouched: false,
     candidatesOverride: "",
@@ -1542,6 +1583,7 @@ const APP = {
   },
   viewer: {
     selectedRun: "",
+    sampleMeta: null,
     loadedMtime: 0,
     raw: null,
     parsed: null,
@@ -1607,7 +1649,12 @@ document.querySelectorAll("[data-theme-set]").forEach((btn) => {
 async function apiGet(url) {
   const res = await fetch(url);
   const data = await res.json();
-  if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+  if (!res.ok) {
+    const err = new Error(data.error || `HTTP ${res.status}`);
+    err.status = res.status;
+    err.data = data;
+    throw err;
+  }
   return data;
 }
 async function apiPost(url, body) {
@@ -1617,7 +1664,12 @@ async function apiPost(url, body) {
     body: JSON.stringify(body),
   });
   const data = await res.json();
-  if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+  if (!res.ok) {
+    const err = new Error(data.error || `HTTP ${res.status}`);
+    err.status = res.status;
+    err.data = data;
+    throw err;
+  }
   return data;
 }
 
@@ -1634,8 +1686,8 @@ function updateNavBadges() {
   const navS = document.getElementById("navTabSearch");
   if (navS) {
     navS.innerHTML = running
-      ? `2. 種族探索 <span class="pulse-dot" title="探索ジョブ実行中"></span>`
-      : `2. 種族探索`;
+      ? `2. 有力な型を探す <span class="pulse-dot" title="探索ジョブ実行中"></span>`
+      : `2. 有力な型を探す`;
   }
 }
 
@@ -1667,7 +1719,7 @@ async function refreshServerState() {
     for (const job of APP.jobs) APP.search.lastJobStatuses[job.run] = job.status;
     if (!APP.search.shardsTouched && h.cpuCount) APP.search.shards = Math.max(1, Math.min(8, h.cpuCount));
     const completed = APP.runs.filter((x) => x.hasResults);
-    if (!APP.viewer.selectedRun && completed.length) {
+    if (!APP.viewer.selectedRun && !APP.viewer.sampleMeta && !APP.viewer.parsed && completed.length) {
       APP.viewer.selectedRun = completed[0].run;
       loadRunIntoViewer(completed[0].run);
     }
@@ -1866,7 +1918,7 @@ window.addEventListener("keydown", (e) => {
 const HELP_TOPICS = [
   {
     key: "overview", cat: "basic", badge: "全体", title: "3 つのタブの使い分け",
-    body: "「1. 自作型テスト」は特定の 2 型を戦わせて勝率やターン推移を確かめる場所です。「2. 種族探索」は大量の候補から強い型を自動探索します。「3. 結果分析」は探索結果のランキングや相性ヒートマップを可視化します。"
+    body: "「1. 型を比較する」は 2 つの型を戦わせて勝率やターン推移を確かめる場所です。「2. 有力な型を探す」は広い候補空間から有力な型を自動探索します（既存ランは上書き保護されます）。「3. 探索結果を分析」は同梱サンプルや自分の探索結果のランキング・相性ヒートマップ・仮想構成スライダーを可視化します。"
   },
   {
     key: "rules", cat: "basic", badge: "基本", title: "同種ミラー 1on1・SP（ステータスポイント）66 制・両倒れ規約",
@@ -1877,8 +1929,8 @@ const HELP_TOPICS = [
     body: "「0: 非メガ」は通常どうぐと通常特性を自由に選べます。「1: メガ開始」は最初からメガシンカした状態で登場する検証用モードで、メガ特性に固定されます。「2: 任意メガ（標準前提）」は通常フォルム＋通常特性で開始し、1ターン目にメガシンカする標準条件です（メガ石が自動選択されます）。通常特性を選びたい場合は 0 または 2 にしてください。"
   },
   {
-    key: "policy", cat: "battle", badge: "操縦方針", title: "obsh4（標準）と generic（比較用）の違い",
-    body: "obsh4 は「対戦中に相手から見えている公開情報」だけで行動を決める標準 AI（観測 v3）です。一方 generic は相手の未公開の技・持ち物・配分をすべて見通した上で行動する「全情報ベースライン比較用」AI です。詳細ログ（trace）は仕様上 generic でのみ出力されるため、挙動確認の比較用としてお使いください。"
+    key: "policy", cat: "battle", badge: "操縦方針", title: "標準AI（公開情報）と全情報比較の違い",
+    body: "「標準AI（公開情報）」（識別子: obsh4）は、対戦中に相手から見えている公開情報だけで行動を決める標準ヒューリスティクス（観測 v3）です。一方「全情報比較」（識別子: generic）は、相手の未公開の技・持ち物・配分を見通した上で行動する全情報ベースラインです。勝率や順位は操縦方針に依存するため、通常は標準AIで比較し、挙動確認の詳細ログ（仕様上 generic のみ出力）は比較参考としてお使いください。"
   },
   {
     key: "moves", cat: "battle", badge: "技枠", title: "技を 1〜3 技（空白）にする意味と手順",
@@ -1886,23 +1938,23 @@ const HELP_TOPICS = [
   },
   {
     key: "def", cat: "search", badge: "探索規約", title: "定義 A（無駄ポイント除外）・定義 B（均等配分除外）",
-    body: "探索で意味のない候補を減らすための数学的ルールです。定義 A は性格下降補正（↓）の能力に振られた SP のうち、切り捨て計算により「他の補正なし能力に 1pt 移しても下降側の実数値が 1 も下がらない無駄な振り方」を除外します。定義 B は最大 SP が 16 以下の突出しない均等配分を除外します。"
+    body: "候補空間を整理するための探索上の除外規約です。定義 A は性格下降補正（↓）の能力に振られた SP のうち、切り捨て計算により「他の補正なし能力に 1pt 移しても下降側の実数値が 1 も下がらない振り方」を除外します。定義 B は全能力の SP が最大 16 以下の均等配分を除外する規約です。"
   },
   {
     key: "filter", cat: "search", badge: "絞り込み", title: "部分領域絞り込み・相手パネル全空間・全列挙 / サンプリング",
     body: "タブ 2 で条件を絞ると「探索する候補側（candidates.txt）」だけが限定され、戦わせる評価相手（panel.txt）は偏りを防ぐため種族全体の無制約ドメインから抽選されます。絞り込み後の合法な型数が目標候補数以下なら重複なしの「全列挙（exhaustive）」、上回る場合は「一様サンプリング（sampled）」に自動切替されます。"
   },
   {
-    key: "seat", cat: "viewer", badge: "集計基準", title: "両席合算（ミラー除外）と A 席基準",
-    body: "決勝総当たり（finals）を先側（A 席）と後側（B 席）の両視点で合算平均し、自分自身との対戦（常に 50%）を除いた実質勝率が「両席合算」です（通常はこちらを基準にします）。"
+    key: "seat", cat: "viewer", badge: "集計基準", title: "両視点合算（同型戦除く）と A側視点のみ",
+    body: "決勝総当たり（finals）を A 側と B 側の両視点で合算平均し、自分自身との同型戦（常に 50%）を除いた実質勝率が「両視点合算（同型戦除く）」です（通常はこちらを基準にします）。"
   },
   {
-    key: "groups", cat: "viewer", badge: "環境分析", title: "最悪相性・環境グループ（メタ/上級者/オリジナル）・分布スライダー",
-    body: "1on1 にはじゃんけん的な三すくみがあるため、平均勝率だけでなく「最も苦手な相手への勝率（最悪相性）」も重要です。結果分析では決勝内の型を「上級者（上位 20 または 1 位対策）」「メタ（同技構成が 4 型以上）」「オリジナル（その他）」に分類し、スライダーで想定する相手割合を動かして 1 位の変化を確認できます。"
+    key: "groups", cat: "viewer", badge: "分析条件", title: "決勝内最低勝率・グループ分類・仮想的な相手構成スライダー",
+    body: "1on1 にはじゃんけん的な三すくみがあるため、決勝内平均勝率だけでなく「決勝内で最も苦手な相手への勝率（決勝内最低勝率 / 最悪相性）」も重要です。結果分析では決勝内の型を「上位・1位対策（決勝上位 20 型または 1 位相手への勝率 60% 以上）」「頻出技構成（同じ技構成が 4 型以上）」「その他（上記以外）」に分類し、必要に応じて「簡易24型（参考）」も加えられます。スライダーは現実の使用率統計ではなく、指定した仮想的な相手構成における期待勝率・順位の変化を確認する機能です。"
   },
   {
-    key: "spec", cat: "basic", badge: "形式", title: "v3 スペック文字列の読み方",
-    body: "8 つの要素を縦棒「|」で区切った表記です：『種族:H,A,B,C,D,S|技1,技2,...|方針|持ち物|メガ区分(0/1/2)|特性|性格(up,down)|性別(m/f/n)』。性格は 0,0=無補正、1=A / 2=B / 3=C / 4=D / 5=S です。"
+    key: "spec", cat: "basic", badge: "形式", title: "型のテキスト形式（コピー / 読込用）",
+    body: "8 つの要素を縦棒「|」で区切った表記（v3 形式）です：『種族:H,A,B,C,D,S|技1,技2,...|方針|持ち物|メガ区分(0/1/2)|特性|性格(up,down)|性別(m/f/n)』。性格は 0,0=無補正、1=A / 2=B / 3=C / 4=D / 5=S です。"
   },
 ];
 
@@ -2114,10 +2166,10 @@ function renderBuildEditor(side) {
           ${itemControl}
         </div>
         <div class="field">
-          <span class="field-lbl">操縦方針 <button type="button" class="help-dot" data-help="policy" title="obsh4 / generic の違い">?</button></span>
+          <span class="field-lbl">操縦方針 <button type="button" class="help-dot" data-help="policy" title="標準AI（obsh4）と全情報比較（generic）の違い">?</button></span>
           <div class="seg">
-            <button type="button" data-side="${side}" data-pick-pol="obsh4" aria-pressed="${b.policy === "obsh4"}">obsh4</button>
-            <button type="button" data-side="${side}" data-pick-pol="generic" aria-pressed="${b.policy === "generic"}">generic (比較用)</button>
+            <button type="button" data-side="${side}" data-pick-pol="obsh4" aria-pressed="${b.policy === "obsh4"}" title="識別子: obsh4（公開情報のみを使う標準ヒューリスティクス）">標準AI（公開情報）</button>
+            <button type="button" data-side="${side}" data-pick-pol="generic" aria-pressed="${b.policy === "generic"}" title="識別子: generic（相手の非公開情報も参照する全情報ベースライン比較用）">全情報比較</button>
           </div>
         </div>
       </div>
@@ -2228,7 +2280,7 @@ function renderBattleTab() {
       <div class="card-head">
         <div class="row">
           <h2 class="card-title">1 試合詳細タイムライン</h2>
-          <span class="badge warn">※詳細ログ取得のため両者 generic（全情報ベースライン比較）で実行 · seed ${st.lastTrace.seed}</span>
+          <span class="badge warn">※詳細ログ取得のため両者「全情報比較（generic）」で実行 · seed ${st.lastTrace.seed}</span>
         </div>
         <button type="button" class="btn xs ghost" id="btnToggleRawTrace">${st.showRawTrace ? "タイムライン表示" : "生テキスト表示"}</button>
       </div>
@@ -2263,10 +2315,10 @@ function renderBattleTab() {
   const poolResultHtml = st.poolResult ? `<div style="margin-top:0.85rem">
     <div class="row" style="margin-bottom:0.45rem">
       <span class="badge acc">プール: ${esc(st.poolResult.run)}</span>
-      <span class="small dim">${st.poolResult.results[0]?.poolSize || 0} 型 × 両席各 ${st.poolResult.gamesPerSide} 戦 · 方針 ${esc(st.poolResult.policy)}</span>
+      <span class="small dim">${st.poolResult.results[0]?.poolSize || 0} 型 × 両視点各 ${st.poolResult.gamesPerSide} 戦 · 方針 ${esc(st.poolResult.policy === "obsh4" ? "標準AI (obsh4)" : st.poolResult.policy === "generic" ? "全情報比較 (generic)" : st.poolResult.policy)}</span>
     </div>
     <div class="tbl-scroll"><table class="tbl">
-      <thead><tr><th>テストした型</th><th>両席平均勝率</th><th>最悪相性</th><th>A席平均</th><th>順位相当</th><th>特に苦手な相手 Top 3</th></tr></thead>
+      <thead><tr><th>テストした型</th><th>両視点平均勝率</th><th>最低勝率（最悪相性）</th><th>A側平均</th><th>順位相当</th><th>特に苦手な相手 Top 3</th></tr></thead>
       <tbody>${st.poolResult.results.map((res) => {
         const dec = decodeBuildSummary(res.spec);
         const worstTxt = res.worst5.slice(0, 3).map((w) => {
@@ -2287,38 +2339,52 @@ function renderBattleTab() {
 
   const showPoolPanel = st.saved.length > 0 || matchingRuns.length > 0 || Boolean(st.poolResult);
   el.innerHTML = `
-    ${!st.hideGuide ? `<div class="callout acc" style="justify-content:space-between; align-items:center">
-      <span>💡 <b>手順</b>：下の型 A・B に同じポケモンを組んで「<b>⚔ 1on1 対戦を実行</b>」を押します（各用語は右上の「<b>？ ヘルプ / 用語集</b>」で確認できます）。</span>
-      <button type="button" class="btn xs ghost" id="btnDismissGuide">閉じる</button>
+    ${!st.hideGuide ? `<div class="callout acc" style="justify-content:space-between; align-items:center; gap:0.6rem; flex-wrap:wrap">
+      <span>💡 <b>おすすめの体験順</b>：① <b>サンプル結果で分析を見る</b> → ② 気になる2型をここで <b>1on1 比較</b> → ③ タブ2で <b>有力な型を探す</b></span>
+      <div class="row" style="gap:0.35rem">
+        ${Array.isArray(window.CHAMPIONS_SAMPLES) && window.CHAMPIONS_SAMPLES.length ? `<button type="button" class="btn xs primary" id="btnGuideOpenSample">📊 サンプル結果を開く</button>` : ""}
+        <button type="button" class="btn xs ghost" id="btnDismissGuide">閉じる</button>
+      </div>
     </div>` : ""}
     <div class="vs-dock">
       <div class="vs-side-summary side-a">
-        <div class="row" style="justify-content:space-between"><b>型 A：${esc(decA.formLabel)}</b><span class="xs mono dim">${esc(decA.policy)}</span></div>
+        <div class="row" style="justify-content:space-between"><b>型 A：${esc(decA.formLabel)}</b><span class="xs dim" title="操縦方針識別子: ${esc(decA.policy)}">${esc(decA.policy === "obsh4" ? "標準AI（公開情報）" : decA.policy === "generic" ? "全情報比較" : decA.policy)}</span></div>
         <div class="xs mono dim">H${decA.startStats[0]} A${decA.startStats[1]} B${decA.startStats[2]} C${decA.startStats[3]} D${decA.startStats[4]} S${decA.startStats[5]} · ${esc(itName(decA.item))}</div>
       </div>
 
       <div class="vs-center-actions">
-        <div class="row" style="justify-content:center">
-          <button type="button" class="btn primary" id="btnRunBattle" ${canRun ? "" : "disabled"}>${st.busy ? "計算中…" : "⚔ 1on1 対戦を実行"}</button>
-          <button type="button" class="btn" id="btnRunTrace" ${canRun ? "" : "disabled"}>詳細ログ (generic)</button>
+        <div class="row" style="justify-content:center; gap:0.45rem">
+          <button type="button" class="btn primary" id="btnRunBattle" ${canRun ? "" : "disabled"}>${st.busy ? "計算中…" : `⚔ 1on1 対戦を実行（${st.games.toLocaleString("ja-JP")}戦）`}</button>
         </div>
-        <div class="row" style="justify-content:center; gap:0.4rem">
+        <div class="row" style="justify-content:center; gap:0.35rem; margin-top:0.15rem">
+          <button type="button" class="btn xs ghost" id="btnCycleSamplePair" title="異なる特徴の2型サンプルへ切替／リセット">比較サンプル切替</button>
           <button type="button" class="btn xs ghost" id="btnCopyAtoB">A → B コピー</button>
           <button type="button" class="btn xs ghost" id="btnSwapAB">A ↔ B 入替</button>
-          <span class="xs dim">試</span>
-          ${[100, 1000, 5000].map((g) => `<button type="button" class="btn xs ${st.games === g ? "primary" : "ghost"}" data-qgames="${g}">${g}</button>`).join("")}
-          <input type="number" id="inBattleGames" min="1" max="100000" value="${st.games}" style="width:5rem; min-height:1.65rem; padding:0.1rem 0.35rem" title="試合数" />
-          <span class="xs dim">種</span>
-          <input type="number" id="inBattleSeed" value="${st.seed}" style="width:5.2rem; min-height:1.65rem; padding:0.1rem 0.35rem" title="乱数シード" />
-          <button type="button" class="btn xs ghost" id="btnRandSeed" title="シードをランダム変更">🎲</button>
         </div>
+        <details id="detBattleAdv" ${st.showAdvanced ? "open" : ""} style="margin-top:0.35rem; text-align:left">
+          <summary class="xs dim" style="cursor:pointer; text-align:center; user-select:none">詳細設定（試合数 ${st.games} · シード ${st.seed} · 詳細ログ）</summary>
+          <div class="row" style="justify-content:center; gap:0.4rem; margin-top:0.4rem; padding-top:0.35rem; border-top:1px dashed var(--border)">
+            <span class="xs dim">試合数</span>
+            ${[100, 1000, 5000].map((g) => `<button type="button" class="btn xs ${st.games === g ? "primary" : "ghost"}" data-qgames="${g}">${g}</button>`).join("")}
+            <input type="number" id="inBattleGames" min="1" max="100000" value="${st.games}" style="width:5rem; min-height:1.65rem; padding:0.1rem 0.35rem" title="試合数" />
+            <span class="xs dim">シード</span>
+            <input type="number" id="inBattleSeed" value="${st.seed}" style="width:5.2rem; min-height:1.65rem; padding:0.1rem 0.35rem" title="乱数シード" />
+            <button type="button" class="btn xs ghost" id="btnRandSeed" title="シードをランダム変更">🎲</button>
+            <button type="button" class="btn xs" id="btnRunTrace" ${canRun ? "" : "disabled"} title="仕様上 generic（全情報ベースライン）で1戦の推移を出力">詳細ログ（全情報比較）</button>
+          </div>
+        </details>
       </div>
 
       <div class="vs-side-summary side-b">
-        <div class="row" style="justify-content:space-between"><b>型 B：${esc(decB.formLabel)}</b><span class="xs mono dim">${esc(decB.policy)}</span></div>
+        <div class="row" style="justify-content:space-between"><b>型 B：${esc(decB.formLabel)}</b><span class="xs dim" title="操縦方針識別子: ${esc(decB.policy)}">${esc(decB.policy === "obsh4" ? "標準AI（公開情報）" : decB.policy === "generic" ? "全情報比較" : decB.policy)}</span></div>
         <div class="xs mono dim">H${decB.startStats[0]} A${decB.startStats[1]} B${decB.startStats[2]} C${decB.startStats[3]} D${decB.startStats[4]} S${decB.startStats[5]} · ${esc(itName(decB.item))}</div>
       </div>
     </div>
+
+    ${st.samplePairIdx !== null && BATTLE_SAMPLE_PAIRS[st.samplePairIdx] ? `<div class="xs dim" style="margin:-0.25rem 0 0.7rem; padding:0 0.25rem">📌 <b>現在の比較サンプル：</b>${esc(BATTLE_SAMPLE_PAIRS[st.samplePairIdx].label)} — ${esc(BATTLE_SAMPLE_PAIRS[st.samplePairIdx].desc)}</div>` : ""}
+    ${!APP.serverOk ? `<div class="callout warn" style="margin-bottom:0.75rem">
+      <div><b>ローカルサーバ未接続（静的閲覧モード）：</b>対戦シミュレーションを実行するには、リポジトリ直下で <span class="mono">python3 viewer/server.py</span>（Windows は <span class="mono">py -3 viewer/server.py</span>）を起動し、<span class="mono">http://127.0.0.1:8765/</span> を開いてください。<br><span class="xs dim">※サーバ未接続でも、下の型編集・Lv.50実数値確認や、タブ 3「探索結果を分析」でのサンプル結果閲覧はそのまま利用できます。</span></div>
+    </div>` : ""}
 
     ${st.A.species !== st.B.species ? `<div class="callout bad">同種ミラー対戦のみ対応しています（型 A: ${esc(spName(st.A.species))} / 型 B: ${esc(spName(st.B.species))}）。「A → B コピー」で揃えてください。</div>` : ""}
     ${st.error ? `<div class="callout bad">${esc(st.error)}</div>` : ""}
@@ -2461,6 +2527,10 @@ function wireBattleEvents() {
       APP.battle[side].moves = moves;
       renderBattleTab();
     });
+  });
+  document.getElementById("btnGuideOpenSample")?.addEventListener("click", () => {
+    const first = Array.isArray(window.CHAMPIONS_SAMPLES) ? window.CHAMPIONS_SAMPLES[0] : null;
+    if (first) loadSampleIntoViewer(first.meta.id);
   });
   document.getElementById("btnDismissGuide")?.addEventListener("click", () => {
     APP.battle.hideGuide = true;
@@ -2611,8 +2681,25 @@ function wireBattleEvents() {
     });
   });
 
+  document.getElementById("btnCycleSamplePair")?.addEventListener("click", () => {
+    const nextIdx = APP.battle.samplePairIdx === null ? 0 : (APP.battle.samplePairIdx + 1) % BATTLE_SAMPLE_PAIRS.length;
+    const pair = BATTLE_SAMPLE_PAIRS[nextIdx];
+    APP.battle.A = cloneSampleBuild(pair.A);
+    APP.battle.B = cloneSampleBuild(pair.B);
+    APP.battle.samplePairIdx = nextIdx;
+    APP.battle.lastBattle = null;
+    APP.battle.lastTrace = null;
+    APP.battle.error = null;
+    syncPoolRunDefault();
+    renderBattleTab();
+    toast(`比較サンプル「${pair.label}」を読み込みました`, "info");
+  });
+  document.getElementById("detBattleAdv")?.addEventListener("toggle", (e) => {
+    APP.battle.showAdvanced = Boolean(e.target.open);
+  });
   document.getElementById("btnCopyAtoB")?.addEventListener("click", () => {
     APP.battle.B = JSON.parse(JSON.stringify(APP.battle.A));
+    APP.battle.samplePairIdx = null;
     renderBattleTab();
     toast("型 A の条件を 型 B にコピーしました", "info");
   });
@@ -2857,7 +2944,7 @@ function wireSearchJobEvents(scope) {
     catch (err) { st.error = err.message; renderSearchTab(); }
   }));
   scope.querySelectorAll("[data-job-open]").forEach((b) => b.addEventListener("click", async () => {
-    document.title = "Champions 1on1 Studio — Stage 8 全種族ワークベンチ";
+    document.title = "Champions 1on1 Studio — 同種ミラー1on1研究ツール";
     st.recentNotice = null;
     await loadRunIntoViewer(b.dataset.jobOpen);
     switchTab("viewer");
@@ -3113,7 +3200,7 @@ function renderSearchTab() {
     <section class="card">
       <div class="card-head">
         <div>
-          <h2 class="card-title">1. 探索ターゲット & 規模の設定 <span class="badge acc">操縦方針 obsh4</span></h2>
+          <h2 class="card-title">1. 探索ターゲット & 規模の設定 <span class="badge acc" title="操縦方針識別子: obsh4（公開情報のみを使う標準ヒューリスティクス）">標準AI（公開情報）</span></h2>
         </div>
         ${unfinishedRuns.length ? `<div class="row"><span class="xs dim">未完了ラン:</span>${unfinishedRuns.slice(0, 4).map((r) => `<button type="button" class="btn xs ghost" data-job-resume="${esc(r.run)}">${esc(r.run)} を再開</button>`).join("")}</div>` : ""}
       </div>
@@ -3129,6 +3216,7 @@ function renderSearchTab() {
         <div class="field">
           <span class="field-lbl">出力フォルダ名（runs/ 配下）</span>
           <input type="text" id="inSrchRunName" value="${esc(st.runName)}" />
+          ${APP.runs.some((r) => r.run === st.runName.trim()) ? `<span class="xs dim" style="color:var(--warn)">※同名の既存ランがあります（既存データは上書きしません）</span>` : ""}
         </div>
         <div class="row" style="gap:0.5rem; flex-wrap:nowrap">
           <div class="field" style="flex:1"><span class="field-lbl">並列数 (--shards)</span><input type="number" id="inSrchShards" min="1" max="64" value="${st.shards}" /></div>
@@ -3159,6 +3247,14 @@ function renderSearchTab() {
       ${st.estimate ? `<div class="callout good" id="srchEstimateAlert" style="margin-top:0.75rem">
         見積もり：対象空間 <b>${st.estimate.spaceSize === null ? "無制約（全空間）" : `${st.estimate.spaceSize.toLocaleString("ja-JP")} 通り${st.estimate.exact ? "（厳密）" : "（上限概算）"}`}</b>
         → モード：<b>${st.estimate.enumerationMode === "exhaustive" ? "全列挙（重複なし）" : "一様サンプリング"}</b>（生成候補数 ${st.estimate.targetCandidates.toLocaleString("ja-JP")}）
+      </div>` : ""}
+      ${st.conflict ? `<div class="callout warn" id="srchConflictAlert" style="margin-top:0.75rem">
+        <div><b>既存ラン保護のため新規探索を中止しました：</b>${esc(st.conflict.message)}</div>
+        <div class="row" style="margin-top:0.5rem; gap:0.4rem">
+          ${st.conflict.suggestedRunName ? `<button type="button" class="btn sm primary" id="btnUseSuggestedRun">別名「${esc(st.conflict.suggestedRunName)}」に変更</button>` : ""}
+          ${st.conflict.canResume ? `<button type="button" class="btn sm" id="btnResumeConflictRun">「${esc(st.conflict.run)}」を再開</button>` : ""}
+          ${st.conflict.isComplete ? `<button type="button" class="btn sm" id="btnOpenConflictRun">「${esc(st.conflict.run)}」を結果分析で開く</button>` : ""}
+        </div>
       </div>` : ""}
       ${st.error ? `<div class="callout bad" style="margin-top:0.75rem">${esc(st.error)}</div>` : ""}
       ${!APP.serverOk ? `<div class="callout warn" style="margin-top:0.75rem">探索の実行・見積もりには <span class="mono">python3 viewer/server.py</span> の起動が必要です。</div>` : ""}
@@ -3193,12 +3289,12 @@ function wireSearchEvents() {
   document.getElementById("btnNoticeOpenViewer")?.addEventListener("click", async () => {
     const run = st.recentNotice?.run;
     st.recentNotice = null;
-    document.title = "Champions 1on1 Studio — Stage 8 全種族ワークベンチ";
+    document.title = "Champions 1on1 Studio — 同種ミラー1on1研究ツール";
     if (run) { await loadRunIntoViewer(run); switchTab("viewer"); }
   });
   document.getElementById("btnDismissNotice")?.addEventListener("click", () => {
     st.recentNotice = null;
-    document.title = "Champions 1on1 Studio — Stage 8 全種族ワークベンチ";
+    document.title = "Champions 1on1 Studio — 同種ミラー1on1研究ツール";
     renderSearchTab();
   });
 
@@ -3227,7 +3323,10 @@ function wireSearchEvents() {
     st.estimate = null;
     renderSearchTab();
   });
-  document.getElementById("inSrchRunName")?.addEventListener("input", (e) => { st.runName = e.target.value; });
+  document.getElementById("inSrchRunName")?.addEventListener("input", (e) => {
+    st.runName = e.target.value;
+    st.conflict = null;
+  });
   document.getElementById("inSrchShards")?.addEventListener("change", (e) => {
     st.shardsTouched = true;
     const n = Number(e.target.value);
@@ -3391,6 +3490,7 @@ function wireSearchEvents() {
   });
   document.getElementById("btnStartSearch")?.addEventListener("click", async () => {
     st.error = null;
+    st.conflict = null;
     try {
       if (typeof Notification !== "undefined" && Notification.permission === "default") {
         Notification.requestPermission?.().catch(() => {});
@@ -3403,7 +3503,45 @@ function wireSearchEvents() {
       toast(`探索「${st.runName}」を開始しました`, "good");
       await pollJobsOnce();
       renderSearchTab();
-    } catch (err) { st.error = err.message; renderSearchTab(); }
+    } catch (err) {
+      if (err.status === 409 && err.data) {
+        st.conflict = { ...err.data, message: err.message };
+      } else {
+        st.error = err.message;
+      }
+      renderSearchTab();
+    }
+  });
+  document.getElementById("btnUseSuggestedRun")?.addEventListener("click", () => {
+    if (st.conflict?.suggestedRunName) {
+      st.runName = st.conflict.suggestedRunName;
+      st.conflict = null;
+      st.error = null;
+      toast(`出力フォルダ名を「${st.runName}」に変更しました`, "good");
+      renderSearchTab();
+    }
+  });
+  document.getElementById("btnResumeConflictRun")?.addEventListener("click", async () => {
+    const target = st.conflict?.run;
+    if (!target) return;
+    st.error = null;
+    st.conflict = null;
+    try {
+      await apiPost("/api/search/start", { runName: target, resume: true, shards: st.shards });
+      toast(`探索「${target}」を再開しました`, "good");
+      await pollJobsOnce();
+      renderSearchTab();
+    } catch (err) {
+      st.error = err.message;
+      renderSearchTab();
+    }
+  });
+  document.getElementById("btnOpenConflictRun")?.addEventListener("click", async () => {
+    const target = st.conflict?.run;
+    if (!target) return;
+    st.conflict = null;
+    switchTab("viewer");
+    await loadRunIntoViewer(target);
   });
   document.getElementById("btnRefreshJobs")?.addEventListener("click", pollJobsOnce);
   wireSearchJobEvents(root);
@@ -3447,7 +3585,7 @@ async function pollJobsOnce() {
     if (completedRun && APP.runs.some((x) => x.run === completedRun && x.hasResults)) {
       await loadRunIntoViewer(completedRun);
       if (APP.activeTab === "battle") renderBattleTab();
-    } else if (!APP.viewer.selectedRun) {
+    } else if (!APP.viewer.selectedRun && !APP.viewer.sampleMeta && !APP.viewer.parsed) {
       const completed = APP.runs.filter((x) => x.hasResults);
       if (completed.length) await loadRunIntoViewer(completed[0].run);
     } else {
@@ -3460,7 +3598,7 @@ async function pollJobsOnce() {
 }
 window.addEventListener("focus", () => {
   if (document.title.startsWith("✓") || document.title.startsWith("⚠")) {
-    document.title = "Champions 1on1 Studio — Stage 8 全種族ワークベンチ";
+    document.title = "Champions 1on1 Studio — 同種ミラー1on1研究ツール";
   }
 });
 
@@ -3576,7 +3714,7 @@ function setViewerData(raw) {
 }
 
 async function loadRunIntoViewer(runName) {
-  APP.viewer.error = null; APP.viewer.selectedRun = runName;
+  APP.viewer.error = null; APP.viewer.selectedRun = runName; APP.viewer.sampleMeta = null;
   const meta = APP.runs.find((x) => x.run === runName);
   try {
     setViewerData(await apiGet(`/api/runs/${encodeURIComponent(runName)}`));
@@ -3584,6 +3722,24 @@ async function loadRunIntoViewer(runName) {
   }
   catch (err) { APP.viewer.error = err.message; }
   renderViewerTab();
+}
+
+function loadSampleIntoViewer(sampleId) {
+  const list = Array.isArray(window.CHAMPIONS_SAMPLES) ? window.CHAMPIONS_SAMPLES : [];
+  const item = sampleId ? list.find((s) => s.meta?.id === sampleId) : list[0];
+  if (!item) {
+    APP.viewer.error = "同梱サンプルデータが見つかりません（viewer/examples/sample_data.js を確認してください）。";
+    renderViewerTab();
+    return;
+  }
+  APP.viewer.error = null;
+  APP.viewer.selectedRun = "";
+  APP.viewer.sampleMeta = item.meta;
+  APP.viewer.loadedMtime = 0;
+  setViewerData(item.data);
+  switchTab("viewer");
+  renderViewerTab();
+  toast(`同梱サンプル「${item.meta.title}」を読み込みました`, "good");
 }
 
 function setLinkedWeight(parsed, key, rawVal) {
@@ -3659,13 +3815,18 @@ function renderViewerCard(b, mode, tag) {
   const mStats = mode === "both" ? b.both : b.seatA;
   const rank = mode === "both" ? b.rankBoth : b.rankA;
   const worstBuild = mStats.worstOppIdx >= 0 ? APP.viewer.parsed.builds[mStats.worstOppIdx] : null;
-  const grpLbl = { meta: "メタ", original: "オリジナル", advanced: "上級者" }[b.group] || b.group;
+  const grpLbl = { meta: "頻出技構成", original: "その他", advanced: "上位・1位対策" }[b.group] || b.group;
+  const grpDesc = {
+    advanced: "決勝上位20型または1位相手への勝率60%以上",
+    meta: "決勝内で同じ技構成が4型以上",
+    original: "上位・1位対策および頻出技構成以外の型",
+  }[b.group] || "";
   return `<article class="bcard ${rank === 1 ? "rank1" : ""}">
     <div class="row" style="justify-content:space-between">
       <div class="row">
         <span class="badge acc">#${rank}</span>
         <strong>${esc(b.formLabel)}</strong>
-        <span class="badge">${esc(grpLbl)}</span>
+        <span class="badge" title="${esc(grpDesc)}">${esc(grpLbl)}</span>
         ${tag ? `<span class="badge good">${esc(tag)}</span>` : ""}
       </div>
       <div class="row" style="gap:0.3rem">
@@ -3676,9 +3837,9 @@ function renderViewerCard(b, mode, tag) {
     <div class="xs dim">${esc(b.nat.name)} (${esc(b.nat.corr)}) · ${esc(abName(b.ability))} · <b>${esc(itName(b.item))}</b></div>
     <div class="mono xs" style="color:var(--text-2)">SP ${b.points.join(",")} · 実数値 ${b.startStats.join("-")}${b.megaStats ? ` → ${b.megaStats.join("-")}` : ""}</div>
     <div class="row" style="gap:0.28rem">${b.moves.map((m) => { const mv = META.moves[m]; return `<span class="type-pill" style="--tc:var(--tc-${mv?.t ?? 0})">${esc(mvName(m))}</span>`; }).join("")}</div>
-    <div class="winbar"><span class="wl">平均勝率（決勝）</span><span class="wt"><span class="wf" style="width:${Math.round(mStats.mean * 100)}%; background:var(--accent)"></span></span><span class="wv ${rateCls(mStats.mean)}">${pct(mStats.mean)}</span></div>
-    <div class="winbar"><span class="wl">最悪相性（決勝）</span><span class="wt"><span class="wf" style="width:${Math.round(mStats.worst * 100)}%; background:${mStats.worst >= 0.4 ? "var(--warn)" : "var(--danger)"}"></span></span><span class="wv ${rateCls(mStats.worst)}">${pct(mStats.worst)}</span></div>
-    ${worstBuild ? `<div class="xs dim">最悪相手：#${mode === "both" ? worstBuild.rankBoth : worstBuild.rankA} ${esc(worstBuild.moves.map(mvName).join(" / "))} (${pct(mStats.worst)})</div>` : ""}
+    <div class="winbar"><span class="wl">決勝内平均勝率</span><span class="wt"><span class="wf" style="width:${Math.round(mStats.mean * 100)}%; background:var(--accent)"></span></span><span class="wv ${rateCls(mStats.mean)}">${pct(mStats.mean)}</span></div>
+    <div class="winbar" title="決勝プール内で最も苦手な相手に対する勝率（最悪相性）"><span class="wl">決勝内最低勝率</span><span class="wt"><span class="wf" style="width:${Math.round(mStats.worst * 100)}%; background:${mStats.worst >= 0.4 ? "var(--warn)" : "var(--danger)"}"></span></span><span class="wv ${rateCls(mStats.worst)}">${pct(mStats.worst)}</span></div>
+    ${worstBuild ? `<div class="xs dim">決勝内の最悪相手：#${mode === "both" ? worstBuild.rankBoth : worstBuild.rankA} ${esc(worstBuild.moves.map(mvName).join(" / "))} (${pct(mStats.worst)})</div>` : ""}
   </article>`;
 }
 
@@ -3724,18 +3885,20 @@ function renderViewerTab() {
   const el = document.getElementById("tab-viewer");
   const st = APP.viewer;
   const completedRuns = APP.runs.filter((r) => r.hasResults);
+  const bundledSamples = Array.isArray(window.CHAMPIONS_SAMPLES) ? window.CHAMPIONS_SAMPLES : [];
 
   const selectorBar = `<section class="card" style="padding:0.8rem 1.05rem">
-    <div class="row" style="justify-content:space-between">
-      <div class="row">
+    <div class="row" style="justify-content:space-between; gap:0.5rem; flex-wrap:wrap">
+      <div class="row" style="gap:0.45rem; flex-wrap:wrap">
+        ${bundledSamples.length ? `<button type="button" class="btn sm ${st.sampleMeta ? "primary" : ""}" id="btnOpenSampleResult">📊 サンプル結果を開く（${esc(spName(bundledSamples[0].meta.species))}・${esc(bundledSamples[0].meta.tierLabel)}）</button>` : ""}
         ${APP.serverOk ? `
-          <span class="field-lbl">保存済みラン</span>
-          <select id="selViewerRun" style="min-width:240px">
+          <span class="field-lbl">自分のラン</span>
+          <select id="selViewerRun" style="min-width:220px">
             <option value="">（選択してください）</option>
             ${completedRuns.map((r) => `<option value="${esc(r.run)}" ${r.run === st.selectedRun ? "selected" : ""}>${esc(r.run)} — ${esc(spName(r.species))} (${esc(r.tierLabel || r.tier)})</option>`).join("")}
           </select>
           <button type="button" class="btn sm ghost" id="btnViewerReload">更新</button>
-        ` : `<span class="small dim">静的閲覧モード：右の枠からローカルの <span class="mono">finals_results.json</span> を開けます</span>`}
+        ` : `<span class="small dim">静的閲覧モード：サンプル結果の分析やローカルの <span class="mono">finals_results.json</span> 読込が可能です</span>`}
       </div>
       <label class="dropzone" id="viewerDrop">
         <span>📂 <span class="mono">finals_results.json</span> を開く（D&D 対応）</span>
@@ -3748,7 +3911,8 @@ function renderViewerTab() {
   if (!st.parsed) {
     el.innerHTML = selectorBar + `<section class="card" style="text-align:center; padding:2.5rem 1rem">
       <h3 style="margin:0 0 0.4rem">表示する探索結果がありません</h3>
-      <p class="small dim" style="margin:0">タブ 2「種族探索」で探索を実行するか、既存の <span class="mono">finals_results.json</span> を上にドロップしてください。</p>
+      <p class="small dim" style="margin:0 0 0.9rem">まずは同梱サンプルでランキング・ヒートマップ・仮想構成スライダーを体験できます。<br>自分で探索する場合はタブ 2「有力な型を探す」を実行するか、既存の <span class="mono">finals_results.json</span> を上にドロップしてください。</p>
+      ${bundledSamples.length ? `<button type="button" class="btn primary" id="btnEmptyOpenSample">📊 サンプル結果を開いて体験する（${esc(bundledSamples[0].meta.title)}）</button>` : ""}
     </section>`;
     wireViewerEvents();
     return;
@@ -3757,7 +3921,13 @@ function renderViewerTab() {
   const p = st.parsed;
   const mode = st.seatMode;
   const activeKeys = activeViewerGroups(p);
-  const groupLabels = { beginner: "初心者（簡易24種）", meta: "メタ", original: "オリジナル", advanced: "上級者" };
+  const groupLabels = { beginner: "簡易24型（参考）", meta: "頻出技構成", original: "その他", advanced: "上位・1位対策" };
+  const groupTips = {
+    beginner: "代表的な簡易配分24型からなる参考プール（任意計測）",
+    meta: "決勝内で同じ技構成が4型以上あるグループ",
+    original: "上位・1位対策および頻出技構成以外の決勝型",
+    advanced: "決勝上位20型、または決勝1位に対する勝率が60%以上の型",
+  };
   const order = mode === "both" ? p.bothOrder : p.seatAOrder;
   const topOrdered = order.map((x) => p.builds[x.idx]);
   const top10 = topOrdered.slice(0, 10);
@@ -3783,48 +3953,67 @@ function renderViewerTab() {
   const cellRowB = top20[selCell.i], cellColB = top20[selCell.j];
   const cellRate = cellRowB && cellColB ? (mode === "both" ? cellRowB.both.row[cellColB.origIdx] : cellRowB.seatA.row[cellColB.origIdx]) : 0.5;
   const tableRows = computeViewerTableRows(p);
-  const filterDesc = p.filters ? Object.entries(p.filters).map(([k, v]) => `${k}=${JSON.stringify(v)}`).join(" · ") : "無制約（種族全体）";
+  const filterRawDesc = p.filters ? Object.entries(p.filters).map(([k, v]) => `${k}=${JSON.stringify(v)}`).join(" · ") : "無制約（種族全体）";
+  const filterKeyJa = {
+    natures: "性格", move_pool: "技プール", required_moves: "必須技", move_counts: "技数",
+    items: "持ち物", megas: "メガ区分", abilities: "特性", sexes: "性別",
+    allocations: "配分固定", stat_min: "実数値下限", stat_max: "実数値上限",
+  };
+  const filterDesc = p.filters ? Object.entries(p.filters).map(([k, v]) => {
+    const lbl = filterKeyJa[k] || k;
+    if (Array.isArray(v)) return v.length <= 3 ? `${lbl}: ${v.join(",")}` : `${lbl}: ${v.length}件指定`;
+    return `${lbl}: ${JSON.stringify(v)}`;
+  }).join(" · ") : "無制約（種族全体）";
 
   el.innerHTML = selectorBar + `
+    ${st.sampleMeta ? `<div class="callout acc" style="margin-bottom:0.75rem">
+      <div>
+        <b>📊 同梱サンプル結果を表示中：</b>${esc(st.sampleMeta.title)}（個人の <span class="mono">runs/</span> データとは別管理）
+        <div class="xs dim" style="margin-top:0.2rem">
+          出典：<span class="mono">${esc(st.sampleMeta.sourcePath)}</span> · コミット <span class="mono">${esc(String(st.sampleMeta.sourceCommit || "").slice(0, 10))}</span> · シード sample=${esc(String(st.sampleMeta.seeds?.sample ?? ""))} / finals=${esc(String(st.sampleMeta.seeds?.finals ?? ""))} / beginner=${esc(String(st.sampleMeta.seeds?.beginnerPool ?? ""))}
+        </div>
+      </div>
+    </div>` : ""}
     <section class="card">
       <div class="card-head">
         <div>
-          <h2 class="card-title" style="font-size:1.25rem">${esc(spName(p.species))} <span class="xs mono dim">${esc(p.species)}</span> 探索レポート</h2>
+          <h2 class="card-title" style="font-size:1.25rem">${esc(spName(p.species))} <span class="xs mono dim">${esc(p.species)}</span> 探索レポート ${st.sampleMeta ? `<span class="badge warn">同梱サンプル</span>` : st.selectedRun ? `<span class="badge">自分のラン: ${esc(st.selectedRun)}</span>` : `<span class="badge">ローカルJSON</span>`}</h2>
           <div class="row" style="margin-top:0.35rem; gap:0.35rem">
             <span class="badge acc">${esc(p.tierLabel || p.tier)}</span>
-            <span class="badge">方針 ${esc(p.policy)}</span>
+            <span class="badge" title="操縦方針識別子: ${esc(p.policy)}（評価結果はこの操縦方針に依存します）">方針 ${esc(p.policy === "obsh4" ? "標準AI (obsh4)" : p.policy === "generic" ? "全情報比較 (generic)" : p.policy)}</span>
             <span class="badge tnum">候補 ${esc(String(p.totalCandidates))} → 決勝 ${p.builds.length}（各${esc(String(p.gamesPerPair))}戦）</span>
             ${p.enumMode ? `<span class="badge">${esc(p.enumMode)}</span>` : ""}
           </div>
-          <p class="xs dim" style="margin:0.3rem 0 0">絞り込み：${esc(filterDesc)}</p>
+          <p class="xs dim" style="margin:0.3rem 0 0; overflow-wrap:anywhere" title="${esc(filterRawDesc)}">絞り込み：${esc(filterDesc)} · 勝率・順位は上記決勝プールと操縦方針に基づく結果です</p>
         </div>
         <div class="row">
           <div class="seg" role="group">
-            <button type="button" data-seat-mode="both" aria-pressed="${mode === "both"}">両席合算（ミラー除外）</button>
-            <button type="button" data-seat-mode="seatA" aria-pressed="${mode === "seatA"}">A 席基準</button>
+            <button type="button" data-seat-mode="both" aria-pressed="${mode === "both"}">両視点合算（同型戦除く）</button>
+            <button type="button" data-seat-mode="seatA" aria-pressed="${mode === "seatA"}">A側視点のみ</button>
           </div>
-          <button type="button" class="help-dot" data-help="seat" title="両席合算とA席基準">?</button>
-          ${APP.serverOk && st.selectedRun ? `<button type="button" class="btn sm ghost" id="btnBeginnerEval" ${st.beginnerBusy ? "disabled" : ""}>${p.hasBeginner ? "初心者プール再計測" : "初心者プール(24種)計測"}</button>` : ""}
+          <button type="button" class="help-dot" data-help="seat" title="両視点合算（同型戦除く）とA側視点のみ">?</button>
+          ${APP.serverOk && st.selectedRun ? `<button type="button" class="btn sm ghost" id="btnBeginnerEval" ${st.beginnerBusy ? "disabled" : ""}>${p.hasBeginner ? "簡易24型を再計測" : "簡易24型（参考）を計測"}</button>` : ""}
         </div>
       </div>
 
       <div class="grid-2">
         <div class="card-sub">
           <div class="row" style="justify-content:space-between">
-            <b class="small">想定する相手の環境比率 <button type="button" class="help-dot" data-help="groups" title="環境グループとスライダー">?</button></b>
+            <b class="small">仮想的な相手構成の比率 <button type="button" class="help-dot" data-help="groups" title="グループ定義と仮想構成スライダー">?</button></b>
             <div class="row" style="gap:0.25rem">
               <button type="button" class="btn xs ghost" data-dist-preset="equal">均等</button>
-              <button type="button" class="btn xs ghost" data-dist-preset="adv">上級者重視</button>
+              <button type="button" class="btn xs ghost" data-dist-preset="adv">上位対策寄り</button>
               <button type="button" class="btn xs ghost" data-dist-preset="rr">決勝比率</button>
             </div>
           </div>
+          <p class="xs dim" style="margin:0.25rem 0 0.35rem">※実環境の統計ではなく、指定した仮想的な相手構成における期待勝率・順位の変化を確認する設定です。</p>
           <div class="mix-bar">
             ${activeKeys.map((k) => `<span class="mix-${k}" data-mix-seg="${k}" style="width:${st.weights[k]}%"></span>`).join("")}
           </div>
           ${activeKeys.map((k) => `
             <div style="margin-top:0.38rem">
               <div class="row" style="justify-content:space-between; font-size:0.8rem">
-                <span><b>${esc(groupLabels[k])}</b> <span class="xs dim">(${p.groupSizes[k]}型)</span></span>
+                <span title="${esc(groupTips[k] || "")}"><b>${esc(groupLabels[k])}</b> <span class="xs dim">(${p.groupSizes[k]}型)</span></span>
                 <span class="mono tnum" data-dist-pct="${k}"><b>${st.weights[k]}%</b></span>
               </div>
               <input type="range" min="0" max="100" value="${st.weights[k]}" data-dist-slider="${k}" style="width:100%; accent-color:var(--accent)" />
@@ -3852,14 +4041,14 @@ function renderViewerTab() {
       <div class="card-head">
         <h3 class="card-title">注目候補ピック</h3>
         <div class="seg" role="group">
-          <button type="button" data-showcase="top10" aria-pressed="${st.showcaseView === "top10"}">総合上位 (${top10.length})</button>
-          <button type="button" data-showcase="shallow" aria-pressed="${st.showcaseView === "shallow"}">安定型 Top ${shallowest3.length}</button>
-          <button type="button" data-showcase="counter" aria-pressed="${st.showcaseView === "counter"}">1位対策 (${counters.length})</button>
+          <button type="button" data-showcase="top10" aria-pressed="${st.showcaseView === "top10"}">決勝上位 (${top10.length})</button>
+          <button type="button" data-showcase="shallow" aria-pressed="${st.showcaseView === "shallow"}">最低勝率が高い (${shallowest3.length})</button>
+          <button type="button" data-showcase="counter" aria-pressed="${st.showcaseView === "counter"}">1位への対策型 (${counters.length})</button>
         </div>
       </div>
       <div class="build-cards">
         ${showcaseItems.length
-          ? showcaseItems.map((b) => renderViewerCard(b, mode, st.showcaseView === "shallow" ? "最悪相性が浅い" : st.showcaseView === "counter" && top1 ? `1位へ ${pct(mode === "both" ? b.both.row[top1.origIdx] : b.seatA.row[top1.origIdx])}` : "")).join("")
+          ? showcaseItems.map((b) => renderViewerCard(b, mode, st.showcaseView === "shallow" ? "決勝内最低勝率が高い" : st.showcaseView === "counter" && top1 ? `1位へ ${pct(mode === "both" ? b.both.row[top1.origIdx] : b.seatA.row[top1.origIdx])}` : "")).join("")
           : `<p class="small dim" style="margin:0">該当する型はありません。</p>`}
       </div>
     </section>
@@ -3905,9 +4094,9 @@ function renderViewerTab() {
       <div class="tbl-scroll">
         <table class="tbl">
           <thead><tr>
-            <th><button type="button" class="btn xs ghost" data-vsort="expected">期待勝率 ${st.sort.key === "expected" ? (st.sort.dir === "desc" ? "▼" : "▲") : ""}</button></th>
-            <th><button type="button" class="btn xs ghost" data-vsort="rr">決勝平均 ${st.sort.key === "rr" ? (st.sort.dir === "desc" ? "▼" : "▲") : ""}</button></th>
-            <th><button type="button" class="btn xs ghost" data-vsort="worst">最悪相性 ${st.sort.key === "worst" ? (st.sort.dir === "desc" ? "▼" : "▲") : ""}</button></th>
+            <th><button type="button" class="btn xs ghost" data-vsort="expected" title="指定した仮想的な相手構成における期待勝率">仮想期待勝率 ${st.sort.key === "expected" ? (st.sort.dir === "desc" ? "▼" : "▲") : ""}</button></th>
+            <th><button type="button" class="btn xs ghost" data-vsort="rr" title="決勝プール内での平均勝率">決勝内平均 ${st.sort.key === "rr" ? (st.sort.dir === "desc" ? "▼" : "▲") : ""}</button></th>
+            <th><button type="button" class="btn xs ghost" data-vsort="worst" title="決勝プール内で最も苦手な相手に対する勝率（最悪相性）">決勝内最低 ${st.sort.key === "worst" ? (st.sort.dir === "desc" ? "▼" : "▲") : ""}</button></th>
             <th>フォルム・持ち物</th><th>SP / 実数値</th><th>技構成</th><th>比較へ</th>
           </tr></thead>
           <tbody id="viewerTblBody">${renderViewerTableBodyHtml(tableRows, mode)}</tbody>
@@ -3925,10 +4114,16 @@ function wireViewerEvents(top20 = [], selCell = { i: 0, j: 0 }) {
 
   document.getElementById("selViewerRun")?.addEventListener("change", (e) => { if (e.target.value) loadRunIntoViewer(e.target.value); });
   document.getElementById("btnViewerReload")?.addEventListener("click", refreshServerState);
+  const openFirstSample = () => {
+    const first = Array.isArray(window.CHAMPIONS_SAMPLES) ? window.CHAMPIONS_SAMPLES[0] : null;
+    if (first) loadSampleIntoViewer(first.meta.id);
+  };
+  document.getElementById("btnOpenSampleResult")?.addEventListener("click", openFirstSample);
+  document.getElementById("btnEmptyOpenSample")?.addEventListener("click", openFirstSample);
 
   const handleFile = async (file) => {
     if (!file) return;
-    try { setViewerData(JSON.parse(await file.text())); st.selectedRun = ""; st.error = null; toast(`${file.name} を読み込みました`, "good"); }
+    try { setViewerData(JSON.parse(await file.text())); st.selectedRun = ""; st.sampleMeta = null; st.error = null; toast(`${file.name} を読み込みました`, "good"); }
     catch (err) { st.error = `JSON 読込エラー: ${err.message}`; }
     renderViewerTab();
   };
@@ -3945,7 +4140,7 @@ function wireViewerEvents(top20 = [], selCell = { i: 0, j: 0 }) {
 
   document.getElementById("btnBeginnerEval")?.addEventListener("click", async () => {
     st.beginnerBusy = true; st.error = null; renderViewerTab();
-    try { await apiPost("/api/search/beginner_eval", { run: st.selectedRun, games: 50 }); await loadRunIntoViewer(st.selectedRun); toast("初心者プールの計測が完了しました", "good"); }
+    try { await apiPost("/api/search/beginner_eval", { run: st.selectedRun, games: 50 }); await loadRunIntoViewer(st.selectedRun); toast("簡易24型（参考）の計測が完了しました", "good"); }
     catch (err) { st.error = err.message; }
     finally { st.beginnerBusy = false; renderViewerTab(); }
   });

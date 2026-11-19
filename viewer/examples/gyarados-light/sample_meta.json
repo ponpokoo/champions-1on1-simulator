@@ -1,0 +1,23 @@
+{
+  "id": "sample:gyarados-light",
+  "title": "ギャラドス（軽量探索・実測サンプル）",
+  "species": "gyarados",
+  "tier": "light",
+  "tierLabel": "軽量",
+  "policy": "obsh4",
+  "totalCandidates": 60000,
+  "finalistsCount": 64,
+  "finalsGamesPerPair": 160,
+  "enumerationMode": "sampled",
+  "seeds": {
+    "sample": 20263010,
+    "panel": 20263011,
+    "stageA0": 20263310,
+    "stageB": 20263350,
+    "finals": 20263360,
+    "beginnerPool": 20264001
+  },
+  "sourceCommit": "121ef69344fe15f1a8a947f9d39c19251a978e9d",
+  "sourcePath": "viewer/examples/gyarados-light/finals_results.json",
+  "note": "リポジトリ同梱の実測サンプルデータです（個人の runs/ 配下のデータとは別管理）。"
+}

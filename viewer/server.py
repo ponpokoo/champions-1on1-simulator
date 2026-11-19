@@ -14,7 +14,6 @@ import hashlib
 import json
 import os
 import re
-import shutil
 import subprocess
 import sys
 import tempfile
@@ -48,14 +47,51 @@ _MATRIX_VERIFIED = None
 _GCC_PATH = "gcc"
 
 
+class RunConflictError(Exception):
+    """Raised when a search run name conflicts with an existing or active run."""
+
+    def __init__(self, message, *, code="RUN_EXISTS", run="", suggested_name=None,
+                 can_resume=False, is_complete=False):
+        super().__init__(message)
+        self.code = code
+        self.run = run
+        self.suggested_name = suggested_name
+        self.can_resume = can_resume
+        self.is_complete = is_complete
+
+    def to_dict(self):
+        return {
+            "error": str(self),
+            "code": self.code,
+            "run": self.run,
+            "suggestedRunName": self.suggested_name,
+            "canResume": self.can_resume,
+            "isComplete": self.is_complete,
+        }
+
+
 def _safe_run_dir(name):
     if not name or not isinstance(name, str):
         raise ValueError("run name is required")
-    clean = name.strip().replace("\\", "/").strip("/")
-    if not clean or clean.startswith("/") or ".." in clean.split("/"):
+    if "\x00" in name:
         raise ValueError(f"invalid run path: {name}")
-    target = (RUNS_DIR / clean).resolve()
+    clean = name.strip().replace("\\", "/").strip("/")
+    parts = clean.split("/")
+    if (
+        not clean
+        or clean.startswith("/")
+        or any(p in ("", ".", "..") or ":" in p for p in parts)
+    ):
+        raise ValueError(f"invalid run path: {name}")
     runs_root = RUNS_DIR.resolve()
+    raw_target = RUNS_DIR.joinpath(*parts)
+    # Reject symlinks anywhere along the relative path inside runs/.
+    cur = RUNS_DIR
+    for part in parts:
+        cur = cur / part
+        if cur.is_symlink():
+            raise ValueError(f"symlink run path is not allowed: {name}")
+    target = raw_target.resolve()
     try:
         rel = target.relative_to(runs_root)
     except ValueError:
@@ -63,6 +99,29 @@ def _safe_run_dir(name):
     if str(rel) in ("", "."):
         raise ValueError("run name cannot be empty")
     return target, rel.as_posix()
+
+
+def _suggest_unique_run_name(rel):
+    """Return a non-colliding sequential run name such as '<base>-2'."""
+    parts = rel.split("/")
+    leaf = parts[-1]
+    prefix = "/".join(parts[:-1])
+    m = re.match(r"^(.*)-(\d+)$", leaf)
+    if m and m.group(1):
+        base = m.group(1)
+        idx = int(m.group(2)) + 1
+    else:
+        base = leaf
+        idx = 2
+    for n in range(idx, idx + 1000):
+        cand_leaf = f"{base}-{n}"
+        cand_rel = f"{prefix}/{cand_leaf}" if prefix else cand_leaf
+        cand_dir = RUNS_DIR.joinpath(*cand_rel.split("/"))
+        if not cand_dir.exists() and not cand_dir.is_symlink():
+            existing_job = _JOBS.get(cand_rel)
+            if not (existing_job and existing_job["status"] in ("generating", "running")):
+                return cand_rel
+    return f"{rel}-{int(time.time())}"
 
 
 def _log(msg):
@@ -481,8 +540,36 @@ def _job_stages(run_dir, tier_name):
     return [{"name": n, "done": (run_dir / f"{n}.done").exists()} for n in names]
 
 
+def _build_run_exists_error(run_dir, rel):
+    is_complete = (run_dir / "DONE").exists() and (run_dir / "finals_results.json").exists()
+    can_resume = (run_dir / "run_config.json").exists() and not is_complete
+    suggested = _suggest_unique_run_name(rel)
+    if is_complete:
+        msg = (
+            f"既存の完了済みラン「{rel}」がすでに存在するため、新規探索を開始できません"
+            f"（既存データは削除・上書きしません）。別名「{suggested}」で新規開始してください。"
+        )
+    elif can_resume:
+        msg = (
+            f"既存の未完了ラン「{rel}」がすでに存在するため、新規探索を開始できません"
+            f"（既存データは削除・上書きしません）。「再開」するか、別名「{suggested}」で新規開始してください。"
+        )
+    else:
+        msg = (
+            f"出力先「{rel}」がすでに存在するため、新規探索を開始できません"
+            f"（既存データは削除・上書きしません）。別名「{suggested}」を指定してください。"
+        )
+    return RunConflictError(
+        msg,
+        code="RUN_EXISTS",
+        run=rel,
+        suggested_name=suggested,
+        can_resume=can_resume,
+        is_complete=is_complete,
+    )
+
+
 def start_search_job(payload):
-    ensure_binaries()
     run_name = payload.get("runName", "").strip()
     run_dir, rel = _safe_run_dir(run_name)
     resume = bool(payload.get("resume"))
@@ -491,18 +578,41 @@ def start_search_job(payload):
     with _JOBS_LOCK:
         existing = _JOBS.get(rel)
         if existing and existing["status"] in ("generating", "running"):
-            raise ValueError(f"ジョブは既に実行中です: {rel}")
+            raise RunConflictError(
+                f"ジョブは既に実行中です: {rel}",
+                code="RUN_RUNNING",
+                run=rel,
+                suggested_name=_suggest_unique_run_name(rel),
+                can_resume=False,
+                is_complete=False,
+            )
+        if not resume and (run_dir.exists() or run_dir.is_symlink()):
+            raise _build_run_exists_error(run_dir, rel)
 
     if resume:
+        if run_dir.is_symlink() or not run_dir.is_dir():
+            raise ValueError(f"再開対象のランが見つかりません: {rel}")
         cfg_path = run_dir / "run_config.json"
         if not cfg_path.exists():
             raise ValueError(f"再開対象の run_config.json がありません: {rel}")
+        if (run_dir / "DONE").exists() and (run_dir / "finals_results.json").exists():
+            suggested = _suggest_unique_run_name(rel)
+            raise RunConflictError(
+                f"ラン「{rel}」はすでに完了しています。新しく探索する場合は別名「{suggested}」を指定してください。",
+                code="RUN_COMPLETE",
+                run=rel,
+                suggested_name=suggested,
+                can_resume=False,
+                is_complete=True,
+            )
         cfg = json.loads(cfg_path.read_text(encoding="utf-8"))
         species = cfg["species"]
         tier = cfg["tier"]
         filters = None
         cand_override = None
+        ensure_binaries()
     else:
+        ensure_binaries()
         species = payload.get("species", "").strip()
         tier = payload.get("tier", "light")
         if tier not in search_tiers.TIERS:
@@ -511,7 +621,7 @@ def start_search_job(payload):
         cand_override = int(payload["candidates"]) if payload.get("candidates") is not None else None
         if cand_override is not None and cand_override < 1:
             raise ValueError("候補上限数は 1 以上を指定してください")
-        # Validate filters upfront before launching background thread.
+        # Validate filters upfront before reserving directory / launching background thread.
         domain = population3.load_domain(CATALOG_BIN, species)
         if filters:
             sz, _ = population3.estimate_filtered_count(
@@ -546,6 +656,25 @@ def start_search_job(payload):
         "error": None,
     }
     with _JOBS_LOCK:
+        existing = _JOBS.get(rel)
+        if existing and existing["status"] in ("generating", "running"):
+            raise RunConflictError(
+                f"ジョブは既に実行中です: {rel}",
+                code="RUN_RUNNING",
+                run=rel,
+                suggested_name=_suggest_unique_run_name(rel),
+                can_resume=False,
+                is_complete=False,
+            )
+        if not resume:
+            # Atomically reserve a fresh run directory to prevent TOCTOU overwrites.
+            if run_dir.exists() or run_dir.is_symlink():
+                raise _build_run_exists_error(run_dir, rel)
+            run_dir.parent.mkdir(parents=True, exist_ok=True)
+            try:
+                run_dir.mkdir(exist_ok=False)
+            except FileExistsError:
+                raise _build_run_exists_error(run_dir, rel) from None
         _JOBS[rel] = job
 
     def append_log(line):
@@ -558,8 +687,6 @@ def start_search_job(payload):
         child_env = dict(_clean_env(), PYTHONUNBUFFERED="1")
         try:
             if not resume:
-                if run_dir.exists():
-                    shutil.rmtree(run_dir)
                 cmd_gen = [
                     sys.executable, "-u", str(ROOT / "search" / "search_tiers.py"),
                     "gen", species, tier, str(run_dir), "--gcc", _GCC_PATH,
@@ -861,6 +988,12 @@ class WorkbenchHandler(BaseHTTPRequestHandler):
             elif path == "/metadata.js":
                 ensure_binaries()
                 self._send_bytes(200, (HERE / "metadata.js").read_bytes(), "application/javascript; charset=utf-8")
+            elif path == "/examples/sample_data.js":
+                sample_js = HERE / "examples" / "sample_data.js"
+                if not sample_js.exists():
+                    self._send_json(404, {"error": "sample_data.js not found"})
+                else:
+                    self._send_bytes(200, sample_js.read_bytes(), "application/javascript; charset=utf-8")
             elif path == "/api/health":
                 ensure_binaries()
                 mat = verify_matrix()
@@ -880,6 +1013,8 @@ class WorkbenchHandler(BaseHTTPRequestHandler):
                 self._send_json(200, {"jobs": list_jobs()})
             else:
                 self._send_json(404, {"error": f"not found: {path}"})
+        except RunConflictError as exc:
+            self._send_json(409, exc.to_dict())
         except (ValueError, KeyError) as exc:
             self._send_json(400, {"error": str(exc)})
         except Exception as exc:
@@ -917,6 +1052,8 @@ class WorkbenchHandler(BaseHTTPRequestHandler):
                 self._send_json(200, run_beginner_eval(payload["run"], games=games))
             else:
                 self._send_json(404, {"error": f"not found: {path}"})
+        except RunConflictError as exc:
+            self._send_json(409, exc.to_dict())
         except (ValueError, KeyError) as exc:
             self._send_json(400, {"error": str(exc)})
         except Exception as exc:
