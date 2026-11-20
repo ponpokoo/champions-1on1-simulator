@@ -836,12 +836,15 @@ def load_run_detail(run_name):
     sum_path = run_dir / "summary.json"
     meta_path = run_dir / "candidates_meta.json"
     beg_path = run_dir / "beginner_scores.json"
+    pol_path = run_dir / "finals_polished.json"
     if sum_path.exists():
         data["summary"] = json.loads(sum_path.read_text(encoding="utf-8"))
     if meta_path.exists():
         data["candidates_meta"] = json.loads(meta_path.read_text(encoding="utf-8"))
     if beg_path.exists():
         data["beginner_scores"] = json.loads(beg_path.read_text(encoding="utf-8"))
+    if pol_path.exists():
+        data["polished"] = json.loads(pol_path.read_text(encoding="utf-8"))
     data["run"] = rel
     return data
 

@@ -8505,6 +8505,13 @@ typedef struct {
     const Obsh4Turn *expected;
 } Obsh4Audit;
 
+typedef struct {
+    int active;
+    long selected[2][4];
+    int used_in_game[2][4];
+} MoveUsageTracker;
+static MoveUsageTracker MOVE_USAGE = {0};
+
 static int battle_with_audit(Mon *A, Mon *B, Rng *r, int *turns_out,const Obsh4Audit *audit) {
     s8_require_battle(A,B);
     mega_validate_pilots(A,B);
@@ -8659,6 +8666,10 @@ static int battle_with_audit(Mon *A, Mon *B, Rng *r, int *turns_out,const Obsh4A
             if(m->charging) choice[i]=s8_charge_slot(m);
             choice[i]=s8_control_commit(m,mons[1-i],choice[i]);
             s8_commit_move(m,choice[i]>=0?m->moves[choice[i]]:-1);
+            if(MOVE_USAGE.active && !m->recharge && choice[i]>=0 && choice[i]<4) {
+                MOVE_USAGE.selected[i][choice[i]]++;
+                MOVE_USAGE.used_in_game[i][choice[i]]=1;
+            }
         }
         for(int i=0;i<2;i++) if(FIELD.committed[i]==S8U_M_BEAKBLAST && !mons[i]->recharge) {
             mons[i]->beak_hot=1;mons[i]->state_features|=MON_POST_V1_STATE;
@@ -8826,6 +8837,10 @@ static int battle_trace(Mon *A, Mon *B, Rng *r) {
             if(m->charging) choice[i]=s8_charge_slot(m);
             choice[i]=s8_control_commit(m,mons[1-i],choice[i]);
             s8_commit_move(m,choice[i]>=0?m->moves[choice[i]]:-1);
+            if(MOVE_USAGE.active && !m->recharge && choice[i]>=0 && choice[i]<4) {
+                MOVE_USAGE.selected[i][choice[i]]++;
+                MOVE_USAGE.used_in_game[i][choice[i]]=1;
+            }
         }
         for(int i=0;i<2;i++) if(FIELD.committed[i]==S8U_M_BEAKBLAST && !mons[i]->recharge) {
             mons[i]->beak_hot=1;mons[i]->state_features|=MON_POST_V1_STATE;
@@ -9481,6 +9496,61 @@ int main(int argc, char **argv) {
             if ((idx & 1023) == 0) prog_report("screenx", idx, prog_total, prog_t0);
         }
                 prog_report("screenx", idx, prog_total, prog_t0);
+        fclose(cf);
+        return 0;
+    }
+    if (argc >= 2 && !strcmp(argv[1], "screenu") && argc == 6) {
+        // screenu: like screenx, but prints per-(cand, pool) W L D and per-slot move usage for both seats.
+        FILE *pf = fopen(argv[3], "r");
+        if (!pf) { fprintf(stderr, "cannot open pool file\n"); return 1; }
+        static char pool[512][512]; int np = 0;
+        char line[512];
+        while (fgets(line, sizeof line, pf)) {
+            line[strcspn(line, "\r\n")] = 0;
+            if (!line[0]) continue;
+            if (np >= 512) { fprintf(stderr, "pool file exceeds maximum 512 builds\n"); fclose(pf); return 1; }
+            strcpy(pool[np++], line);
+        }
+        fclose(pf);
+        FILE *cf = fopen(argv[2], "r");
+        if (!cf) { fprintf(stderr, "cannot open cand file\n"); return 1; }
+        long games = strtol(argv[4], NULL, 10);
+        uint64_t seed = strtoull(argv[5], NULL, 10);
+        long prog_total = prog_count_lines(argv[2]); clock_t prog_t0 = clock();
+        long idx = 0;
+        MOVE_USAGE.active = 1;
+        while (fgets(line, sizeof line, cf)) {
+            line[strcspn(line, "\r\n")] = 0;
+            if (!line[0]) continue;
+            for (int p = 0; p < np; p++) {
+                long W = 0, L = 0, D = 0;
+                long sel[2][4] = {{0}}, gused[2][4] = {{0}};
+                for (long g = 0; g < games; g++) {
+                    Mon A, B; init_mon(&A, line); init_mon(&B, pool[p]);
+                    memset(MOVE_USAGE.selected, 0, sizeof MOVE_USAGE.selected);
+                    memset(MOVE_USAGE.used_in_game, 0, sizeof MOVE_USAGE.used_in_game);
+                    uint64_t pi = (uint64_t)(idx * np + p);
+                    Rng r = { hash64(seed ^ ((pi * 1000003ULL + (uint64_t)g + 1) * 0xD1B54A32D192ED03ULL)) };
+                    int t = 0; int res = battle(&A, &B, &r, &t);
+                    if (res == 0) W++; else if (res == 1) L++; else D++;
+                    for (int s = 0; s < 2; s++) {
+                        for (int m = 0; m < 4; m++) {
+                            sel[s][m] += MOVE_USAGE.selected[s][m];
+                            gused[s][m] += MOVE_USAGE.used_in_game[s][m];
+                        }
+                    }
+                }
+                printf("%ld %d %ld %ld %ld %ld %ld %ld %ld %ld %ld %ld %ld %ld %ld %ld %ld %ld %ld %ld %ld\n",
+                       idx, p, W, L, D,
+                       sel[0][0], gused[0][0], sel[0][1], gused[0][1], sel[0][2], gused[0][2], sel[0][3], gused[0][3],
+                       sel[1][0], gused[1][0], sel[1][1], gused[1][1], sel[1][2], gused[1][2], sel[1][3], gused[1][3]);
+            }
+            fflush(stdout);
+            idx++;
+            if ((idx & 15) == 0) prog_report("screenu", idx, prog_total, prog_t0);
+        }
+        MOVE_USAGE.active = 0;
+        prog_report("screenu", idx, prog_total, prog_t0);
         fclose(cf);
         return 0;
     }
