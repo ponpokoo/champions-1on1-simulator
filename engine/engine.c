@@ -23,6 +23,7 @@
 #include <string.h>
 #include <stdint.h>
 #include <limits.h>
+#include <errno.h>
 #include <math.h>
 #include <time.h>
 
@@ -7034,7 +7035,7 @@ static int selected_snore(Mon *me, Mon *foe, int slot, Rng *r) {
     s8_spend_pp(me,slot); leppa_check(me,slot);
     CUR_SLEEP_ACTION=1;execute_move(me,foe,MV_SN,r);CUR_SLEEP_ACTION=0;
     note_move_used(me,MV_SN);
-    return 1;
+    return 2;
 }
 
 // Struggle (わるあがき), ported from sim5's formula.
@@ -7523,7 +7524,7 @@ enum { H4_SELF_SLOTS=76, H4_SELF_VOL=92, H4_FOE_VOL=242, H4_RECORD_WORDS=26,
 
 typedef struct {
     int type[3], stat[6][3], rank[7];
-    int ability, item, form, species, status, sleep, sub, block, rise, last, streak, attempt;
+    int ability, item, item_id, form, species, status, sleep, sub, block, rise, last, streak, attempt;
     double hp;
 } H4Side;
 
@@ -7610,7 +7611,8 @@ static H4Position h4_position(const Observation3 *o) {
     for(int i=0;i<7;i++) { a->rank[i]=v[56+i]; b->rank[i]=v[226+i]; }
     for(int side=0;side<2;side++) {
         H4Side *s=&p.mon[side];
-        s->item=p.magic || s->ability==S8I_KLUTZ?ITEM_NONE:s8_item_projection(s->item);
+        s->item_id=p.magic || s->ability==S8I_KLUTZ?-1:s->item;
+        s->item=s8_item_projection(s->item_id);
         for(int i=0;i<3;i++) p.screen[side][i]=h4_duration(v,O3_SIDE+side*7+i);
         p.tailwind[side]=h4_duration(v,O3_SIDE+side*7+4);
     }
@@ -7856,6 +7858,40 @@ static H4Threat h4_threat(const H4Position *p) {
     return danger;
 }
 
+// Only model the immediate reduction in the next attack. Use confirmed
+// blockers and public candidate singletons from the same MGO3 view.
+static double h4_attack_drop(const H4Position *p,int move,H4Damage hit,H4Threat threat) {
+    const S8StatEffect *effect=s8_stat_effect(move);
+    if(!effect || effect->mode!=S8_STAT_SECONDARY || effect->self ||
+       (effect->delta[0]>=0 && effect->delta[2]>=0)) return 0;
+    for(int i=0;i<6;i++)
+        if(effect->delta[i]>0 || (i!=0 && i!=2 && effect->delta[i])) return 0;
+    const H4Side *a=&p->mon[0],*b=&p->mon[1];
+    double chance=fmax(0,hit.hit-hit.ko)*effect->chance/100;
+    if(chance<=0 || threat.damage.mean<=0 || a->ability==S8D_SHEERFORCE ||
+       b->ability==S8G_SHIELDDUST || b->ability==S8Q_MIRRORARMOR ||
+       (b->ability==S8G_FLOWERVEIL && h4_has_type(b,T_GRASS)) ||
+       (b->sub && !(S8_MOVES[move].flags&S8_FLAG_BYPASSSUB) &&
+        a->ability!=S8D_INFILTRATOR)) return 0;
+    if(b->item_id>=0) {
+        const char *item=S8_ITEMS[b->item_id].id;
+        if(h4_item_is(b,ITEM_HERB) || !strcmp(item,"clearamulet") ||
+           !strcmp(item,"covertcloak")) return 0;
+    }
+    const S8BoostAbility *ability=s8_boost_ability(b->ability);
+    if(ability && (ability->change<0 || ability->react_stat>=0)) return 0;
+    H4Position after=*p;
+    for(int i=0;i<=2;i+=2) {
+        if(ability && (ability->guard_stat==7 || ability->guard_stat==i)) continue;
+        int multiplier=ability && ability->change>0?ability->change:1;
+        after.mon[1].rank[i]=clamp_stage(b->rank[i]+effect->delta[i]*multiplier);
+    }
+    if(after.mon[1].rank[0]==b->rank[0] && after.mon[1].rank[2]==b->rank[2]) return 0;
+    double before=fmin(a->hp,threat.damage.mean);
+    double reduced=fmin(a->hp,h4_threat(&after).damage.mean);
+    return chance*fmax(0,before-reduced);
+}
+
 static double h4_status_value(const H4Position *p,int move,int status,int sleep,int confusion,
                               H4Threat threat) {
     const H4Side *b=&p->mon[1];
@@ -7919,7 +7955,88 @@ static double h4_exchange(const H4Position *p,int move,H4Damage d,H4Threat threa
     double dealt=fmin(b->hp,d.mean)*(1-(1-first)*threat.damage.ko);
     return dealt-taken+d.ko*100*(1-(1-first)*threat.damage.ko)-100*threat.damage.ko*(1-first*d.ko);
 }
-static double h4_setup(const H4Position *p,int move,int attack,H4Damage d,H4Threat threat) {
+enum { OBSH4_STAT_DROP=1, OBSH4_SUBSTITUTE=2, OBSH4_SETUP_RACE=4, OBSH4_SETUP_TEMPO=8,
+       OBSH4_OPENING=16,
+       OBSH4_SETUP_BASELINE=OBSH4_SUBSTITUTE, OBSH4_DEFAULT=OBSH4_SETUP_BASELINE };
+
+static int h4_race_move(const H4Position *p,int side,int move) {
+    const S8Move *m=&S8_MOVES[move];
+    return m->power>0 && !m->recoil_num && !(m->flags&S8_FLAG_RECHARGE) &&
+        move!=MV_SD && move!=MV_EXP && move!=MV_BEAM && move!=S8V_MISTYEXPLOSION && !s8_ohko(move) &&
+        !h4_delay(p,side,move);
+}
+
+// Compare five turns of sustained pressure with and without spending the
+// first turn on a boost. Wins score their remaining turns plus one.
+static int h4_race(const H4Position *p,const H4Position *after,int setup,int attack,
+                   int next,int reply,const double damage[4],int cautious) {
+    double own=p->mon[0].hp, foe=p->mon[1].hp;
+    double own_heal=h4_item_is(&p->mon[0],ITEM_LEFTOVERS) && !p->mon[0].block?6.25:0;
+    double foe_heal=h4_item_is(&p->mon[1],ITEM_LEFTOVERS) && !p->mon[1].block?6.25:0;
+    for(int t=0;t<5;t++) {
+        int boosting=setup>=0 && !t;
+        int boosted=setup>=0 && t;
+        const H4Position *state=boosted?after:p;
+        int move=boosting?setup:boosted?next:attack;
+        double first=h4_first(state,move,reply);
+        int acts_first=cautious?first>.5:first>=.5;
+        double dealt=boosting?0:damage[boosted?1:0];
+        double taken=damage[boosted || (boosting && acts_first)?3:2]*(cautious?1.08:1);
+        if(acts_first) {
+            if((foe-=dealt)<=0) return 5-t;
+            if((own-=taken)<=0) return -1;
+        } else {
+            if((own-=taken)<=0) return -1;
+            if((foe-=dealt)<=0) return 5-t;
+        }
+        own=fmin(100,own+own_heal);
+        foe=fmin(100,foe+foe_heal);
+    }
+    return 0;
+}
+
+static int h4_setup_race(const H4Position *p,const H4Position *after,const ActionMask *mask,
+                         int move,int attack,const H4Damage *hit,const H4Threat *threat,
+                         const H4Threat *after_threat,int prefer_faster) {
+    switch(move) {
+    case S8B_CALMMIND: case S8B_SWORDSDANCE: case S8B_DRAGONDANCE: case S8B_BULKUP:
+    case S8B_NASTYPLOT: case S8B_QUIVERDANCE: break;
+    default: return 0;
+    }
+    const H4Side *a=&p->mon[0],*b=&p->mon[1];
+    if(a->sub || b->sub || a->status || b->status || p->weather==WEATHER_SAND ||
+       a->ability==S8Q_CONTRARY || a->ability==S8Q_SIMPLE || h4_ability_is(b,"unaware") ||
+       threat->move<0 || after_threat->move!=threat->move ||
+       !h4_revealed(p,threat->move) || threat->damage.mean<=0 ||
+       !h4_race_move(p,1,threat->move) || !h4_race_move(p,0,attack) ||
+       !memcmp(a->rank,after->mon[0].rank,sizeof a->rank)) return 0;
+    int base_slot=-1,next=-1;
+    double best=0;
+    for(int i=0;i<4;i++) if(mask->legal[i]) {
+        const int32_t *slot=p->v+H4_SELF_SLOTS+4*i;
+        if(slot[1]==attack) base_slot=i;
+        if(slot[2]<4 || !h4_race_move(after,0,slot[1])) continue;
+        double damage=h4_damage(after,0,slot[1]).mean;
+        if(damage>best) { best=damage;next=slot[1]; }
+    }
+    if(base_slot<0 || p->v[H4_SELF_SLOTS+4*base_slot+2]<5 || next<0) return 0;
+    double damage[]={hit->mean,best,threat->damage.mean,after_threat->damage.mean};
+    int direction=0;
+    for(int cautious=0;cautious<2;cautious++) {
+        int now=h4_race(p,p,-1,attack,attack,threat->move,damage,cautious);
+        int boosted=h4_race(p,after,move,attack,next,threat->move,damage,cautious);
+        int comparison=0;
+        if(boosted>0 && (now<=0 || (prefer_faster && boosted>now))) comparison=1;
+        if(now>0 && (boosted<=0 || (prefer_faster && now>boosted))) comparison=-1;
+        if(cautious && comparison!=direction) return 0;
+        direction=comparison;
+    }
+    return direction;
+}
+
+static double h4_setup(const H4Position *p,int move,int attack,const H4Damage *hit,const H4Threat *incoming,
+                       const ActionMask *mask,int options,double attack_score) {
+    H4Threat threat=*incoming;
     const H4Side *a=&p->mon[0],*b=&p->mon[1];
     H4Position after=*p;
     const S8BoostMove *boost=s8_boost_move(move);
@@ -7957,9 +8074,15 @@ static double h4_setup(const H4Position *p,int move,int attack,H4Damage d,H4Thre
         for(int i=0;i<7;i++) rank_gain+=after.mon[0].rank[i]-a->rank[i]+b->rank[i]-after.mon[1].rank[i];
         return rank_gain;
     }
-    H4Damage improved=h4_damage(&after,0,attack);
     H4Threat reply=h4_threat(&after);
-    double gain=h4_exchange(&after,attack,improved,reply)-h4_exchange(p,attack,d,threat);
+    if(options&OBSH4_SETUP_RACE) {
+        int direction=h4_setup_race(p,&after,mask,move,attack,hit,&threat,&reply,
+                                    options&OBSH4_SETUP_TEMPO);
+        if(direction>0) return attack_score+1;
+        if(direction<0) return 0;
+    }
+    H4Damage improved=h4_damage(&after,0,attack);
+    double gain=h4_exchange(&after,attack,improved,reply)-h4_exchange(p,attack,*hit,threat);
     // A setup turn costs one attack. Future value can recur while both sides
     // have enough HP to survive, but immediate knockouts take precedence.
     double rounds=fmin(a->hp/fmax(1,reply.damage.mean),b->hp/fmax(1,improved.mean));
@@ -7969,7 +8092,47 @@ static int h4_slot(const H4Position *p,const ActionMask *mask,int move) {
     for(int i=0;i<4;i++) if(mask->legal[i] && p->v[H4_SELF_SLOTS+4*i+1]==move) return i;
     return -1;
 }
-static int h4_choose(const H4Position *p,const ActionMask *mask,H4Threat threat) {
+
+// Estimate value over two incoming hits; the hit that breaks Substitute
+// does not spill excess damage onto its owner.
+static double h4_substitute(const H4Position *p,H4Threat threat,double attack_score) {
+    const H4Side *a=&p->mon[0],*b=&p->mon[1];
+    const int32_t *v=p->v;
+    int cost_hp=v[49]/4;
+    if(a->sub || b->sub || a->status || v[H4_SELF_VOL+S8C_YAWN] ||
+       cost_hp<=0 || v[48]<=cost_hp || threat.move<0 ||
+       b->ability==S8D_INFILTRATOR || h4_ability_is(b,"parentalbond") ||
+       !h4_revealed(p,threat.move)) return 0;
+    double cost=100.0*cost_hp/v[49];
+    if(a->hp-cost<50 || a->hp-cost<=threat.damage.mean) return 0;
+
+    // A revealed sound attack or multi-hit attack can get through; a
+    // single projected hit is insufficient evidence of useful protection.
+    for(int i=0;i<OBS3_RECORDS;i++) {
+        const int32_t *r=h4_record(v,1,i);
+        if(!r[0] || (r[7] && r[9]<=0) || S8_MOVES[r[1]].category==CAT_STATUS) continue;
+        int move=r[1];
+        if((S8_MOVES[move].flags&(S8_FLAG_BYPASSSUB|S8_FLAG_SOUND)) ||
+           move==S8V_WATERSHURIKEN || move==S8V_TRIPLEAXEL) return 0;
+        for(size_t j=0;j<sizeof S8_MULTIHITS/sizeof S8_MULTIHITS[0];j++)
+            if(S8_MULTIHITS[j].move==move && S8_MULTIHITS[j].max_hits>1) return 0;
+    }
+    double hit=threat.damage.hit;
+    if(hit<=0 || threat.damage.mean>=cost*hit) return 0;
+    double value=2*threat.damage.mean-cost;
+    if(value<=0) return 0;
+
+    // Leftovers plus damage and an available Protect are evidence of a
+    // recovery turn. A compatible but unseen move receives less weight.
+    if(!v[O3_FOE_VISIBLE+14] && b->hp<90 && h4_item_is(b,ITEM_LEFTOVERS) && !b->block) {
+        if(h4_revealed(p,MV_PRO)) value+=.65*attack_score;
+        else if(v[H4_MOVES] && h4_bit(v+H4_MOVES+1,MV_PRO)) value+=.50*attack_score;
+    }
+    return value;
+}
+
+static int h4_choose(const H4Position *p,const ActionMask *mask,int options) {
+    int stat_drop=options&OBSH4_STAT_DROP;
     int first=-1;
     for(int i=0;i<5;i++) if(mask->legal[i]) { first=i;break; }
     if(first<0 || first==4) return first;
@@ -7982,28 +8145,35 @@ static int h4_choose(const H4Position *p,const ActionMask *mask,H4Threat threat)
         }
         return first;
     }
+    H4Threat threat=h4_threat(p);
     H4Damage hit={0};
     int best=-1, attack=-1;
-    double score=0;
+    int best_with_drop=-1;
+    double score=0, score_with_drop=0;
     for(int i=0;i<4;i++) if(mask->legal[i]) {
         int move=p->v[H4_SELF_SLOTS+4*i+1];
         if(S8_MOVES[move].category==CAT_STATUS) continue;
         H4Damage d=h4_damage(p,0,move);
         double value=h4_attack_score(p,move,d,threat);
+        double drop=0;
         if(value>=0 && !h4_delay(p,0,move)) {
             double first=h4_first(p,move,threat.move);
             value+=100*d.ko*(1-(1-first)*threat.damage.ko)+100*threat.damage.ko*first*d.ko;
             value-=(1-first)*threat.damage.ko*fmax(0,d.mean);
+            if(stat_drop) drop=h4_attack_drop(p,move,d,threat);
         }
         if(value>score) { best=i;attack=move;score=value;hit=d; }
+        if(stat_drop && value+drop>score_with_drop) { best_with_drop=i;score_with_drop=value+drop; }
     }
     if(best>=0 && !b->sub && hit.mean>=b->hp+2 && !h4_delay(p,0,attack) &&
        (h4_first(p,attack,threat.move)>=.5 || a->hp>threat.damage.mean*1.15)) return best;
+    if(stat_drop) { best=best_with_drop;score=score_with_drop; }
     int rest=h4_slot(p,mask,MV_REST), protect=h4_slot(p,mask,MV_PRO);
     if(rest>=0 && a->block<=1 && a->hp<100 && (a->hp<=42 || (a->hp<78 && a->hp<=threat.damage.mean*1.65))) return rest;
     if(protect>=0 && !p->v[70] && ((h4_item_is(a,ITEM_LEFTOVERS) && a->hp<90 && a->hp>threat.damage.mean) ||
        (a->block>1 && rest>=0))) return protect;
 
+    double attack_score=score;
     for(int i=0;i<4;i++) if(mask->legal[i]) {
         int move=p->v[H4_SELF_SLOTS+4*i+1];
         if(S8_MOVES[move].category!=CAT_STATUS) continue;
@@ -8020,9 +8190,11 @@ static int h4_choose(const H4Position *p,const ActionMask *mask,H4Threat threat)
         if(move==MV_SWG) value=h4_accuracy(p,0,move)*h4_status_value(p,move,0,0,1,threat);
         if(move==MV_SUB && !a->sub && a->hp>=80 && (b->sleep || h4_revealed(p,MV_SWG)))
             value=fmax(0,threat.damage.mean);
+        if(move==MV_SUB && (options&OBSH4_SUBSTITUTE))
+            value=fmax(value,h4_substitute(p,threat,score));
         if(move==MV_SR && !p->v[474] && attack<0) value=1;
         if(a->hp>threat.damage.mean*1.6 && a->hp>55)
-            value=fmax(value,h4_setup(p,move,attack,hit,threat));
+            value=fmax(value,h4_setup(p,move,attack,&hit,&threat,mask,options,attack_score));
         if(value>score) { best=i;score=value; }
     }
     return best>=0?best:first;
@@ -8080,7 +8252,88 @@ static int obsh4_mega(const Observation3 *o,const ActionMask *mask) {
     H4Position p=h4_position(o),after;
     return h4_should_mega(&p,mask,&after);
 }
-static int obsh4(const Observation3 *o,const ActionMask *mask) {
+static void h4_apply_opening_boost(H4Position *p,int side,int move) {
+    const S8BoostMove *boost=s8_boost_move(move);
+    for(int stat=0;stat<7;stat++)
+        p->mon[side].rank[stat]=clamp_stage(p->mon[side].rank[stat]+boost->delta[stat]);
+}
+
+static double h4_opening_pressure(const H4Position *start,int move,int reply,int boost,int own_setup,int enemy_setup,int tie) {
+    H4Position p=*start;
+    double hp[2]={p.mon[0].hp,p.mon[1].hp};
+    for(int turn=0;turn<5;turn++) {
+        int action[2]={!turn && own_setup?boost:move,!turn && enemy_setup?boost:reply};
+        double first=h4_first(&p,action[0],action[1]);
+        int starts=first>.5?0:first<.5?1:tie;
+        for(int k=0;k<2;k++) {
+            int side=starts^k;
+            if(action[side]==boost) h4_apply_opening_boost(&p,side,boost);
+            else hp[1-side]-=h4_damage(&p,side,action[side]).mean;
+            if(hp[1-side]<=0) return side==0?1:0;
+        }
+        for(int side=0;side<2;side++) {
+            double recovery=h4_item_is(&p.mon[side],ITEM_LEFTOVERS)?6.25:0;
+            hp[side]=fmin(100,hp[side]+recovery);
+            p.mon[side].hp=hp[side];
+        }
+    }
+    return .5;
+}
+
+static int h4_opening_choice(const H4Position *position,const ActionMask *mask,int chosen) {
+    const int boost=S8B_CALMMIND;
+    H4Position p=*position;
+    if(p.v[0]!=1 || chosen<0 || chosen>=4 || !p.v[H4_MOVES] ||
+       p.mon[0].status || p.mon[1].status || p.mon[0].sub || p.mon[1].sub ||
+       p.mon[0].ability==S8Q_CONTRARY || p.mon[0].ability==S8Q_SIMPLE ||
+       h4_ability_is(&p.mon[1],"unaware")) return chosen;
+    int slot=h4_slot(&p,mask,boost);
+    int move=p.v[H4_SELF_SLOTS+4*chosen+1];
+    const int item=p.mon[0].item_id;
+    const char *item_name=item>=0?S8_ITEMS[item].id:"";
+    if(h4_item_is(&p.mon[0],ITEM_SCARF) || !strcmp(item_name,"choiceband") ||
+       !strcmp(item_name,"choicespecs")) return chosen;
+    if(slot<0 || chosen==slot || S8_MOVES[move].category!=CAT_SPEC ||
+       !h4_race_move(&p,0,move) || p.v[H4_SELF_SLOTS+4*chosen+2]<5) return chosen;
+    int representative[3]={-1,-1,-1}, stab_special=-1;
+    double largest[3]={0};
+    double largest_stab=0;
+    for(int reply=0;reply<S8_MOVES_COUNT;reply++) {
+        int category=S8_MOVES[reply].category;
+        if(category==CAT_STATUS || !h4_bit(p.v+H4_MOVES+1,reply) || !h4_race_move(&p,1,reply)) continue;
+        H4Damage d=h4_damage(&p,1,reply);
+        if(d.hit>=.8 && d.mean>largest[category]) {largest[category]=d.mean;representative[category]=reply;}
+        if(category==CAT_SPEC && h4_has_type(&p.mon[1],S8_MOVES[reply].type) &&
+           d.hit>=.8 && d.mean>largest_stab) {largest_stab=d.mean;stab_special=reply;}
+    }
+    int can_boost=h4_bit(p.v+H4_MOVES+1,boost);
+    if(representative[CAT_SPEC]<0 || representative[CAT_PHYS]<0 || stab_special<0 || !can_boost) return chosen;
+    int replies[]={representative[CAT_SPEC],representative[CAT_PHYS],stab_special,stab_special};
+    int count=replies[0]==stab_special?3:4;
+    double lower[2]={1,1},average[2]={0,0};
+    double worst_change=1;
+    for(int hypothesis=0;hypothesis<count;hypothesis++) {
+        int enemy_setup=hypothesis==count-1;
+        int reply=replies[hypothesis];
+        double score[2]={0,0};
+        for(int selected=0;selected<2;selected++) {
+            for(int sample=0;sample<3;sample++) {
+                H4Position forecast=p;
+                for(int stat=0;stat<6;stat++) for(int dst=0;dst<3;dst++)
+                    forecast.mon[1].stat[stat][dst]=p.mon[1].stat[stat][sample];
+                for(int tie=0;tie<2;tie++)
+                    score[selected]+=h4_opening_pressure(&forecast,move,reply,boost,selected,enemy_setup,tie)/6;
+            }
+            lower[selected]=fmin(lower[selected],score[selected]);
+            average[selected]+=score[selected]/count;
+        }
+        worst_change=fmin(worst_change,score[1]-score[0]);
+    }
+
+    return lower[1]>=lower[0] && average[1]>average[0]+1e-9 && worst_change>=0?slot:chosen;
+}
+
+static int obsh4(const Observation3 *o,const ActionMask *mask,int options) {
     int first=obsdemo3(o,mask);
     if(first<0 || first==4) return first;
     int choices=0;
@@ -8088,7 +8341,30 @@ static int obsh4(const Observation3 *o,const ActionMask *mask) {
     if(choices==1) return first;
     H4Position p=h4_position(o),after;
     if(h4_should_mega(&p,mask,&after)) p=after;
-    return h4_choose(&p,mask,h4_threat(&p));
+    int chosen=h4_choose(&p,mask,options);
+
+    if(!(options&OBSH4_OPENING) || o->v[O3_CONTEXT]!=1 || h4_slot(&p,mask,S8B_CALMMIND)<0) return chosen;
+    // Cache only exact public turn-one states. This avoids recomputing the
+    // deterministic forecast across matches that differ only in the seed.
+    static struct {
+        Observation3 observation;
+        ActionMask mask;
+        int valid,chosen,result;
+    } cached[2];
+    static int next_cache;
+    for(int i=0;i<2;i++) {
+        if(cached[i].valid && cached[i].chosen==chosen &&
+           !memcmp(&cached[i].observation,o,sizeof *o) &&
+           !memcmp(&cached[i].mask,mask,sizeof *mask)) return cached[i].result;
+    }
+    int result=h4_opening_choice(&p,mask,chosen);
+    cached[next_cache].observation=*o;
+    cached[next_cache].mask=*mask;
+    cached[next_cache].valid=1;
+    cached[next_cache].chosen=chosen;
+    cached[next_cache].result=result;
+    next_cache^=1;
+    return result;
 }
 
 #include "stage3/policy.h"
@@ -8215,7 +8491,21 @@ static void mega_validate_pilots(const Mon *a, const Mon *b) {
     }
 }
 
-static int battle(Mon *A, Mon *B, Rng *r, int *turns_out) {
+enum { OBSH4_DIAG_TURNS=6 };
+typedef struct {
+    Observation3 observation[2];
+    ActionMask masks[2];
+    uint64_t rng;
+    int choice[2], attempted;
+} Obsh4Turn;
+
+typedef struct {
+    int seat, candidate, baseline, turn, slot;
+    Obsh4Turn *record;
+    const Obsh4Turn *expected;
+} Obsh4Audit;
+
+static int battle_with_audit(Mon *A, Mon *B, Rng *r, int *turns_out,const Obsh4Audit *audit) {
     s8_require_battle(A,B);
     mega_validate_pilots(A,B);
     field_bind(A,B); BATTLE_RNG=r; // reset before attachment, including reused seat addresses
@@ -8249,6 +8539,8 @@ static int battle(Mon *A, Mon *B, Rng *r, int *turns_out) {
         if(version2) obs2_attach(A,B,profile); else obs_attach(A,B,profile);
     }
     for (int turn = 1; turn <= MAX_TURN; turn++) {
+        Obsh4Turn *record=audit && turn<=OBSH4_DIAG_TURNS &&
+            (!audit->turn || audit->turn==turn) && audit->record?&audit->record[turn-1]:NULL;
         g5_begin_turn(A,B);
         if (SEQ_MODE) {
             // order by speed only (as sim5), each mon chooses at its own action moment
@@ -8320,10 +8612,35 @@ static int battle(Mon *A, Mon *B, Rng *r, int *turns_out) {
                 if(policy==POL_OBSH4) mega_choice[i]=obsh4_mega(&frozen3[i],&masks[i]);
                 else mega_choice[i]=policy==POL_OBSDEMO3?obsdemo3_mega(&frozen3[i]):policy==POL_OBSH3?obsh3_mega(&frozen2[i]):generic_mega(mons[i],mons[1-i]);
             }
-            if(is_v3_policy(policy)) choice[i]=obs_checked_action((policy==POL_OBSH4?obsh4:obsdemo3)(&frozen3[i],&masks[i]),&masks[i]);
+            if(policy==POL_OBSH4) {
+                int candidate=OBSH4_DEFAULT;
+                if(turn==1 && !strcmp(S8_SPECIES[frozen3[i].v[O3_SELF_ID+1]].id,"sylveon"))
+                    candidate|=OBSH4_OPENING;
+                if(audit && audit->candidate>=0)
+                    candidate=i==audit->seat?audit->candidate:audit->baseline;
+                choice[i]=obs_checked_action(obsh4(&frozen3[i],&masks[i],candidate),&masks[i]);
+            } else if(is_v3_policy(policy)) choice[i]=obs_checked_action(obsdemo3(&frozen3[i],&masks[i]),&masks[i]);
             else if(is_v2_policy(policy)) choice[i]=obs_checked_action((policy==POL_LEARNED2?learned2_policy:policy==POL_OBSH3?obsh3:observable_policy2)(&frozen2[i],&masks[i]),&masks[i]);
             else if(is_observable_policy(policy)) choice[i]=obs_checked_action((policy==POL_LEARNED?learned_policy:policy==POL_OBSH2?obsh2:observable_policy)(&frozen[i],&masks[i]),&masks[i]);
             else choice[i]=choose_move(mons[i],mons[1-i]);
+        }
+        if(record) {
+            memcpy(record->observation,frozen3,sizeof frozen3);
+            memcpy(record->masks,masks,sizeof masks);
+            memcpy(record->choice,choice,sizeof choice);
+            record->rng=r->s;
+            record->attempted=-1;
+            if(audit->expected) {
+                const Obsh4Turn *expected=audit->expected;
+                if(memcmp(expected->observation,frozen3,sizeof frozen3) ||
+                   memcmp(expected->masks,masks,sizeof masks) ||
+                   memcmp(expected->choice,choice,sizeof choice) || expected->rng!=r->s ||
+                   !masks[audit->seat].legal[audit->slot]) {
+                    fprintf(stderr,"obsh4 diagnostic replay diverged before turn %d\n",turn);
+                    exit(2);
+                }
+                choice[audit->seat]=audit->slot==4?-1:audit->slot;
+            }
         }
         // Both choices and declarations are frozen before either form changes. No RNG.
         for(int i=0;i<2;i++) resolve_mega(mons[i],mega_choice[i]);
@@ -8401,7 +8718,9 @@ static int battle(Mon *A, Mon *B, Rng *r, int *turns_out) {
                 obs2_emit(EV_HIT,me,HIT_FAIL,0,0);
                 attempt_result(me,ATTEMPT_SKIP_FAIL); obs2_cancel_charge(me); me->charging=0; continue;
             }
-            if(selected_snore(me,foe,committed,r)) {
+            int snore=selected_snore(me,foe,committed,r);
+            if(snore) {
+                if(record && seat==audit->seat && snore==2) record->attempted=MV_SN;
                 if (me->hp <= 0 || foe->hp <= 0) break;
                 continue;
             }
@@ -8413,6 +8732,7 @@ static int battle(Mon *A, Mon *B, Rng *r, int *turns_out) {
                 int sti = find_move(me, MV_ST);
                 if (sti >= 0 && me->pp[sti] > 0) {
                     if(!s8_control_before_move(me,foe,MV_ST,r)) continue;
+                    if(record && seat==audit->seat) record->attempted=MV_ST;
                     attempt_result(me,ATTEMPT_FAIL);
                     obs_emit_action(EV_USE,me,(MoveAction){ACTION_MOVE,MV_ST},2);
                     s8_spend_pp(me,sti); leppa_check(me, sti);
@@ -8434,6 +8754,7 @@ static int battle(Mon *A, Mon *B, Rng *r, int *turns_out) {
             if(!s8_control_before_move(me,foe,committed<0?-1:me->moves[committed],r)) continue;
             int ci = (k == 0 ? choice[first] : choice[1 - first]);
             if(ci>=0 && me->moves[ci]==MV_FP && me->focus_lost) { obs2_emit(EV_SKIP,me,SKIP_FOCUS,0,0); attempt_result(me,ATTEMPT_FAIL); obs_emit(EV_HIT,me,HIT_FAIL,0,0); continue; }
+            if(record && seat==audit->seat) record->attempted=ci<0?S8_STRUGGLE:me->moves[ci];
             if (ci < 0) { do_struggle(me, foe, r); me->last_move = -1; me->metro_streak = 0; }
             else {
                 obs_emit_action(EV_USE,me,(MoveAction){ACTION_MOVE,me->moves[ci]},0);
@@ -8462,6 +8783,10 @@ static int battle(Mon *A, Mon *B, Rng *r, int *turns_out) {
     }
     *turns_out = MAX_TURN;
     return 2;
+}
+
+static int battle(Mon *A, Mon *B, Rng *r, int *turns_out) {
+    return battle_with_audit(A,B,r,turns_out,NULL);
 }
 
 // ---------- Trace (one battle, verbose) ----------
@@ -9001,6 +9326,13 @@ static uint64_t hash64(uint64_t x) {
     x = (x ^ (x >> 27)) * 0x94D049BB133111EBULL;
     return x ^ (x >> 31);
 }
+
+static uint64_t matchup_seed(uint64_t seed,long game) {
+    return hash64(seed ^ ((uint64_t)(game + 1) * 0xD1B54A32D192ED03ULL));
+}
+
+#include "obsh4_diagnostics.h"
+
 static void run_matchup(const char *specA, const char *specB, long n, uint64_t seed,
                         const char *label) {
     long wA = 0, wB = 0, dr = 0; long long turns = 0;
@@ -9008,7 +9340,7 @@ static void run_matchup(const char *specA, const char *specB, long n, uint64_t s
         Mon A, B; init_mon(&A, specA); init_mon(&B, specB);
         // Per-game state = hash(seed, g): starting states must be decorrelated,
         // otherwise streams are shifted windows of one arithmetic sequence.
-        Rng r = { hash64(seed ^ ((uint64_t)(g + 1) * 0xD1B54A32D192ED03ULL)) };
+        Rng r = { matchup_seed(seed,g) };
         int t = 0; int res = battle(&A, &B, &r, &t);
         turns += t;
         if (res == 0) wA++; else if (res == 1) wB++; else dr++;
@@ -9051,6 +9383,8 @@ static void prog_report(const char *tag, long done, long total, clock_t t0) {
 }
 
 int main(int argc, char **argv) {
+    if(argc>=2 && (!strcmp(argv[1],"diagnose-obsh4") || !strcmp(argv[1],"compare-obsh4")))
+        return obsh4_diagnostic_cli(argc,argv);
     if (argc == 2 && !strcmp(argv[1], "policy-version")) {
         printf("schema=%s encoder=%s weights_sha256=%s\n",LEARNED_SCHEMA,LEARNED_ENCODER,LEARNED_SHA256);
         printf("policy=learned2 schema=%s encoder=%s weights_sha256=%s\n",LEARNED2_SCHEMA,LEARNED2_ENCODER,LEARNED2_SHA256);
@@ -9176,6 +9510,7 @@ int main(int argc, char **argv) {
                "  engine screen <cand_file> <pool_file> <games> <seed>\n"
                "  engine screenx <cand_file> <pool_file> <games> <seed>\n"
                "  engine trace <specA> <specB> <seed>\n"
+               OBSH4_DIAG_USAGE
                "  engine policy-version\n");
         return 0;
     }
@@ -9186,6 +9521,7 @@ int main(int argc, char **argv) {
             "  engine screen <cand_file> <pool_file> <games> <seed>\n"
             "  engine screenx <cand_file> <pool_file> <games> <seed>\n"
             "  engine trace <specA> <specB> <seed>\n"
+            OBSH4_DIAG_USAGE
             "  engine policy-version\n");
     return 1;
 }

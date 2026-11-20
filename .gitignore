@@ -1,5 +1,7 @@
 engine/engine
 engine/engine.exe
+engine/test_obsh4_diagnostics
+engine/test_obsh4_diagnostics.exe
 engine_search
 engine_search.exe
 runs/

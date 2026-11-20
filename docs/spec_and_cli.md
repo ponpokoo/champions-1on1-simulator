@@ -79,6 +79,8 @@ gcc -O3 -march=native -o engine/engine engine/engine.c -lm
 | `screen` | `<候補ファイル> <プールファイル> <試合数> <シード>` | 候補ごとに「番号 勝 敗 分」を 1 行ずつ（プール全員との合計） |
 | `screenx` | `<候補ファイル> <プールファイル> <試合数> <シード>` | 候補ごとに「番号」に続けてプール 1 人ごとの「勝 敗 分」を 1 行で。実行中は進捗が標準エラーに出力 |
 | `trace` | `<型A> <型B> <シード>` | 1 試合の詳細ログ（全情報方針同士のみ。観測系方針では不可） |
+| `diagnose-obsh4` | `<型A> <型B> <試合数> <シード> <A\|B> [ターン]` | 観測 v3 の同種ミラーで、対象席の合法技を 1 手ずつ差し替えた比較 CSV。ターンの省略時は 1〜6 |
+| `compare-obsh4` | `<型A> <型B> <試合数> <シード> <A\|B> [stat-drop\|substitute\|setup\|setup-tempo\|opening]` | 相手を候補ごとの比較元に固定し、対象席だけ候補方針に切り替えた比較 CSV。省略時は `stat-drop` |
 | `--help` / `-h` | なし | コマンド一覧の表示 |
 
 ### 使い方の注意
@@ -88,3 +90,36 @@ gcc -O3 -march=native -o engine/engine engine/engine.c -lm
 - `screen` / `screenx` では候補は常に **A 席** に座ります。席による差をならす必要がある評価（決勝など）では、候補とプールを入れ替えた実行も行って両席を併せてください（[search/search_controller.py](../search/search_controller.py) の `finals` では同型リスト同士の `screenx` 結果から A 席基準の `ranking` と両席合算・自己ミラー除外の `ranking_both_seats` の両方を出力します）。
 - 平均勝率だけでなく **最悪相性**（プール内で最も低い相手別スコア）も必ず確認してください。相手別の内訳は `screenx` で得られます。
 - シードは試合ごとにハッシュで展開される決定的な規約で、同じ引数なら結果は再現します。
+
+### 行動診断
+
+2 つの型を `obsh4`、メガ欄を `0` にして実行します。差し替え直前の両席の観測、合法マスク、選択、乱数状態を照合します。相手の選択はそのターンも固定し、次のターンから通常の方針に戻します。
+
+`diagnose-obsh4` の `alternative` が空の行は通常戦です。`baseline_attempt` と `alternate_attempt` には対戦処理が実行に進んだ技が入り、行動不能などで実行に進まなかった場合は空になります。命中や追加効果の発生は勝敗とは別に扱い、この欄では判定しません。勝敗は対象席から見た `win`、`loss`、`draw` です。
+
+固定母集団によるスクリーニング、別シードでの確認、候補方針の保留評価には Node.js を使います。エンジンと出力先には Windows でも利用できるパスを渡してください。集計用 JSON には試合数・シード・型・エンジンの SHA-256 が入ります。保留評価は調整を終えてから実行します。
+
+```sh
+node search/diagnose_obsh4.cjs screen ./engine/engine runs/obsh4-diagnostics
+node search/diagnose_obsh4.cjs confirm ./engine/engine runs/obsh4-diagnostics
+node search/diagnose_obsh4.cjs holdout ./engine/engine runs/obsh4-diagnostics
+make verify-obsh4
+```
+
+標準の `obsh4` は、みがわりが公開済みの攻撃を受け止める見込みと HP コストを比較します。相手のたべのこしと「まもる」の公開履歴・合法候補に応じて、攻撃を見送る価値も見積もります。シャワーズ戦の再現と、別の対面での保留評価には次を使います。
+
+```sh
+node search/diagnose_obsh4.cjs substitute-check ./engine/engine runs/obsh4-substitute
+node search/diagnose_obsh4.cjs substitute-holdout ./engine/engine runs/obsh4-substitute
+```
+
+`setup` は、みがわり改善後の方針を比較元に、瞑想・剣の舞・竜の舞など6技の判断を評価します。相手の攻撃が公開された後、今攻撃する経路と、1ターン積んでから攻撃する経路を最大5ターン比較します。与被ダメージ、行動順、たべのこしの回復を近似し、積んだ後の攻撃技は選び直します。`setup-tempo` は両経路とも勝つ見込みのとき、先に倒せる方を優先します。
+
+```sh
+node search/diagnose_obsh4.cjs setup-check ./engine/engine runs/obsh4-setup
+node search/diagnose_obsh4.cjs setup-holdout ./engine/engine runs/obsh4-setup
+node search/diagnose_obsh4.cjs setup-tempo-check ./engine/engine runs/obsh4-setup
+node search/diagnose_obsh4.cjs setup-tempo-holdout ./engine/engine runs/obsh4-setup
+```
+
+ニンフィアの標準 `obsh4` では、初手に特殊攻撃を選ぶ局面で、相手の公開情報から想定した一致技・その他の特殊技・物理技・めいそうを比較します。最大 5 ターンの近似で、どの想定でも評価を下げず、平均評価が上がるときにめいそうへ切り替えます。こだわり持ちは切り替えの対象外です。`compare-obsh4 ... opening` では、みがわり改善後の方針を比較元に、対象席だけこの初手判断を有効にできます。
