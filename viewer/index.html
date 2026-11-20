@@ -478,13 +478,13 @@ select option{
 .type-pill{
   display: inline-flex;
   align-items: center;
-  gap: 0.32rem;
-  padding: 0.12rem 0.5rem;
+  gap: 0.3rem;
+  padding: 0.1rem 0.46rem;
   border-radius: var(--r-pill);
-  font-size: 0.72rem;
-  font-weight: 700;
-  background: color-mix(in srgb, var(--tc) 14%, transparent);
-  border: 1px solid color-mix(in srgb, var(--tc) 34%, transparent);
+  font-size: 0.71rem;
+  font-weight: 600;
+  background: color-mix(in srgb, var(--tc) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--tc) 24%, transparent);
   color: var(--text);
   white-space: nowrap;
 }
@@ -495,6 +495,20 @@ select option{
   border-radius: 50%;
   background: var(--tc);
   flex-shrink: 0;
+}
+.type-pill.type-subtle{
+  gap: 0.24rem;
+  padding: 0.04rem 0.38rem;
+  font-size: 0.67rem;
+  font-weight: 500;
+  background: color-mix(in srgb, var(--tc) 5%, transparent);
+  border-color: color-mix(in srgb, var(--tc) 15%, transparent);
+  color: var(--dim);
+}
+.type-pill.type-subtle::before{
+  width: 5px;
+  height: 5px;
+  opacity: 0.72;
 }
 
 /* Alerts */
@@ -1339,15 +1353,25 @@ const NON_STONE_ITEMS = Object.entries(META.items)
 function esc(s) {
   return String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 }
+function normSearch(s) {
+  return String(s ?? "")
+    .toLowerCase()
+    .replace(/[\u3041-\u3096]/g, (ch) => String.fromCharCode(ch.charCodeAt(0) + 0x60));
+}
 function pct(r) { return (r * 100).toFixed(1) + "%"; }
 function rateCls(r) { return r >= 0.5 ? "rate-acc" : r >= 0.4 ? "rate-warn" : "rate-danger"; }
 function spName(id) { return META.species[id]?.ja || id; }
 function mvName(id) { const c = MOVE_CODE_TO_ID[id] || id; return META.moves[c]?.ja || c; }
 function itName(id) { return META.items[id]?.ja || id; }
 function abName(id) { return META.abilities[id]?.ja || id; }
+function policyLabel(pol) {
+  if (!pol || pol === "obsh4" || String(pol).startsWith("obsh4-")) return "標準AI";
+  if (pol === "generic") return "全情報比較";
+  return String(pol);
+}
 function typeBadge(idx) {
   if (idx < 0 || !META.types[idx]) return "";
-  return `<span class="type-pill" style="--tc:var(--tc-${idx})">${esc(META.types[idx].ja)}</span>`;
+  return `<span class="type-pill type-subtle" style="--tc:var(--tc-${idx})">${esc(META.types[idx].ja)}</span>`;
 }
 
 function calcLv50Stats(base, points, up, down) {
@@ -1592,7 +1616,7 @@ const APP = {
     weights: { beginner: 0, meta: 33, original: 34, advanced: 33 },
     sort: { key: "expected", dir: "desc" },
     selectedCell: { i: 0, j: 1 },
-    listFilter: { move: "", item: "", group: "all", q: "" },
+    listFilter: { move: "", item: "", group: "all", archetype: "", q: "" },
     beginnerBusy: false,
     error: null,
   },
@@ -1695,9 +1719,8 @@ function updateStatusPill() {
   const el = document.getElementById("connStatus");
   if (!el) return;
   if (APP.serverOk) {
-    const ok = APP.health?.matrix?.ok;
     el.className = "conn-pill ok";
-    el.innerHTML = `<span class="dot"></span>接続中 · CPU ${APP.health?.cpuCount || "?"} · MD5 ${ok ? "OK" : "NG"}`;
+    el.innerHTML = `<span class="dot"></span>接続中`;
   } else {
     el.className = "conn-pill warn";
     el.innerHTML = `<span class="dot"></span>静的モード（<span class="mono">server.py</span> 未起動）`;
@@ -1837,27 +1860,27 @@ function openPicker({ trigger, kind, side = "A", slot = 0, current = "", onPick 
 
 function renderPickerItems() {
   const list = document.getElementById("pickerList");
-  const q = POP.query.trim().toLowerCase();
+  const q = normSearch(POP.query.trim());
   let rows = "";
 
   if (POP.kind === "species") {
     const matched = ALL_SPECIES_LIST.filter((s) =>
-      !q || s.ja.toLowerCase().includes(q) || s.id.includes(q) || s.en.toLowerCase().includes(q) ||
-      s.megas.some((m) => m.ja.toLowerCase().includes(q) || m.id.includes(q))
+      !q || normSearch(s.ja).includes(q) || s.id.includes(q) || s.en.toLowerCase().includes(q) ||
+      s.megas.some((m) => normSearch(m.ja).includes(q) || m.id.includes(q))
     );
     rows = matched.slice(0, 120).map((s) => {
       const bst = s.base.reduce((a, b) => a + b, 0);
       const sel = s.id === POP.current;
       return `<button type="button" class="pop-item ${sel ? "selected" : ""}" data-pick-val="${esc(s.id)}">
         <div>
-          <div style="font-weight:700">${esc(s.ja)} <span class="xs dim mono">${esc(s.id)}</span></div>
+          <div style="font-weight:700">${esc(s.ja)}</div>
           <div class="row" style="gap:0.25rem; margin-top:0.15rem">${s.types.map(typeBadge).join("")}${s.megas.length ? `<span class="badge xs acc">メガ対応</span>` : ""}</div>
         </div>
         <span class="xs dim mono tnum">BST ${bst}</span>
       </button>`;
     }).join("");
   } else if (POP.kind === "item") {
-    const matched = NON_STONE_ITEMS.filter(([id, it]) => !q || it.ja.toLowerCase().includes(q) || id.includes(q));
+    const matched = NON_STONE_ITEMS.filter(([id, it]) => !q || normSearch(it.ja).includes(q) || id.includes(q));
     rows = matched.map(([id, it]) => `<button type="button" class="pop-item ${id === POP.current ? "selected" : ""}" data-pick-val="${esc(id)}">
       <span style="font-weight:600">${esc(it.ja)}</span>
       <span class="xs dim mono">${esc(id)}</span>
@@ -1875,7 +1898,7 @@ function renderPickerItems() {
       const m = META.moves[mid];
       if (!m) continue;
       if (POP.cat !== "all" && String(m.c) !== POP.cat) continue;
-      if (q && !m.ja.toLowerCase().includes(q) && !mid.includes(q) && !(m.code || "").toLowerCase().includes(q)) continue;
+      if (q && !normSearch(m.ja).includes(q) && !mid.includes(q) && !(m.code || "").toLowerCase().includes(q)) continue;
       const isCur = b.moves[POP.slot] === mid;
       const inOther = !isCur && equipped.has(mid);
       items.push(`<button type="button" class="pop-item ${isCur ? "selected" : ""}" data-pick-val="${esc(mid)}">
@@ -1918,7 +1941,7 @@ window.addEventListener("keydown", (e) => {
 const HELP_TOPICS = [
   {
     key: "overview", cat: "basic", badge: "全体", title: "3 つのタブの使い分け",
-    body: "「1. 型を比較する」は 2 つの型を戦わせて勝率やターン推移を確かめる場所です。「2. 有力な型を探す」は広い候補空間から有力な型を自動探索します（既存ランは上書き保護されます）。「3. 探索結果を分析」は同梱サンプルや自分の探索結果のランキング・相性ヒートマップ・仮想構成スライダーを可視化します。"
+    body: "「1. 型を比較する」は 2 つの型を戦わせて勝率やターン推移を確かめる場所です。「2. 有力な型を探す」は広い候補空間から有力な型を自動探索します（既存ランは上書き保護されます）。「3. 探索結果を分析」は同梱サンプルや自分の探索結果、ローカル JSON を切り替えてランキング・類型（アーキタイプ）一覧・採用トレンド・相性ヒートマップ・仮想構成スライダーを可視化します。"
   },
   {
     key: "rules", cat: "basic", badge: "基本", title: "同種ミラー 1on1・SP（ステータスポイント）66 制・両倒れ規約",
@@ -1929,8 +1952,8 @@ const HELP_TOPICS = [
     body: "「0: 非メガ」は通常どうぐと通常特性を自由に選べます。「1: メガ開始」は最初からメガシンカした状態で登場する検証用モードで、メガ特性に固定されます。「2: 任意メガ（標準前提）」は通常フォルム＋通常特性で開始し、1ターン目にメガシンカする標準条件です（メガ石が自動選択されます）。通常特性を選びたい場合は 0 または 2 にしてください。"
   },
   {
-    key: "policy", cat: "battle", badge: "操縦方針", title: "標準AI（公開情報）と全情報比較の違い",
-    body: "「標準AI（公開情報）」（識別子: obsh4）は、対戦中に相手から見えている公開情報だけで行動を決める標準ヒューリスティクス（観測 v3）です。一方「全情報比較」（識別子: generic）は、相手の未公開の技・持ち物・配分を見通した上で行動する全情報ベースラインです。勝率や順位は操縦方針に依存するため、通常は標準AIで比較し、挙動確認の詳細ログ（仕様上 generic のみ出力）は比較参考としてお使いください。"
+    key: "policy", cat: "battle", badge: "操縦方針", title: "標準AIと全情報比較の違い",
+    body: "「標準AI」（識別子: obsh4）は、対戦中に相手から見えている公開情報だけで行動を決める標準ヒューリスティクス（観測 v3）です。一方「全情報比較」（識別子: generic）は、相手の未公開の技・持ち物・配分を見通した上で行動する全情報ベースラインです。勝率や順位は操縦方針に依存するため、通常は標準AIで比較し、挙動確認の詳細ログ（仕様上 generic のみ出力）は比較参考としてお使いください。"
   },
   {
     key: "moves", cat: "battle", badge: "技枠", title: "技を 1〜3 技（空白）にする意味と手順",
@@ -1941,12 +1964,16 @@ const HELP_TOPICS = [
     body: "候補空間を整理するための探索上の除外規約です。定義 A は性格下降補正（↓）の能力に振られた SP のうち、切り捨て計算により「他の補正なし能力に 1pt 移しても下降側の実数値が 1 も下がらない振り方」を除外します。定義 B は全能力の SP が最大 16 以下の均等配分を除外する規約です。"
   },
   {
-    key: "filter", cat: "search", badge: "絞り込み", title: "部分領域絞り込み・相手パネル全空間・全列挙 / サンプリング",
-    body: "タブ 2 で条件を絞ると「探索する候補側（candidates.txt）」だけが限定され、戦わせる評価相手（panel.txt）は偏りを防ぐため種族全体の無制約ドメインから抽選されます。絞り込み後の合法な型数が目標候補数以下なら重複なしの「全列挙（exhaustive）」、上回る場合は「一様サンプリング（sampled）」に自動切替されます。"
+    key: "filter", cat: "search", badge: "探索規模・絞り込み", title: "探索規模と型漏れ・部分領域絞り込み・全列挙 / サンプリング",
+    body: "探索規模（smoke / light / standard / precision）は生成する候補数（サンプル数）を決めます。探索空間が広い場合、サンプル数が少ない規模では有力な型の組み合わせがサンプリングから漏れることがあるため、light で傾向を掴んだうえで規模を上げるか条件を絞るのが有効です。条件を絞ると「探索する候補側（candidates.txt）」だけが限定され、評価相手（panel.txt）は種族全体の無制約ドメインから抽選されます。合法な型数が目標候補数以下なら重複なしの「全列挙」、上回る場合は「一様サンプリング」に自動切替されます。"
   },
   {
     key: "seat", cat: "viewer", badge: "集計基準", title: "両視点合算（同型戦除く）と A側視点のみ",
     body: "決勝総当たり（finals）を A 側と B 側の両視点で合算平均し、自分自身との同型戦（常に 50%）を除いた実質勝率が「両視点合算（同型戦除く）」です（通常はこちらを基準にします）。"
+  },
+  {
+    key: "archetypes", cat: "viewer", badge: "類型・最適化", title: "類型（アーキタイプ）一覧と代表個体の見方",
+    body: "決勝内の型を「持ち物 × 実戦主力技」の系統ごとにまとめたものが類型（アーキタイプ）一覧です。代表個体の勝率が高い順に上位（最大 12 系統）を表示しています。最適化済み個体は 4 技を保持したまま無駄振り再配分・性格合理化を比較し、安全ゲートを通過して決勝プール全体への平均勝率が最も高い配分・性格を採用しています。"
   },
   {
     key: "groups", cat: "viewer", badge: "分析条件", title: "決勝内最低勝率・グループ分類・仮想的な相手構成スライダー",
@@ -1977,10 +2004,10 @@ function closeHelpModal() {
 }
 function renderHelpItems() {
   const list = document.getElementById("helpList");
-  const q = HELP_STATE.q.trim().toLowerCase();
+  const q = normSearch(HELP_STATE.q.trim());
   const items = HELP_TOPICS.filter((t) =>
     (HELP_STATE.cat === "all" || t.cat === HELP_STATE.cat) &&
-    (!q || t.title.toLowerCase().includes(q) || t.body.toLowerCase().includes(q) || t.badge.toLowerCase().includes(q))
+    (!q || normSearch(t.title).includes(q) || normSearch(t.body).includes(q) || normSearch(t.badge).includes(q))
   );
   list.innerHTML = items.length ? items.map((t) => `<article class="help-item">
     <h4><span class="badge acc">${esc(t.badge)}</span><span>${esc(t.title)}</span></h4>
@@ -2147,7 +2174,6 @@ function renderBuildEditor(side) {
           <div style="font-size:1.05rem; font-weight:800; letter-spacing:-0.015em">
             ${esc(b.mega === 1 && megaTarget ? megaTarget.ja : norm.ja)}
             ${b.mega === 2 && megaTarget ? `<span class="small dim">→ ${esc(megaTarget.ja)}</span>` : ""}
-            <span class="xs dim mono" style="margin-left:0.35rem">${esc(sp.id)}</span>
           </div>
           <div class="row" style="gap:0.3rem; margin-top:0.2rem">
             ${activeTypes.map(typeBadge).join("")}
@@ -2168,7 +2194,7 @@ function renderBuildEditor(side) {
         <div class="field">
           <span class="field-lbl">操縦方針 <button type="button" class="help-dot" data-help="policy" title="標準AI（obsh4）と全情報比較（generic）の違い">?</button></span>
           <div class="seg">
-            <button type="button" data-side="${side}" data-pick-pol="obsh4" aria-pressed="${b.policy === "obsh4"}" title="識別子: obsh4（公開情報のみを使う標準ヒューリスティクス）">標準AI（公開情報）</button>
+            <button type="button" data-side="${side}" data-pick-pol="obsh4" aria-pressed="${b.policy === "obsh4"}" title="識別子: obsh4（公開情報のみを使う標準ヒューリスティクス）">標準AI</button>
             <button type="button" data-side="${side}" data-pick-pol="generic" aria-pressed="${b.policy === "generic"}" title="識別子: generic（相手の非公開情報も参照する全情報ベースライン比較用）">全情報比較</button>
           </div>
         </div>
@@ -2315,7 +2341,7 @@ function renderBattleTab() {
   const poolResultHtml = st.poolResult ? `<div style="margin-top:0.85rem">
     <div class="row" style="margin-bottom:0.45rem">
       <span class="badge acc">プール: ${esc(st.poolResult.run)}</span>
-      <span class="small dim">${st.poolResult.results[0]?.poolSize || 0} 型 × 両視点各 ${st.poolResult.gamesPerSide} 戦 · 方針 ${esc(st.poolResult.policy === "obsh4" ? "標準AI (obsh4)" : st.poolResult.policy === "generic" ? "全情報比較 (generic)" : st.poolResult.policy)}</span>
+      <span class="small dim">${st.poolResult.results[0]?.poolSize || 0} 型 × 両視点各 ${st.poolResult.gamesPerSide} 戦 · 方針 ${esc(policyLabel(st.poolResult.policy))}</span>
     </div>
     <div class="tbl-scroll"><table class="tbl">
       <thead><tr><th>テストした型</th><th>両視点平均勝率</th><th>最低勝率（最悪相性）</th><th>A側平均</th><th>順位相当</th><th>特に苦手な相手 Top 3</th></tr></thead>
@@ -2348,7 +2374,7 @@ function renderBattleTab() {
     </div>` : ""}
     <div class="vs-dock">
       <div class="vs-side-summary side-a">
-        <div class="row" style="justify-content:space-between"><b>型 A：${esc(decA.formLabel)}</b><span class="xs dim" title="操縦方針識別子: ${esc(decA.policy)}">${esc(decA.policy === "obsh4" ? "標準AI（公開情報）" : decA.policy === "generic" ? "全情報比較" : decA.policy)}</span></div>
+        <div class="row" style="justify-content:space-between"><b>型 A：${esc(decA.formLabel)}</b><span class="xs dim" title="操縦方針識別子: ${esc(decA.policy)}">${esc(policyLabel(decA.policy))}</span></div>
         <div class="xs mono dim">H${decA.startStats[0]} A${decA.startStats[1]} B${decA.startStats[2]} C${decA.startStats[3]} D${decA.startStats[4]} S${decA.startStats[5]} · ${esc(itName(decA.item))}</div>
       </div>
 
@@ -2376,7 +2402,7 @@ function renderBattleTab() {
       </div>
 
       <div class="vs-side-summary side-b">
-        <div class="row" style="justify-content:space-between"><b>型 B：${esc(decB.formLabel)}</b><span class="xs dim" title="操縦方針識別子: ${esc(decB.policy)}">${esc(decB.policy === "obsh4" ? "標準AI（公開情報）" : decB.policy === "generic" ? "全情報比較" : decB.policy)}</span></div>
+        <div class="row" style="justify-content:space-between"><b>型 B：${esc(decB.formLabel)}</b><span class="xs dim" title="操縦方針識別子: ${esc(decB.policy)}">${esc(policyLabel(decB.policy))}</span></div>
         <div class="xs mono dim">H${decB.startStats[0]} A${decB.startStats[1]} B${decB.startStats[2]} C${decB.startStats[3]} D${decB.startStats[4]} S${decB.startStats[5]} · ${esc(itName(decB.item))}</div>
       </div>
     </div>
@@ -2980,12 +3006,12 @@ function renderSearchTab() {
   const mvCustom = f.move_pool !== null;
   const selMoveSet = new Set(f.move_pool || []);
   const curReq = new Set(f.required_moves);
-  const mvQ = st.moveFilter.trim().toLowerCase();
+  const mvQ = normSearch(st.moveFilter.trim());
 
   const allItems = legalItemsForSpecies(sp);
   const itCustom = f.items !== null;
   const selItemSet = new Set(f.items || []);
-  const itQ = st.itemFilter.trim().toLowerCase();
+  const itQ = normSearch(st.itemFilter.trim());
 
   const natCustom = f.natures !== null;
   const selNatSet = new Set((f.natures || []).map((n) => n.join(",")));
@@ -3000,13 +3026,13 @@ function renderSearchTab() {
     const mv = META.moves[m];
     if (!mv) return false;
     if (st.moveCat !== "all" && String(mv.c) !== st.moveCat) return false;
-    return !mvQ || mv.ja.toLowerCase().includes(mvQ) || m.includes(mvQ) || (mv.code || "").toLowerCase().includes(mvQ);
+    return !mvQ || normSearch(mv.ja).includes(mvQ) || m.includes(mvQ) || (mv.code || "").toLowerCase().includes(mvQ);
   });
   const visItems = allItems.filter((it) => {
     const info = META.items[it];
     if (st.itemCat === "stone" && !info?.stone) return false;
     if (st.itemCat === "nonstone" && info?.stone) return false;
-    return !itQ || itName(it).toLowerCase().includes(itQ) || it.includes(itQ);
+    return !itQ || normSearch(itName(it)).includes(itQ) || it.includes(itQ);
   });
 
   const minReqMoveCnt = f.move_counts.length ? Math.min(...f.move_counts) : 4;
@@ -3200,7 +3226,7 @@ function renderSearchTab() {
     <section class="card">
       <div class="card-head">
         <div>
-          <h2 class="card-title">1. 探索ターゲット & 規模の設定 <span class="badge acc" title="操縦方針識別子: obsh4（公開情報のみを使う標準ヒューリスティクス）">標準AI（公開情報）</span></h2>
+          <h2 class="card-title">1. 探索ターゲット & 規模の設定 <span class="badge acc" title="操縦方針識別子: obsh4（公開情報のみを使う標準ヒューリスティクス）">標準AI</span></h2>
         </div>
         ${unfinishedRuns.length ? `<div class="row"><span class="xs dim">未完了ラン:</span>${unfinishedRuns.slice(0, 4).map((r) => `<button type="button" class="btn xs ghost" data-job-resume="${esc(r.run)}">${esc(r.run)} を再開</button>`).join("")}</div>` : ""}
       </div>
@@ -3209,7 +3235,7 @@ function renderSearchTab() {
         <div class="field">
           <span class="field-lbl">探索する種族</span>
           <button type="button" class="picker-trigger compact" id="btnSrchSpeciesPick">
-            <span><b>${esc(sp.ja)}</b> <span class="xs dim mono">${esc(sp.id)}</span></span>
+            <span><b>${esc(sp.ja)}</b></span>
             <span class="xs dim">変更 ▾</span>
           </button>
         </div>
@@ -3232,6 +3258,7 @@ function renderSearchTab() {
           <div class="xs mono" style="color:var(--accent); font-weight:700">${esc(t.time)}</div>
         </button>`).join("")}
       </div>
+      <p class="xs dim" style="margin:0.4rem 0 0">※探索空間が広い場合、サンプル数（候補数）が少ない規模では有力な型の組み合わせがサンプリングから漏れることがあります。まずは <span class="mono">light</span> で傾向を掴み、網羅性を高めたい場合は規模を上げるか条件を絞り込んでください。</p>
 
       <div class="row" style="justify-content:space-between; margin-top:0.9rem; padding-top:0.85rem; border-top:1px solid var(--border)">
         <div class="row">
@@ -3604,8 +3631,15 @@ window.addEventListener("focus", () => {
 
 /* ---------- Tab 3: Result Analysis Viewer ---------- */
 function analyzeResults(raw) {
-  const finalists = raw?.finalists;
-  const matrix = raw?.matrix;
+  const pol = raw?.polished || null;
+  const hasPolishedPool = Boolean(
+    Array.isArray(pol?.polished_finalists) &&
+    pol.polished_finalists.length > 0 &&
+    Array.isArray(pol?.polished_matrix) &&
+    pol.polished_matrix.length === pol.polished_finalists.length
+  );
+  const finalists = hasPolishedPool ? pol.polished_finalists : raw?.finalists;
+  const matrix = hasPolishedPool ? pol.polished_matrix : raw?.matrix;
   if (!Array.isArray(finalists) || !finalists.length) throw new Error("finals_results.json に finalists が含まれていません");
   const n = finalists.length;
   if (!Array.isArray(matrix) || matrix.length !== n) throw new Error(`matrix のサイズが finalists (${n}) と一致しません`);
@@ -3654,16 +3688,49 @@ function analyzeResults(raw) {
     groupMap[grp].push(i);
   });
 
+  const polUsageByIdx = new Map();
+  const usageSrc = hasPolishedPool ? pol?.polished_move_usage : pol?.move_usage;
+  if (usageSrc) {
+    usageSrc.forEach((u) => {
+      const m = {};
+      (u.moves || []).forEach((x) => { m[x.move] = x; });
+      polUsageByIdx.set(u.finalist, m);
+    });
+  }
+  const polDiagByIdx = new Map();
+  const diagSrc = hasPolishedPool ? pol?.polished_diagnostics : pol?.diagnostics;
+  if (diagSrc) {
+    diagSrc.forEach((d) => polDiagByIdx.set(d.finalist, d));
+  }
+  const polEntryByIdx = new Map();
+  if (pol?.polished) {
+    pol.polished.forEach((e) => polEntryByIdx.set(e.finalist, e));
+  }
+  const archByIdx = new Map();
+  if (pol?.archetypes) {
+    pol.archetypes.forEach((a) => {
+      (a.members || []).forEach((fi) => archByIdx.set(fi, a));
+    });
+  }
+
   const builds = decoded.map((d, i) => {
     const avgOf = (indices, modeStats) => {
       const opp = indices.filter((j) => j !== i);
       if (!opp.length) return null;
       return opp.reduce((s, j) => s + (modeStats[i].row[j] ?? 0.5), 0) / opp.length;
     };
+    const moveUsage = polUsageByIdx.get(i) || null;
+    const diag = polDiagByIdx.get(i) || clientDiagnoseBuild(d, moveUsage);
+    const polishEntry = polEntryByIdx.get(i) || null;
+    const arch = archByIdx.get(i) || null;
     return {
       ...d,
       rankBoth: rankB[i], rankA: rankA[i],
       both: statsBoth[i], seatA: statsSeatA[i],
+      moveUsage, diag, polishEntry,
+      isOptimized: Boolean(hasPolishedPool && polishEntry?.adopted),
+      archetypeId: arch?.id || "",
+      archetypeLabel: arch?.label || "",
       rateBoth: { beginner: begList ? begList[i] : null, meta: avgOf(groupMap.meta, statsBoth), original: avgOf(groupMap.original, statsBoth), advanced: avgOf(groupMap.advanced, statsBoth) },
       rateA: { beginner: begList ? begList[i] : null, meta: avgOf(groupMap.meta, statsSeatA), original: avgOf(groupMap.original, statsSeatA), advanced: avgOf(groupMap.advanced, statsSeatA) },
     };
@@ -3681,17 +3748,56 @@ function analyzeResults(raw) {
     tier: raw.tier || raw.summary?.tier || "",
     tierLabel: raw.tier_label || raw.summary?.tier_label || "",
     policy: raw.policy || "obsh4",
-    gamesPerPair: raw.finals_games_per_pair || raw.summary?.finals_games_per_pair || "?",
+    gamesPerPair: hasPolishedPool ? (pol.usage_games_per_pair || raw.finals_games_per_pair || "?") : (raw.finals_games_per_pair || raw.summary?.finals_games_per_pair || "?"),
     totalCandidates: raw.total_candidates || raw.candidates_meta?.total || raw.summary?.candidates || "?",
     filters: raw.filters || raw.candidates_meta?.filters || null,
     enumMode: raw.enumeration_mode || raw.candidates_meta?.enumeration_mode || null,
     hasBeginner: Boolean(begList),
+    polished: pol,
+    usingPolishedPool: hasPolishedPool,
     groupSizes: { beginner: raw.beginner_scores?.pool_size || 0, meta: groupMap.meta.length, original: groupMap.original.length, advanced: groupMap.advanced.length },
     builds, bothOrder, seatAOrder,
     mvFreq: [...mvFreq.entries()].sort((a, b) => b[1] - a[1]),
     itFreq: [...itFreq.entries()].sort((a, b) => b[1] - a[1]),
     mgFreq: [...mgFreq.entries()].sort((a, b) => b[1] - a[1]),
   };
+}
+
+const NON_ATK_PHYS_SET = new Set(["foulplay", "bodypress", "counter", "metalburst", "endeavor", "superfang", "naturesmadness", "ruination", "seismictoss", "nightshade", "bide", "finalgambit", "guillotine", "fissure", "horndrill"]);
+const CHOICE_ITEM_SET = new Set(["choicescarf", "choiceband", "choicespecs"]);
+
+function clientDiagnoseBuild(b, moveUsage) {
+  const issues = [];
+  const unused = [];
+  if (moveUsage) {
+    b.moves.forEach((m) => {
+      if ((moveUsage[m]?.game_usage_rate ?? 1) < 0.01) unused.push(m);
+    });
+    if (unused.length) issues.push({ code: "unused_move", label: `未使用技あり(${unused.length})`, detail: unused.map(mvName).join(", ") });
+  }
+  const hasAtk = b.moves.some((m) => { const mv = META.moves[m]; return mv && mv.c === 0 && mv.p > 0 && !NON_ATK_PHYS_SET.has(m); });
+  const hasSpa = b.moves.some((m) => { const mv = META.moves[m]; return mv && mv.c === 1 && mv.p > 0; });
+  if (!hasAtk && b.points[1] > 0) issues.push({ code: "wasted_atk", label: `A無駄振り(${b.points[1]})`, detail: `物理技なしなのにA=${b.points[1]}` });
+  if (!hasSpa && b.points[3] > 0) issues.push({ code: "wasted_spa", label: `C無駄振り(${b.points[3]})`, detail: `特殊技なしなのにC=${b.points[3]}` });
+  if (b.item === "choicescarf" && b.nat.down === 5) issues.push({ code: "scarf_minus_spe", label: "S↓スカーフ", detail: `こだわりスカーフなのに${b.nat.name}` });
+  const statusCnt = b.moves.filter((m) => META.moves[m]?.c === 2).length;
+  if (CHOICE_ITEM_SET.has(b.item) && statusCnt >= 2) issues.push({ code: "choice_status", label: `こだわり変化技${statusCnt}`, detail: `${itName(b.item)}で変化技${statusCnt}枠` });
+  return { unused_moves: unused, issues, issue_count: issues.length };
+}
+
+function renderMovePill(m, moveUsage) {
+  const mv = META.moves[m];
+  const u = moveUsage?.[m];
+  const isUnused = u && u.game_usage_rate < 0.01;
+  const rateTxt = u ? ` ${Math.round(u.game_usage_rate * 100)}%` : "";
+  const tip = u ? `実戦採用試合率 ${(u.game_usage_rate * 100).toFixed(1)}% / 選択比率 ${(u.turn_share * 100).toFixed(1)}%${isUnused ? "（未使用・自由枠候補）" : ""}` : mvName(m);
+  const st = isUnused ? `opacity:0.42; text-decoration:line-through; filter:grayscale(0.6);` : "";
+  return `<span class="type-pill" style="--tc:var(--tc-${mv?.t ?? 0});${st}" title="${esc(tip)}">${esc(mvName(m))}${rateTxt ? `<span class="mono" style="opacity:0.85; font-size:0.72em">${esc(rateTxt)}</span>` : ""}</span>`;
+}
+
+function renderDiagBadges(diag) {
+  if (!diag?.issues?.length) return "";
+  return `<div class="row" style="gap:0.25rem; flex-wrap:wrap; margin-top:0.2rem">${diag.issues.map((x) => `<span class="badge warn" title="${esc(x.detail || x.label)}">⚠ ${esc(x.label)}</span>`).join("")}</div>`;
 }
 
 function activeViewerGroups(parsed) {
@@ -3710,7 +3816,7 @@ function setViewerData(raw) {
   active.forEach((k, idx) => { w[k] = idx === 0 ? 100 - eq * (active.length - 1) : eq; });
   APP.viewer.weights = w;
   APP.viewer.selectedCell = { i: 0, j: Math.min(1, parsed.builds.length - 1) };
-  APP.viewer.listFilter = { move: "", item: "", group: "all", q: "" };
+  APP.viewer.listFilter = { move: "", item: "", group: "all", archetype: "", q: "" };
 }
 
 async function loadRunIntoViewer(runName) {
@@ -3781,12 +3887,13 @@ function computeViewerTableRows(p) {
 
   let rows = rankedExpected.map((x, idx) => ({ ...x, expPos: idx + 1 }));
   if (st.listFilter.group !== "all") rows = rows.filter((x) => x.b.group === st.listFilter.group);
+  if (st.listFilter.archetype) rows = rows.filter((x) => x.b.archetypeId === st.listFilter.archetype);
   if (st.listFilter.move) rows = rows.filter((x) => x.b.moves.includes(st.listFilter.move));
   if (st.listFilter.item) rows = rows.filter((x) => x.b.item === st.listFilter.item);
   if (st.listFilter.q) {
-    const q = st.listFilter.q.trim().toLowerCase();
+    const q = normSearch(st.listFilter.q.trim());
     rows = rows.filter((x) => {
-      const txt = `${x.b.formLabel} ${itName(x.b.item)} ${abName(x.b.ability)} ${x.b.nat.name} ${x.b.moves.map(mvName).join(" ")}`.toLowerCase();
+      const txt = normSearch(`${x.b.formLabel} ${itName(x.b.item)} ${abName(x.b.ability)} ${x.b.nat.name} ${x.b.moves.map(mvName).join(" ")}`);
       return txt.includes(q);
     });
   }
@@ -3799,14 +3906,22 @@ function computeViewerTableRows(p) {
   return rows;
 }
 
+function renderOptBadge(b) {
+  if (!b.isOptimized) return "";
+  const tags = b.polishEntry?.best_candidate?.tags || [];
+  const origR = b.polishEntry?.orig_rank_both;
+  const tip = `最適化済み（元#${origR ?? "?"}から局所修正：${tags.join(" / ")}）`;
+  return `<span class="badge good" title="${esc(tip)}">✓ 最適化済み</span>`;
+}
+
 function renderViewerTableBodyHtml(tableRows, mode) {
   return tableRows.map(({ b, expected, mStats, expPos }) => `<tr>
     <td class="${rateCls(expected)} tnum">${expPos}位<br><span class="mono">${pct(expected)}</span></td>
     <td class="tnum">#${mode === "both" ? b.rankBoth : b.rankA}<br>${pct(mStats.mean)}</td>
     <td class="${rateCls(mStats.worst)} tnum">${pct(mStats.worst)}</td>
-    <td><b>${esc(b.formLabel)}</b><br><span class="xs dim">${esc(itName(b.item))} · ${esc(abName(b.ability))} · ${esc(b.nat.short)}</span></td>
+    <td><div class="row" style="gap:0.25rem; flex-wrap:wrap"><b>${esc(b.formLabel)}</b> ${renderOptBadge(b)}</div><span class="xs dim">${esc(itName(b.item))} · ${esc(abName(b.ability))} · ${esc(b.nat.short)}</span>${renderDiagBadges(b.diag)}</td>
     <td class="mono xs">${b.points.join(",")}<br>${b.startStats.join("-")}${b.megaStats ? ` → ${b.megaStats.join("-")}` : ""}</td>
-    <td><div class="row" style="gap:0.25rem">${b.moves.map((m) => { const mv = META.moves[m]; return `<span class="type-pill" style="--tc:var(--tc-${mv?.t ?? 0})">${esc(mvName(m))}</span>`; }).join("")}</div></td>
+    <td><div class="row" style="gap:0.25rem; flex-wrap:wrap">${b.moves.map((m) => renderMovePill(m, b.moveUsage)).join("")}</div></td>
     <td class="row" style="gap:0.28rem"><button type="button" class="btn xs ghost" data-send-build="A" data-spec="${esc(b.spec)}">A</button><button type="button" class="btn xs ghost" data-send-build="B" data-spec="${esc(b.spec)}">B</button></td>
   </tr>`).join("");
 }
@@ -3826,6 +3941,7 @@ function renderViewerCard(b, mode, tag) {
       <div class="row">
         <span class="badge acc">#${rank}</span>
         <strong>${esc(b.formLabel)}</strong>
+        ${renderOptBadge(b)}
         <span class="badge" title="${esc(grpDesc)}">${esc(grpLbl)}</span>
         ${tag ? `<span class="badge good">${esc(tag)}</span>` : ""}
       </div>
@@ -3836,11 +3952,114 @@ function renderViewerCard(b, mode, tag) {
     </div>
     <div class="xs dim">${esc(b.nat.name)} (${esc(b.nat.corr)}) · ${esc(abName(b.ability))} · <b>${esc(itName(b.item))}</b></div>
     <div class="mono xs" style="color:var(--text-2)">SP ${b.points.join(",")} · 実数値 ${b.startStats.join("-")}${b.megaStats ? ` → ${b.megaStats.join("-")}` : ""}</div>
-    <div class="row" style="gap:0.28rem">${b.moves.map((m) => { const mv = META.moves[m]; return `<span class="type-pill" style="--tc:var(--tc-${mv?.t ?? 0})">${esc(mvName(m))}</span>`; }).join("")}</div>
+    <div class="row" style="gap:0.28rem; flex-wrap:wrap">${b.moves.map((m) => renderMovePill(m, b.moveUsage)).join("")}</div>
+    ${renderDiagBadges(b.diag)}
     <div class="winbar"><span class="wl">決勝内平均勝率</span><span class="wt"><span class="wf" style="width:${Math.round(mStats.mean * 100)}%; background:var(--accent)"></span></span><span class="wv ${rateCls(mStats.mean)}">${pct(mStats.mean)}</span></div>
     <div class="winbar" title="決勝プール内で最も苦手な相手に対する勝率（最悪相性）"><span class="wl">決勝内最低勝率</span><span class="wt"><span class="wf" style="width:${Math.round(mStats.worst * 100)}%; background:${mStats.worst >= 0.4 ? "var(--warn)" : "var(--danger)"}"></span></span><span class="wv ${rateCls(mStats.worst)}">${pct(mStats.worst)}</span></div>
     ${worstBuild ? `<div class="xs dim">決勝内の最悪相手：#${mode === "both" ? worstBuild.rankBoth : worstBuild.rankA} ${esc(worstBuild.moves.map(mvName).join(" / "))} (${pct(mStats.worst)})</div>` : ""}
   </article>`;
+}
+
+function renderArchetypesCard(p) {
+  const pol = p.polished;
+  const archs = pol?.archetypes || [];
+  if (!archs.length) return "";
+  const activeArch = APP.viewer.listFilter.archetype || "";
+  const sum = pol.summary || {};
+  return `<section class="card">
+    <div class="card-head">
+      <div>
+        <h3 class="card-title">類型（アーキタイプ）一覧 <span class="badge acc">${archs.length > 12 ? `上位 12 / ${archs.length} 系統` : `${archs.length} 系統`}</span></h3>
+        <p class="xs dim" style="margin:0.25rem 0 0">
+          持ち物 × 実戦主力技で決勝 ${p.builds.length} 型を分類し、<b>代表個体の勝率が高い順に上位（最大 12 系統）</b>を表示しています。行の「絞り込む」を押すと下の全型ランキングをその系統だけに絞れます。
+          ${p.usingPolishedPool ? `<br>最適化済み個体は、4技を保持したまま無駄振り再配分・性格合理化（いじっぱり／ようき等）の局所候補を比較し、安全ゲート通過かつ<b>決勝プール全体への平均勝率が最も高い配分・性格</b>を採用しています（同系ミラー対策の別性格は「A / B」から直接検証できます）。（採用 ${sum.adopted ?? 0} 型 / ゲート保留 ${sum.gate_rejected ?? 0} 型 / 元型クリーン ${sum.clean_original ?? 0} 型）` : ""}
+        </p>
+      </div>
+      ${activeArch ? `<button type="button" class="btn sm ghost" id="btnClearArchFilter">類型の絞り込みを解除</button>` : ""}
+    </div>
+    <div style="overflow-x:auto">
+      <table class="tbl">
+        <thead>
+          <tr><th>類型（持ち物 / 実戦主力技）</th><th>型数</th><th>代表個体（最適化後）</th><th>代表の勝率 / 最悪相性</th><th>操作</th></tr>
+        </thead>
+        <tbody>
+          ${archs.slice(0, 12).map((a) => {
+            const rep = p.builds[a.representative];
+            const isSel = activeArch === a.id;
+            return `<tr style="${isSel ? "background:color-mix(in srgb, var(--accent) 12%, transparent)" : ""}">
+              <td><b>${esc(a.label)}</b></td>
+              <td class="tnum">${a.member_count}型</td>
+              <td class="xs">
+                ${rep ? `<div class="row" style="gap:0.25rem; flex-wrap:wrap"><span class="badge acc">#${rep.rankBoth}</span> ${renderOptBadge(rep)} <span>${esc(rep.nat.short)} · <span class="mono">SP ${rep.points.join(",")}</span></span></div>
+                <div class="row" style="gap:0.2rem; flex-wrap:wrap; margin-top:0.2rem">${rep.moves.map((m) => renderMovePill(m, rep.moveUsage)).join("")}</div>` : "—"}
+              </td>
+              <td class="tnum"><b>${pct(a.rep_mean_both)}</b><br><span class="xs ${rateCls(a.rep_worst_both)}">最悪 ${pct(a.rep_worst_both)}</span></td>
+              <td class="row" style="gap:0.25rem; flex-wrap:wrap">
+                <button type="button" class="btn xs ${isSel ? "primary" : "ghost"}" data-filter-arch="${esc(a.id)}">${isSel ? "絞り込み中" : "絞り込む"}</button>
+                ${rep ? `<button type="button" class="btn xs ghost" data-send-build="A" data-spec="${esc(rep.spec)}">A</button><button type="button" class="btn xs ghost" data-send-build="B" data-spec="${esc(rep.spec)}">B</button>` : ""}
+              </td>
+            </tr>`;
+          }).join("")}
+        </tbody>
+      </table>
+    </div>
+  </section>`;
+}
+
+function renderBeforeAfterFooter(p) {
+  const pol = p.polished;
+  if (!pol?.polished?.length) return "";
+  const items = pol.polished;
+  const fmtDelta = (d) => {
+    const v = d * 100;
+    const cls = v >= 0.5 ? "rate-hi" : v <= -0.5 ? "rate-lo" : "dim";
+    return `<span class="mono tnum ${cls}">${v >= 0 ? "+" : ""}${v.toFixed(1)}pt</span>`;
+  };
+  const renderBrief = (spec) => {
+    try {
+      const d = decodeBuildSummary(spec);
+      return `${esc(itName(d.item))} · ${esc(d.nat.short)} · <span class="mono">SP ${d.points.join(",")}</span>`;
+    } catch {
+      return `<span class="mono">${esc(spec)}</span>`;
+    }
+  };
+  const gate = pol.gate || {};
+  return `<section class="card">
+    <details>
+      <summary class="card-title" style="cursor:pointer; list-style:revert">
+        Before / After 最適化履歴 ＆ 生の決勝データ（全 ${items.length} 型・クリックで展開）
+      </summary>
+      <p class="xs dim" style="margin:0.45rem 0 0.7rem">
+        安全ゲート条件（元の63相手に対し平均勝率 ${(gate.min_delta_mean ?? -0.005) * 100 >= 0 ? "+" : ""}${((gate.min_delta_mean ?? -0.005) * 100).toFixed(1)}pt 以上・最悪相性 ${((gate.min_delta_worst ?? -0.02) * 100).toFixed(1)}pt 以上・元型直接戦 ${Math.round((gate.min_vs_original ?? 0.45) * 100)}% 以上）を満たした局所修正のうち、<b>プール全体への平均勝率が最も高い配分・性格</b>を採用しています（4技はすべて保持）。特定の相手・同系ミラー対策（例：スカーフミラー用のようき化等）は全体勝率基準では選ばれない場合があるため、必要に応じて型 A / B へ送って個別に検証してください。
+      </p>
+      <div style="overflow-x:auto">
+        <table class="tbl">
+          <thead>
+            <tr><th>新順位 / 元順位</th><th>判定</th><th>Before（生の決勝型）</th><th>検出された課題</th><th>After（採用個体 / 変更点）</th><th>ゲート検証（対元63相手）</th><th>新決勝勝率</th></tr>
+          </thead>
+          <tbody>
+            ${items.map((e) => {
+              const bc = e.best_candidate;
+              const statusBadge = e.adopted
+                ? `<span class="badge good">✓ 最適化済み</span>`
+                : e.status === "kept_original_gate_rejected"
+                  ? `<span class="badge warn">元型維持(ゲート保留)</span>`
+                  : `<span class="badge">元型クリーン</span>`;
+              return `<tr>
+                <td class="tnum xs"><b>新#${e.new_rank_both ?? "?"}</b><br><span class="dim">元#${e.orig_rank_both ?? e.rank_both ?? "?"}</span></td>
+                <td>${statusBadge}</td>
+                <td class="xs">${renderBrief(e.orig_spec)}<br><span class="dim">元平均 ${pct(e.orig_mean_both)} / 最悪 ${pct(e.orig_worst_both)}</span></td>
+                <td>${e.orig_issues?.length ? renderDiagBadges({ issues: e.orig_issues }) : `<span class="xs dim">なし</span>`}</td>
+                <td class="xs">${e.adopted && bc ? `${renderBrief(e.final_spec)}<br><span class="dim">${esc((bc.tags || []).join(" / "))}</span>` : `<span class="dim">変更なし</span>`}</td>
+                <td class="tnum xs">${bc ? `${pct(bc.mean_vs_63)} (${fmtDelta(bc.delta_mean)})<br><span class="dim">最悪${pct(bc.worst_vs_63)} / 元型戦${pct(bc.vs_original)}</span>` : "—"}</td>
+                <td class="tnum xs"><b>${pct(e.new_mean_both ?? e.orig_mean_both)}</b><br><span class="dim">最悪 ${pct(e.new_worst_both ?? e.orig_worst_both)}</span></td>
+              </tr>`;
+            }).join("")}
+          </tbody>
+        </table>
+      </div>
+    </details>
+  </section>`;
 }
 
 function wireViewerSendButtons(scope) {
@@ -3890,15 +4109,21 @@ function renderViewerTab() {
   const selectorBar = `<section class="card" style="padding:0.8rem 1.05rem">
     <div class="row" style="justify-content:space-between; gap:0.5rem; flex-wrap:wrap">
       <div class="row" style="gap:0.45rem; flex-wrap:wrap">
-        ${bundledSamples.length ? `<button type="button" class="btn sm ${st.sampleMeta ? "primary" : ""}" id="btnOpenSampleResult">📊 サンプル結果を開く（${esc(spName(bundledSamples[0].meta.species))}・${esc(bundledSamples[0].meta.tierLabel)}）</button>` : ""}
-        ${APP.serverOk ? `
-          <span class="field-lbl">自分のラン</span>
-          <select id="selViewerRun" style="min-width:220px">
-            <option value="">（選択してください）</option>
-            ${completedRuns.map((r) => `<option value="${esc(r.run)}" ${r.run === st.selectedRun ? "selected" : ""}>${esc(r.run)} — ${esc(spName(r.species))} (${esc(r.tierLabel || r.tier)})</option>`).join("")}
-          </select>
-          <button type="button" class="btn sm ghost" id="btnViewerReload">更新</button>
-        ` : `<span class="small dim">静的閲覧モード：サンプル結果の分析やローカルの <span class="mono">finals_results.json</span> 読込が可能です</span>`}
+        <span class="field-lbl">表示する結果</span>
+        <select id="selViewerSource" style="min-width:260px">
+          <option value="">（選択してください）</option>
+          ${bundledSamples.length ? `<optgroup label="同梱サンプル">
+            ${bundledSamples.map((s) => `<option value="sample:${esc(s.meta.id)}" ${st.sampleMeta?.id === s.meta.id ? "selected" : ""}>📊 [サンプル] ${esc(spName(s.meta.species))}（${esc(s.meta.tierLabel || s.meta.tier)}）</option>`).join("")}
+          </optgroup>` : ""}
+          ${APP.serverOk ? `<optgroup label="自分のラン（runs/）">
+            ${completedRuns.length
+              ? completedRuns.map((r) => `<option value="run:${esc(r.run)}" ${!st.sampleMeta && r.run === st.selectedRun ? "selected" : ""}>${esc(r.run)} — ${esc(spName(r.species))} (${esc(r.tierLabel || r.tier)})</option>`).join("")
+              : `<option value="" disabled>（完了済みのランはまだありません）</option>`}
+          </optgroup>` : ""}
+        </select>
+        ${APP.serverOk
+          ? `<button type="button" class="btn sm ghost" id="btnViewerReload">更新</button>`
+          : `<span class="small dim">静的閲覧モード：サンプル結果やローカルの <span class="mono">finals_results.json</span> が閲覧できます</span>`}
       </div>
       <label class="dropzone" id="viewerDrop">
         <span>📂 <span class="mono">finals_results.json</span> を開く（D&D 対応）</span>
@@ -3977,10 +4202,10 @@ function renderViewerTab() {
     <section class="card">
       <div class="card-head">
         <div>
-          <h2 class="card-title" style="font-size:1.25rem">${esc(spName(p.species))} <span class="xs mono dim">${esc(p.species)}</span> 探索レポート ${st.sampleMeta ? `<span class="badge warn">同梱サンプル</span>` : st.selectedRun ? `<span class="badge">自分のラン: ${esc(st.selectedRun)}</span>` : `<span class="badge">ローカルJSON</span>`}</h2>
+          <h2 class="card-title" style="font-size:1.25rem">${esc(spName(p.species))} 探索レポート ${st.sampleMeta ? `<span class="badge warn">同梱サンプル</span>` : st.selectedRun ? `<span class="badge">自分のラン: ${esc(st.selectedRun)}</span>` : `<span class="badge">ローカルJSON</span>`}</h2>
           <div class="row" style="margin-top:0.35rem; gap:0.35rem">
             <span class="badge acc">${esc(p.tierLabel || p.tier)}</span>
-            <span class="badge" title="操縦方針識別子: ${esc(p.policy)}（評価結果はこの操縦方針に依存します）">方針 ${esc(p.policy === "obsh4" ? "標準AI (obsh4)" : p.policy === "generic" ? "全情報比較 (generic)" : p.policy)}</span>
+            <span class="badge" title="操縦方針識別子: ${esc(p.policy)}（評価結果はこの操縦方針に依存します）">方針 ${esc(policyLabel(p.policy))}</span>
             <span class="badge tnum">候補 ${esc(String(p.totalCandidates))} → 決勝 ${p.builds.length}（各${esc(String(p.gamesPerPair))}戦）</span>
             ${p.enumMode ? `<span class="badge">${esc(p.enumMode)}</span>` : ""}
           </div>
@@ -4026,16 +4251,18 @@ function renderViewerTab() {
           <div class="grid-2" style="gap:0.75rem">
             <div>
               <span class="xs dim" style="font-weight:700">採用技 Top 8</span>
-              ${p.mvFreq.slice(0, 8).map(([m, c]) => `<div class="winbar" style="margin-top:0.22rem"><span class="wl" style="width:6.2rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap">${esc(mvName(m))}</span><span class="wt"><span class="wf" style="width:${Math.round((c / p.builds.length) * 100)}%; background:var(--accent)"></span></span><span class="wv" style="width:2rem">${c}</span></div>`).join("")}
+              ${p.mvFreq.slice(0, 8).map(([m, c]) => `<div class="winbar" style="margin-top:0.22rem"><span class="wl" style="width:auto; min-width:8.5rem; white-space:nowrap">${esc(mvName(m))}</span><span class="wt" style="min-width:36px"><span class="wf" style="width:${Math.round((c / p.builds.length) * 100)}%; background:var(--accent)"></span></span><span class="wv" style="width:2rem">${c}</span></div>`).join("")}
             </div>
             <div>
               <span class="xs dim" style="font-weight:700">持ち物 Top 6</span>
-              ${p.itFreq.slice(0, 6).map(([it, c]) => `<div class="winbar" style="margin-top:0.22rem"><span class="wl" style="width:6.2rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap">${esc(itName(it))}</span><span class="wt"><span class="wf" style="width:${Math.round((c / p.builds.length) * 100)}%; background:var(--good)"></span></span><span class="wv" style="width:2rem">${c}</span></div>`).join("")}
+              ${p.itFreq.slice(0, 6).map(([it, c]) => `<div class="winbar" style="margin-top:0.22rem"><span class="wl" style="width:auto; min-width:8.5rem; white-space:nowrap">${esc(itName(it))}</span><span class="wt" style="min-width:36px"><span class="wf" style="width:${Math.round((c / p.builds.length) * 100)}%; background:var(--good)"></span></span><span class="wv" style="width:2rem">${c}</span></div>`).join("")}
             </div>
           </div>
         </div>
       </div>
     </section>
+
+    ${renderArchetypesCard(p)}
 
     <section class="card">
       <div class="card-head">
@@ -4072,10 +4299,11 @@ function renderViewerTab() {
       </div>` : ""}
     </section>
 
-    <section class="card">
+    <section class="card" id="viewerAllListCard">
       <div class="card-head">
-        <h3 class="card-title">決勝全 ${p.builds.length} 型ランキング <span class="badge" id="viewerTblCount">${tableRows.length} 件表示</span></h3>
+        <h3 class="card-title">決勝全 ${p.builds.length} 型ランキング ${p.usingPolishedPool ? `<span class="badge good">最適化後プール</span>` : ""} <span class="badge" id="viewerTblCount">${tableRows.length} 件表示</span></h3>
         <div class="row">
+          ${st.listFilter.archetype ? `<button type="button" class="btn xs primary" id="btnClearArchFilter2">類型絞り込み解除 ✕</button>` : ""}
           <input type="search" id="inListSearch" placeholder="技・持ち物・特性・性格で検索" value="${esc(st.listFilter.q)}" style="width:190px" />
           <select id="selListGrp">
             <option value="all">グループ：すべて</option>
@@ -4103,6 +4331,8 @@ function renderViewerTab() {
         </table>
       </div>
     </section>
+
+    ${renderBeforeAfterFooter(p)}
   `;
 
   wireViewerEvents(top20, selCell);
@@ -4112,13 +4342,17 @@ function wireViewerEvents(top20 = [], selCell = { i: 0, j: 0 }) {
   const root = document.getElementById("tab-viewer");
   const st = APP.viewer;
 
-  document.getElementById("selViewerRun")?.addEventListener("change", (e) => { if (e.target.value) loadRunIntoViewer(e.target.value); });
+  document.getElementById("selViewerSource")?.addEventListener("change", (e) => {
+    const val = e.target.value;
+    if (!val) return;
+    if (val.startsWith("sample:")) loadSampleIntoViewer(val.slice(7));
+    else if (val.startsWith("run:")) loadRunIntoViewer(val.slice(4));
+  });
   document.getElementById("btnViewerReload")?.addEventListener("click", refreshServerState);
   const openFirstSample = () => {
     const first = Array.isArray(window.CHAMPIONS_SAMPLES) ? window.CHAMPIONS_SAMPLES[0] : null;
     if (first) loadSampleIntoViewer(first.meta.id);
   };
-  document.getElementById("btnOpenSampleResult")?.addEventListener("click", openFirstSample);
   document.getElementById("btnEmptyOpenSample")?.addEventListener("click", openFirstSample);
 
   const handleFile = async (file) => {
@@ -4182,6 +4416,17 @@ function wireViewerEvents(top20 = [], selCell = { i: 0, j: 0 }) {
   });
 
   wireViewerSendButtons(root);
+  root.querySelectorAll("[data-filter-arch]").forEach((btn) => btn.addEventListener("click", () => {
+    const id = btn.dataset.filterArch;
+    st.listFilter.archetype = st.listFilter.archetype === id ? "" : id;
+    renderViewerTab();
+    if (st.listFilter.archetype) {
+      document.getElementById("viewerAllListCard")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }));
+  const clearArch = () => { st.listFilter.archetype = ""; renderViewerTab(); };
+  document.getElementById("btnClearArchFilter")?.addEventListener("click", clearArch);
+  document.getElementById("btnClearArchFilter2")?.addEventListener("click", clearArch);
   document.getElementById("inListSearch")?.addEventListener("input", (e) => {
     st.listFilter.q = e.target.value; refreshViewerExpected(root);
   });
