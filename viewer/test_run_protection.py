@@ -224,20 +224,33 @@ class TestRunProtection(unittest.TestCase):
         self.assertEqual(res.stat().st_mtime_ns, before_mtime_ns)
 
     def test_bundled_sample_files_and_js_wrapper_match(self):
-        ex_dir = HERE / "examples" / "gyarados-light"
-        finals = json.loads((ex_dir / "finals_results.json").read_text(encoding="utf-8"))
-        beginner = json.loads((ex_dir / "beginner_scores.json").read_text(encoding="utf-8"))
-        meta = json.loads((ex_dir / "sample_meta.json").read_text(encoding="utf-8"))
         js_text = (HERE / "examples" / "sample_data.js").read_text(encoding="utf-8")
         prefix = "window.CHAMPIONS_SAMPLES = "
         self.assertIn(prefix, js_text)
         payload = json.loads(js_text.split(prefix, 1)[1].rsplit(";", 1)[0])
-        self.assertGreaterEqual(len(payload), 1)
-        sample = payload[0]
-        self.assertEqual(sample["meta"], meta)
-        self.assertEqual(sample["data"]["finalists"], finals["finalists"])
-        self.assertEqual(sample["data"]["matrix"], finals["matrix"])
-        self.assertEqual(sample["data"]["beginner_scores"], beginner)
+        self.assertGreaterEqual(len(payload), 2)
+
+        # Primary bundled sample: sylveon-standard (with polished data)
+        syl_dir = HERE / "examples" / "sylveon-standard"
+        syl_finals = json.loads((syl_dir / "finals_results.json").read_text(encoding="utf-8"))
+        syl_polished = json.loads((syl_dir / "finals_polished.json").read_text(encoding="utf-8"))
+        syl_meta = json.loads((syl_dir / "sample_meta.json").read_text(encoding="utf-8"))
+        sample0 = payload[0]
+        self.assertEqual(sample0["meta"], syl_meta)
+        self.assertEqual(sample0["data"]["finalists"], syl_finals["finalists"])
+        self.assertEqual(sample0["data"]["matrix"], syl_finals["matrix"])
+        self.assertEqual(sample0["data"]["polished"], syl_polished)
+
+        # Secondary bundled sample: gyarados-light
+        ex_dir = HERE / "examples" / "gyarados-light"
+        finals = json.loads((ex_dir / "finals_results.json").read_text(encoding="utf-8"))
+        beginner = json.loads((ex_dir / "beginner_scores.json").read_text(encoding="utf-8"))
+        meta = json.loads((ex_dir / "sample_meta.json").read_text(encoding="utf-8"))
+        sample1 = payload[1]
+        self.assertEqual(sample1["meta"], meta)
+        self.assertEqual(sample1["data"]["finalists"], finals["finalists"])
+        self.assertEqual(sample1["data"]["matrix"], finals["matrix"])
+        self.assertEqual(sample1["data"]["beginner_scores"], beginner)
 
     def test_http_serves_bundled_sample_js(self):
         httpd = ThreadingHTTPServer(("127.0.0.1", 0), server.WorkbenchHandler)

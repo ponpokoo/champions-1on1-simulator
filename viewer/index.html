@@ -1964,8 +1964,8 @@ const HELP_TOPICS = [
     body: "候補空間を整理するための探索上の除外規約です。定義 A は性格下降補正（↓）の能力に振られた SP のうち、切り捨て計算により「他の補正なし能力に 1pt 移しても下降側の実数値が 1 も下がらない振り方」を除外します。定義 B は全能力の SP が最大 16 以下の均等配分を除外する規約です。"
   },
   {
-    key: "filter", cat: "search", badge: "探索規模・絞り込み", title: "探索規模と型漏れ・部分領域絞り込み・全列挙 / サンプリング",
-    body: "探索規模（smoke / light / standard / precision）は生成する候補数（サンプル数）を決めます。探索空間が広い場合、サンプル数が少ない規模では有力な型の組み合わせがサンプリングから漏れることがあるため、light で傾向を掴んだうえで規模を上げるか条件を絞るのが有効です。条件を絞ると「探索する候補側（candidates.txt）」だけが限定され、評価相手（panel.txt）は種族全体の無制約ドメインから抽選されます。合法な型数が目標候補数以下なら重複なしの「全列挙」、上回る場合は「一様サンプリング」に自動切替されます。"
+    key: "filter", cat: "search", badge: "探索規模・絞り込み", title: "探索規模が大きいほど結果が正確になる理由・絞り込み",
+    body: "探索規模（smoke / light / standard / precision）は生成する候補数（サンプル数）を決めます。技・持ち物・性格・配分の組み合わせ空間は非常に広いため、候補数が少ない規模（smoke / light）では「最適な性格 × 持ち物 × 配分」の組み合わせ自体が抽選から漏れ、本来のメタ構造（対策の三すくみ等）が見えにくくなります。light で傾向を掴んだうえで、結論を出す際は standard 以上へ規模を上げるか、条件絞り込みで対象空間を狭めるのが有効です。条件を絞ると「探索する候補側（candidates.txt）」だけが限定され、評価相手（panel.txt）は種族全体の無制約ドメインから抽選されます。合法な型数が目標候補数以下なら重複なしの「全列挙」、上回る場合は「一様サンプリング」に自動切替されます。"
   },
   {
     key: "seat", cat: "viewer", badge: "集計基準", title: "両視点合算（同型戦除く）と A側視点のみ",
@@ -2996,10 +2996,10 @@ function renderSearchTab() {
   const f = st.filters;
 
   const tiers = [
-    { id: "smoke", title: "smoke（動作確認）", desc: "2,000 候補 · 約 1.9 万戦", time: "数十秒", tag: "" },
-    { id: "light", title: "light（軽量）", desc: "60,000 候補 · 約 408 万戦", time: "目安 7 分", tag: "推奨スタート" },
-    { id: "standard", title: "standard（標準）", desc: "200,000 候補 · 約 2,134 万戦", time: "目安 46 分", tag: "" },
-    { id: "precision", title: "precision（精密）", desc: "500,000 候補 · 約 1.34 億戦", time: "目安 3.5 時間", tag: "" },
+    { id: "smoke", title: "smoke（動作確認）", desc: "2,000 候補 · 約 1.9 万戦", time: "数十秒", tag: "試運転のみ", tagCls: "" },
+    { id: "light", title: "light（軽量）", desc: "60,000 候補 · 約 408 万戦", time: "目安 7 分", tag: "傾向把握", tagCls: "" },
+    { id: "standard", title: "standard（標準）", desc: "200,000 候補 · 約 2,134 万戦", time: "目安 46 分", tag: "推奨・本番向け", tagCls: "good" },
+    { id: "precision", title: "precision（精密）", desc: "500,000 候補 · 約 1.34 億戦", time: "目安 3.5 時間", tag: "最高精度", tagCls: "acc" },
   ];
 
   const allMoves = sortedUniqueMoves(sp);
@@ -3250,15 +3250,23 @@ function renderSearchTab() {
         </div>
       </div>
 
-      <span class="field-lbl" style="display:block; margin-bottom:0.35rem">探索規模</span>
+      <span class="field-lbl" style="display:block; margin-bottom:0.35rem">探索規模 <button type="button" class="help-dot" data-help="filter" title="探索規模が大きいほど結果が正確になる理由">?</button></span>
       <div class="tier-grid">
         ${tiers.map((t) => `<button type="button" class="tier-card" data-pick-tier="${t.id}" aria-pressed="${t.id === st.tier}">
-          <div class="row" style="justify-content:space-between"><b>${esc(t.title)}</b>${t.tag ? `<span class="badge acc">${esc(t.tag)}</span>` : ""}</div>
+          <div class="row" style="justify-content:space-between"><b>${esc(t.title)}</b>${t.tag ? `<span class="badge ${t.tagCls || ""}">${esc(t.tag)}</span>` : ""}</div>
           <div class="small dim tnum">${esc(t.desc)}</div>
           <div class="xs mono" style="color:var(--accent); font-weight:700">${esc(t.time)}</div>
         </button>`).join("")}
       </div>
-      <p class="xs dim" style="margin:0.4rem 0 0">※探索空間が広い場合、サンプル数（候補数）が少ない規模では有力な型の組み合わせがサンプリングから漏れることがあります。まずは <span class="mono">light</span> で傾向を掴み、網羅性を高めたい場合は規模を上げるか条件を絞り込んでください。</p>
+      <div class="callout warn" style="margin-top:0.65rem">
+        <div>
+          <b>⚠ 探索規模が大きいほど結果が正確になります</b>
+          <div class="xs" style="margin-top:0.2rem; line-height:1.55">
+            技・持ち物・性格・配分の組み合わせ空間は膨大なため、候補数の少ない <span class="mono">smoke</span> / <span class="mono">light</span> では「最適な性格 × 持ち物 × 配分」が抽選から漏れ、本来のメタ構造（対策の三すくみ等）が見えにくくなります。
+            <span class="mono">light</span> はまず傾向を掴む試走に使い、<b>精度の高い結論を出す際は <span class="mono">standard</span> 以上へ規模を上げるか、下の条件絞り込みで対象空間を狭めてください。</b>
+          </div>
+        </div>
+      </div>
 
       <div class="row" style="justify-content:space-between; margin-top:0.9rem; padding-top:0.85rem; border-top:1px solid var(--border)">
         <div class="row">

@@ -1,0 +1,24 @@
+{
+  "id": "sample:sylveon-standard",
+  "title": "ニンフィア（標準探索・最適化済み実測サンプル）",
+  "species": "sylveon",
+  "tier": "standard",
+  "tierLabel": "標準",
+  "policy": "obsh4",
+  "totalCandidates": 200000,
+  "finalistsCount": 112,
+  "finalsGamesPerPair": 240,
+  "enumerationMode": "sampled",
+  "seeds": {
+    "sample": 20263010,
+    "panel": 20263011,
+    "stageA0": 20263310,
+    "stageB": 20263350,
+    "finals": 20263360,
+    "polish": 20265000
+  },
+  "sourceCommit": "e02479834ba46a7e2709b09bacdf923e18c78be2",
+  "sourcePath": "viewer/examples/sylveon-standard/finals_results.json",
+  "polishedPath": "viewer/examples/sylveon-standard/finals_polished.json",
+  "note": "リポジトリ同梱のニンフィア標準探索（200,000候補→決勝112型＋類型・局所最適化済み）実測サンプルです。"
+}

@@ -536,7 +536,7 @@ def _job_stages(run_dir, tier_name):
     names = ["build", "gate"]
     for i in range(1, len(t.get("a_rounds", [])) + 1):
         names.append(f"stageA{i}")
-    names.extend(["stageB", "finals"])
+    names.extend(["stageB", "finals", "polish"])
     return [{"name": n, "done": (run_dir / f"{n}.done").exists()} for n in names]
 
 

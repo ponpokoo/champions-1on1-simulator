@@ -77,11 +77,21 @@ def sha256_file(path: Path) -> str:
     return h.hexdigest()
 
 
-def find_engine() -> Path:
-    for cand in (ROOT / "engine" / "engine.exe", ROOT / "engine" / "engine"):
+def find_engine(explicit: str | None = None) -> Path:
+    if explicit:
+        p = Path(explicit)
+        if p.exists():
+            return p
+        raise FileNotFoundError(f"specified engine binary not found: {explicit}")
+    for cand in (
+        ROOT / "engine" / "engine.exe",
+        ROOT / "engine" / "engine",
+        ROOT / "engine_search.exe",
+        ROOT / "engine_search",
+    ):
         if cand.exists():
             return cand
-    raise FileNotFoundError("engine binary not found under engine/")
+    raise FileNotFoundError("engine binary not found under engine/ or root")
 
 
 def load_metadata() -> dict:
@@ -678,6 +688,7 @@ def main():
     ap.add_argument("--polish-games", type=int, default=60, help="Games/pair/seat for gate screening (default: 60)")
     ap.add_argument("--shards", type=int, default=10, help="Parallel worker count (default: 10)")
     ap.add_argument("--seed", type=int, default=20265000, help="Base RNG seed")
+    ap.add_argument("--engine", default=None, help="Optional explicit path to engine binary")
     args = ap.parse_args()
 
     t0 = time.time()
@@ -686,7 +697,7 @@ def main():
     if not res_path.exists():
         raise FileNotFoundError(f"finals_results.json not found in {run_dir}")
 
-    engine = find_engine()
+    engine = find_engine(args.engine)
     engine_sha = sha256_file(engine)
     meta = load_metadata()
     moves_meta = meta["moves"]

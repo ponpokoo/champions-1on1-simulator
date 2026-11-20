@@ -38,10 +38,11 @@ def log(msg):
 
 
 class Controller:
-    def __init__(self, rundir, gcc, shards):
+    def __init__(self, rundir, gcc, shards, enable_polish=True):
         self.dir = Path(rundir)
         self.gcc = gcc
         self.shards = shards
+        self.enable_polish = enable_polish
         cfg = json.loads((self.dir / 'run_config.json').read_text(encoding='utf-8'))
         self.species = cfg.get('species', '')
         self.filters = cfg.get('filters')
@@ -252,6 +253,30 @@ class Controller:
             self.mark('finals')
 
         finals_data = json.loads((d / 'finals_results.json').read_text(encoding='utf-8'))
+
+        if self.enable_polish and self.step('polish'):
+            n_fin = len(finals_data.get('finalists', []))
+            fg = int(self.tier['finals_games'])
+            if n_fin <= 32:
+                u_games, p_games = min(40, fg), min(40, fg)
+            elif n_fin <= 80:
+                u_games, p_games = min(80, fg), min(60, fg)
+            else:
+                u_games, p_games = min(60, fg), min(60, fg)
+            polish_script = Path(__file__).resolve().parent / 'polish_finals.py'
+            cmd = [
+                sys.executable, str(polish_script), str(d),
+                '--games', str(u_games),
+                '--polish-games', str(p_games),
+                '--shards', str(self.shards),
+                '--engine', str(self.engine),
+            ]
+            log(f"polish: running move-usage, archetypes & local-fix optimization ({n_fin} finalists, {u_games}/{p_games} games)...")
+            p_res = subprocess.run(cmd, cwd=ROOT)
+            if p_res.returncode != 0:
+                raise RuntimeError(f'polish_finals.py failed rc={p_res.returncode}')
+            self.mark('polish')
+
         top_a = finals_data['ranking'][0]
         both_list = finals_data.get('ranking_both_seats')
         summary = {
@@ -290,10 +315,11 @@ def main():
     parser.add_argument('rundir', help='Run directory created by search_tiers.py gen')
     parser.add_argument('--gcc', default='gcc', help='C compiler path (default: gcc)')
     parser.add_argument('--shards', type=int, default=10, help='Parallel shard workers (default: 10)')
+    parser.add_argument('--no-polish', action='store_true', help='Skip post-finals archetype & local-fix polishing')
     args = parser.parse_args()
     if args.shards < 1:
         parser.error('--shards must be >= 1')
-    ctl = Controller(args.rundir, args.gcc, args.shards)
+    ctl = Controller(args.rundir, args.gcc, args.shards, enable_polish=not args.no_polish)
     try:
         ctl.run()
     except Exception:
